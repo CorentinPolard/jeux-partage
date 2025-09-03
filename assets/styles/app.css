@@ -1,3 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --main-text-color: #000000;
+    --main-background-color: #ffffff;
+}
+
 body {
-    background-color: skyblue;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--main-background-color);
+    color: var(--main-text-color);
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px;
+}
+
+/* Style du header */
+header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 10px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    z-index: 1001;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    text-decoration: none;
+    /* M */
+    width: 100%;
+    background-color: var(--main-background-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 90px 20px 20px;
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-in-out;
+}
+
+.nav-list.active {
+    transform: translateX(0);
+    height: 100vh;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--main-text-color);
+    padding: 10px;
+    /* M */
+    font-size: 1.5rem;
+}
+
+.logo {
+    width: 80px;
+    height: auto;
+}
+
+.burger-btn {
+    display: block;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.burger-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--main-text-color);
+    transition: all 0.3s ease-in-out;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+@media(min-width: 773px) {
+
+    .burger-btn {
+        display: none;
+    }
+
+    header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    nav {
+        width: auto;
+    }
+
+    nav a {
+        font-size: 1rem;
+    }
+
+    .nav-list {
+        flex-direction: row;
+        /* M */
+        position: static;
+        width: auto;
+        height: auto;
+        transform: none;
+        background: none;
+        padding: 0;
+    }
+}
+
+@media(min-width: 1200px) {
+    main {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    nav a {
+        font-size: 1.2rem;
+    }
 }

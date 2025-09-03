@@ -1,17 +1,75 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {#
+    <link rel="icon" href="{{ asset('images/logo-1-0.png') }}" type="image/svg+xml" /> #}
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml" />
+    {% block stylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+    {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+
+<body>
+    <header>
+        <div class="mobile-container">
+            <a href="/">
+                <img class="logo" src="{{ asset('images/logo-1-0.png')}}" alt="Logo du site représentant un dé">
+                {# <img class="logo" src="{{ asset('favicon.svg')}}" alt="Logo du site représentant un dé"> #}
+            </a>
+            <button class="burger-btn" aria-label="Ouvrir le menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <nav>
+            <ul class="nav-list">
+                <a href="/">
+                    <li>Les événements</li>
+                </a>
+                <a href="#">
+                    <li>Les jeux</li>
+                </a>
+                <a href="#">
+                    <li>Ma bibiliothèque de jeux</li>
+                </a>
+                <a href="#">
+                    <li>À propos</li>
+                </a>
+                {% if not app.user %}
+                <a href="{{ path('app_login') }}">
+                    <li>Se connecter</li>
+                </a>
+                <a href="{{ path('app_register') }}">
+                    <li>S'inscrire</li>
+                </a>
+                {% else %}
+                <a href="#">
+                    <li>Mon profil</li>
+                </a>
+                <a href="{{ path('app_logout') }}">
+                    <li>Se déconnecter</li>
+                </a>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block main %}
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    </main>
+    <footer>
+        <p>Footer</p>
+    </footer>
+</body>
+
 </html>
