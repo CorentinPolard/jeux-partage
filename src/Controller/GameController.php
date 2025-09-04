@@ -101,7 +101,7 @@ final class GameController extends AbstractController
             return $this->redirectToRoute('app_games');
         }
 
-        return $this->render('game/add-game.html.twig', [
+        return $this->render('game/edit-game.html.twig', [
             'form' => $form->createView(),
         ]);
         // } else {

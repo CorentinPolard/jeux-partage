@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modifier un jeu{% endblock %}
+
+{% block main %}
+<h1>Modifier le jeu de la bibliothèque générale</h1>
+
+{{ form_start(form) }}
+{{ form_row(form.name) }}
+{{ form_row(form.description) }}
+{{ form_row(form.image) }}
+{{ form_row(form.minimumNumberOfPlayers) }}
+{{ form_row(form.maximumNumberOfPlayers) }}
+{{ form_row(form.averageGameDuration) }}
+{{ form_row(form.category) }}
+<button type="submit">Modifier</button>
+{{ form_end(form) }}
+
+<a href="{{ path('app_games') }}">Retourner à la bibliothèque de jeux</a>
+{% endblock %}

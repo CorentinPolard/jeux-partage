@@ -4,11 +4,13 @@
 
 {% block main %}
 <h1>Liste des jeux enregistrés</h1>
+<a href="{{ path('app_add_game') }}"></a>
 {% for game in games %}
 <h2>{{ game.name }}</h2>
 <p>{{game.description}}</p>
 {% if game.imageFileName %}
 <img src="{{ asset('images/uploads/games/' ~ game.imageFileName) }}" alt="Illustration de {{ game.name }}." />
 {% endif %}
+<a href="{{ path('app_edit_game', {id: game.id}) }}">Modifier la fiche du jeu</a>
 {% endfor %}
 {% endblock %}

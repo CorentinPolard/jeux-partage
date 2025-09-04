@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class GameType extends AbstractType
 {
@@ -28,7 +29,7 @@ class GameType extends AbstractType
             )
             ->add(
                 'description',
-                TextType::class,
+                TextareaType::class,
                 [
                     'label' => 'Description du jeu',
                     'required' => true,
