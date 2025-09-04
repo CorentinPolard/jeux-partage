@@ -32,7 +32,7 @@ class Game
     private ?int $averageGameDuration = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $image = null;
+    private ?string $imageFileName = null;
 
     /**
      * @var Collection<int, User>
@@ -124,14 +124,14 @@ class Game
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImageFileName(): ?string
     {
-        return $this->image;
+        return $this->imageFileName;
     }
 
-    public function setImage(?string $image): static
+    public function setImageFileName(?string $imageFileName): static
     {
-        $this->image = $image;
+        $this->imageFileName = $imageFileName;
 
         return $this;
     }

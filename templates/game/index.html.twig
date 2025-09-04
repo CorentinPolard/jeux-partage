@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les jeux{% endblock %}
+
+{% block main %}
+<h1>Liste des jeux enregistrés</h1>
+{% for game in games %}
+<h2>{{ game.name }}</h2>
+<p>{{game.description}}</p>
+{% if game.imageFileName %}
+<img src="{{ asset('images/uploads/games/' ~ game.imageFileName) }}" alt="Illustration de {{ game.name }}." />
+{% endif %}
+{% endfor %}
+{% endblock %}
