@@ -23,7 +23,7 @@ class Event
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?\DateTime $dateAndTime = null;
+    private ?\DateTime $eventAt = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $maxNumberOfParticipants = null;
@@ -67,6 +67,7 @@ class Event
 
     public function __construct()
     {
+        $this->createdAt = new \DateTime();
         $this->participants = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->games = new ArrayCollection();
@@ -101,14 +102,14 @@ class Event
         return $this;
     }
 
-    public function getDateAndTime(): ?\DateTime
+    public function getEventAt(): ?\DateTime
     {
-        return $this->dateAndTime;
+        return $this->eventAt;
     }
 
-    public function setDateAndTime(\DateTime $dateAndTime): static
+    public function setEventAt(\DateTime $eventAt): static
     {
-        $this->dateAndTime = $dateAndTime;
+        $this->eventAt = $eventAt;
 
         return $this;
     }
