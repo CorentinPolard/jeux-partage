@@ -51,6 +51,9 @@ class EventType extends AbstractType
                 [
                     'label' => "Nombre maximum de participants (vous compris)",
                     'required' => false,
+                    'attr' => [
+                        'min' => 1,
+                    ],
                 ]
             )
             ->add(
@@ -58,7 +61,10 @@ class EventType extends AbstractType
                 IntegerType::class,
                 [
                     'label' => 'Durée moyenne de votre événement (en minutes)',
-                    'required' => true
+                    'required' => true,
+                    'attr' => [
+                        'min' => 1,
+                    ],
                 ]
             )
             ->add(
