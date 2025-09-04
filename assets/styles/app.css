@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Comic Relief';
+    src: url('/fonts/comic-relief/ComicRelief-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -13,9 +20,21 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Nunito', sans-serif;
     background-color: var(--main-background-color);
     color: var(--main-text-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Comic Relief', sans-serif;
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    /* font-family: 'Poppins'; */
+    /* font-family: 'Port Lligat Sans'; */
 }
 
 main {
@@ -105,14 +124,73 @@ nav a {
     overflow: hidden;
 }
 
-/* Style des cards */
+/* Events */
+.events-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 4px
+}
+
+.event-container {
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: solid 1px black;
+    border-radius: 10px;
+    padding: 4px 4px;
+}
+
+.event-organizer {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 0 -4px;
+    padding: 0 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    /* border: solid 1px black; */
+}
+
 .profil-picture {
     width: 50px;
     height: 50px;
 }
 
+.event-date-place-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.event-place,
+.event-date {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.register {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: 4px 10px 4px 0;
+}
+
+.event-icon {
+    width: 30px;
+    height: 30px;
+}
+
 @media(min-width: 773px) {
 
+    /* Nav */
     .burger-btn {
         display: none;
     }
@@ -142,15 +220,41 @@ nav a {
         background: none;
         padding: 0;
     }
+
+    /* Main */
+    main {
+        padding: 20px 100px;
+    }
 }
 
 @media(min-width: 1200px) {
-    main {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
 
+    /* Nav */
     nav a {
         font-size: 1.2rem;
+    }
+
+    main {
+        max-width: 900px;
+        width: 100%;
+        margin: 0 auto;
+        font-size: 1.15rem;
+    }
+
+    /* Events */
+    .event-container {
+        max-width: 700px;
+        gap: 8px;
+        padding: 10px 10px;
+    }
+
+    .event-organizer {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        gap: 10px;
+        margin: -10px -10px 0 -10px;
+        padding: 0 10px;
+
     }
 }
