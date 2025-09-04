@@ -89,12 +89,12 @@ class GameType extends AbstractType
                 ]
             )
             ->add(
-                'categories',
+                'category',
                 EntityType::class,
                 [
                     'class' => Category::class,
+                    'label' => 'Catégorie du jeu',
                     'choice_label' => 'label',
-                    'multiple' => true,
                 ]
             )
         ;

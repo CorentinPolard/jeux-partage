@@ -21,7 +21,7 @@ class Category
     /**
      * @var Collection<int, Game>
      */
-    #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'categories')]
+    #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'category')]
     private Collection $games;
 
     public function __construct()
@@ -58,7 +58,7 @@ class Category
     {
         if (!$this->games->contains($game)) {
             $this->games->add($game);
-            $game->addCategory($this);
+            $game->setCategory($this);
         }
 
         return $this;
@@ -67,7 +67,10 @@ class Category
     public function removeGame(Game $game): static
     {
         if ($this->games->removeElement($game)) {
-            $game->removeCategory($this);
+            // set the owning side to null (unless already changed)
+            if ($game->getCategory() === $this) {
+                $game->setCategory(null);
+            }
         }
 
         return $this;
