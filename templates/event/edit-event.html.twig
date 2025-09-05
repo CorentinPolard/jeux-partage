@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modifier mon événement{% endblock %}
+
+{% block main %}
+<h1>Modifier mon événement</h1>
+
+{{ form_start(form) }}
+{{ form_row(form.title) }}
+{{ form_row(form.description) }}
+{{ form_row(form.address) }}
+{{ form_row(form.eventAt) }}
+{{ form_row(form.maxNumberOfParticipants) }}
+{{ form_row(form.duration) }}
+{{ form_row(form.isFree) }}
+{{ form_row(form.games) }}
+<button type="submit">Modifier</button>
+{{ form_end(form) }}
+
+<a href="{{ path('app_show_event', {id: event.id}) }}">Retourner à la fiche de l'événement</a>
+{% endblock %}

@@ -28,6 +28,9 @@ final class EventController extends AbstractController
     #[Route('/show/{id}', name: 'app_show_event', requirements: ['id' => '\d+'])]
     public function showEvent(Event $event): Response
     {
+
+        // Messagerie ici 
+
         return $this->render('event/single-event.html.twig', [
             'event' => $event
         ]);
@@ -75,6 +78,7 @@ final class EventController extends AbstractController
             }
 
             return $this->render('event/edit-event.html.twig', [
+                'event' => $event,
                 'form' => $form->createView(),
             ]);
         } else {

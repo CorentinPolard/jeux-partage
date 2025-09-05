@@ -4,6 +4,9 @@
 
 {% block main %}
 <button>Consulter les événements</button>
+{% if app.user is same as(event.organizer) %}
+<a href="{{ path('app_edit_event', {id: event.id}) }}">Modifier l'événement</a>
+{% endif %}
 <h1>{{event.title}}</h1>
 <p>{{event.description}}</p>
 <p>ICONE D'HORLOGE {{event.duration}} minutes</p>

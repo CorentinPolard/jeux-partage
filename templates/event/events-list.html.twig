@@ -16,57 +16,13 @@
 <section class="events-section">
     <h2>Les événements</h2>
     {% for event in events %}
-    <div class="event-container">
-        <div class="event-organizer">
-            <img class="profil-picture"
-                src="{{ asset('images/uploads/profil-pictures/' ~ event.organizer.profilPicture) }}"
-                alt="Photo de profil de {{event.organizer.firstName ~ event.organizer.lastName}}">
-            <p>{{event.organizer.getFullName }}</p>
-        </div>
-        <h3>{{ event.title }}</h3>
-        <p>{{ event.description }}</p>
-        <div class="event-date-place-container">
-            <div class="event-place">
-                <img class="event-icon" src="{{ asset('images/icones/location-black-icon.svg') }}" alt="Pointeur d'une
-                    carte">
-                <p>{{event.address.street}} {{event.address.zipcode}} {{event.address.city}}</p>
-            </div>
-            <div class="event-date">
-                <img class="event-icon" src="{{ asset('images/icones/date-black-icon.svg') }}"
-                    alt="Illustration d'un calendrier">
-                <p>{{event.eventAt.date | date("d/m/Y à H\\hi")}}</p>
-            </div>
-        </div>
-        <div class="event-money">
-            <img class="event-icon" src="{{ asset('images/icones/money-green-icon.svg') }}"
-                alt="Illustration d'un billet de banque">
-            {% if event.isFree %}
-            <p>Gratuit</p>
-            {% else %}
-            <p>Dépenses à prévoir</p>
-            {% endif %}
-        </div>
-        <div class="register">
-            {% if event.maxNumberOfParticipants %}
-            {% set totalParticipants = event.participants|length + 1 %}
-            {% set remaining = event.maxNumberOfParticipants - totalParticipants %}
-            <p>
-                {{totalParticipants}}/{{event.maxNumberOfParticipants}} ({{remaining > 1 ? remaining ~ ' places
-                restantes' : remaining ~ ' place restante'}})
-            </p>
-            {% else %}
-            <p>{{(event.participants|length + 1)}} inscrit{% if (event.participants|length + 1) > 1 %}s{% endif %}</p>
-            {% endif %}
-            {% if app.user and app.user is same as(event.organizer) %}
-            <a href="#">Supprimer l'événement</a>
-            {% elseif app.user and app.user in event.participants %}
-            <a href="{{ path('app_unregister_event', {id: event.id}) }}">Se désinscrire</a>
-            {% else %}
-            <a href="{{ path('app_register_event', {id: event.id}) }}">S'inscrire</a>
-            {% endif %}
-            {# <button>S'inscrire</button> #}
-        </div>
-    </div>
+    {% if app.user and app.user is same as(event.organizer) %}
+    <a href="{{ path('app_show_event', {id: event.id}) }}">
+        {% include "/components/event-card.html.twig" %}
+    </a>
+    {% else %}
+    {% include "/components/event-card.html.twig" %}
+    {% endif %}
     {% endfor %}
 </section>
 {% endblock %}
