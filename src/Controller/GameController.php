@@ -27,6 +27,9 @@ final class GameController extends AbstractController
         ]);
     }
 
+    // FAIRE LA ROUTE SHOW
+
+    // ENLEVER CETTE ROUTE POUR LES USERS NORMAUX
     #[Route('/add', name: 'app_add_game')]
     public function addGame(SluggerInterface $slugger, EntityManagerInterface $entityManager, Request $request, #[Autowire('%kernel.project_dir%/public/images/uploads/games')] string $imagesDirectory): Response
     {
@@ -62,6 +65,7 @@ final class GameController extends AbstractController
         ]);
     }
 
+    // ENLEVER CETTE ROUTE POUR LES USERS NORMAUX !!!!!!!!!!!!!!!!!!
     #[Route('/edit/{id}', name: 'app_edit_game', requirements: ['id' => '\d+'])]
     public function editGame(
         Game $game,

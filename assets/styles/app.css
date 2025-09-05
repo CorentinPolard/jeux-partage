@@ -169,7 +169,8 @@ nav a {
 }
 
 .event-place,
-.event-date {
+.event-date,
+.event-money {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -186,6 +187,19 @@ nav a {
 .event-icon {
     width: 30px;
     height: 30px;
+}
+
+/* jeux et singleEvent */
+.game-image {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: contain;
+}
+
+@media(min-width: 500px) {
+    main {
+        padding: 20px 40px;
+    }
 }
 
 @media(min-width: 773px) {
@@ -221,10 +235,6 @@ nav a {
         padding: 0;
     }
 
-    /* Main */
-    main {
-        padding: 20px 100px;
-    }
 }
 
 @media(min-width: 1200px) {

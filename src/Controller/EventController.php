@@ -24,6 +24,14 @@ final class EventController extends AbstractController
         ]);
     }
 
+    #[Route('/show/{id}', name: 'app_show_event', requirements: ['id' => '\d+'])]
+    public function showEvent(Event $event): Response
+    {
+        return $this->render('event/singleEvent.html.twig', [
+            'event' => $event
+        ]);
+    }
+
     #[Route('/create', name: 'app_create_event')]
     public function createEvent(EntityManagerInterface $entityManager, Request $request): Response
     {
