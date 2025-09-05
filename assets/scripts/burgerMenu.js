@@ -9,4 +9,4 @@ document.addEventListener("turbo:load", () => {
             }
         });
     }
-})
+});

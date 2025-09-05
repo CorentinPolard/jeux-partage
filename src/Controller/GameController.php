@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/game')]
+#[Route('/games')]
 final class GameController extends AbstractController
 {
     #[Route('', name: 'app_games')]

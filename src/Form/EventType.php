@@ -77,8 +77,15 @@ class EventType extends AbstractType
             )
             ->add('games', EntityType::class, [
                 'class' => Game::class,
+                'label' => "Jeux associés à l'événement",
                 'choice_label' => 'name',
                 'multiple' => true,
+                // 'multiple' => false,
+                'expanded' => false,      // false => <select multiple>, true => cases à cocher
+                'attr' => [
+                    // 'style' => 'display: none;',
+                    "class" => 'games-list display-none',
+                ]
             ])
             ->add(
                 'address',
