@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
@@ -19,7 +20,7 @@ final class EventController extends AbstractController
     {
         $events = $eventRepository->findAll();
 
-        return $this->render('event/index.html.twig', [
+        return $this->render('event/events-list.html.twig', [
             'events' => $events,
         ]);
     }
@@ -27,7 +28,7 @@ final class EventController extends AbstractController
     #[Route('/show/{id}', name: 'app_show_event', requirements: ['id' => '\d+'])]
     public function showEvent(Event $event): Response
     {
-        return $this->render('event/singleEvent.html.twig', [
+        return $this->render('event/single-event.html.twig', [
             'event' => $event
         ]);
     }
@@ -53,5 +54,86 @@ final class EventController extends AbstractController
         return $this->render('event/create-event.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/edit/{id}', name: 'app_edit_event')]
+    public function editEvent(Event $event, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        if ($event->getOrganizer() === $this->getUser()) {
+
+            $form = $this->createForm(EventType::class, $event);
+            $form->handleRequest($request);
+
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $event->setUpdatedAt(new DateTime());
+
+                $entityManager->persist($event);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
+            }
+
+            return $this->render('event/edit-event.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        } else {
+            $this->addFlash('error', "Vous n'êtes pas autorisé à modifier cet événement.");
+            return $this->redirectToRoute('app_events');
+        }
+    }
+
+    #[Route('/delete/{id}', name: 'app_delete_event', requirements: ['id' => '\d+'])]
+    public function deleteEvent(Event $event, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        if ($event->getOrganizer() === $this->getUser()) {
+            $entityManager->remove($event);
+            $entityManager->flush();
+        } else {
+            $this->addFlash('error', "Vous n'êtes pas autorisé à supprimer cet événement.");
+        }
+
+        return $this->redirectToRoute('app_events');
+    }
+
+    #[Route('/register/{id}', name: 'app_register_event', requirements: ['id' => '\d+'])]
+    public function register(Event $event, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+
+        if (
+            $event->getOrganizer() !== $user
+            && !$event->getParticipants()->contains($user)
+            && !$event->isFull()
+        ) {
+            $event->addParticipant($user);
+            $entityManager->persist($event);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
+        } else {
+            $this->addFlash('error', "Vous ne pouvez pas vous inscrire à cet événement. Il est complet ou vous êtes déjà inscrit.");
+            return $this->redirectToRoute('app_events');
+        }
+    }
+
+    #[Route('/unregister/{id}', name: 'app_unregister_event', requirements: ['id' => '\d+'])]
+    public function unregister(Event $event, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+
+        if (
+            $event->getOrganizer() !== $user
+            && $event->getParticipants()->contains($user)
+        ) {
+            $event->removeParticipant($user);
+            $entityManager->persist($event);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_events');
+        } else {
+            $this->addFlash('error', "Vous ne pouvez pas vous désinscrire de cet événement. Si vous ête l'organisateur supprimez le, ou vous n'êtes déjà pas inscrit.");
+            return $this->redirectToRoute('app_events');
+        }
     }
 }

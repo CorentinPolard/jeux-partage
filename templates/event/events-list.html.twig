@@ -3,6 +3,13 @@
 {% block title %}Les événements{% endblock %}
 
 {% block main %}
+{% for label, messages in app.flashes %}
+{% for message in messages %}
+<div class="flash-{{ label }}">
+    {{ message }}
+</div>
+{% endfor %}
+{% endfor %}
 <h1>Jouez ensemble, créez vos événements !</h1>
 <img src="" alt="">
 <a href="{{ path('app_create_event') }}">Créer votre événement</a>
@@ -45,12 +52,18 @@
             {% set remaining = event.maxNumberOfParticipants - totalParticipants %}
             <p>
                 {{totalParticipants}}/{{event.maxNumberOfParticipants}} ({{remaining > 1 ? remaining ~ ' places
-                restantes' : '1 place restante'}})
+                restantes' : remaining ~ ' place restante'}})
             </p>
             {% else %}
             <p>{{(event.participants|length + 1)}} inscrit{% if (event.participants|length + 1) > 1 %}s{% endif %}</p>
             {% endif %}
-            <a href="{{ path('app_show_event', {id: event.id}) }}">S'inscrire</a>
+            {% if app.user and app.user is same as(event.organizer) %}
+            <a href="#">Supprimer l'événement</a>
+            {% elseif app.user and app.user in event.participants %}
+            <a href="{{ path('app_unregister_event', {id: event.id}) }}">Se désinscrire</a>
+            {% else %}
+            <a href="{{ path('app_register_event', {id: event.id}) }}">S'inscrire</a>
+            {% endif %}
             {# <button>S'inscrire</button> #}
         </div>
     </div>
