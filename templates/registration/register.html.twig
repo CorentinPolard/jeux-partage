@@ -14,7 +14,7 @@ label: 'Password'
 }) }}
 {{ form_row(registrationForm.firstName) }}
 {{ form_row(registrationForm.lastName) }}
-{{ form_row(registrationForm.agreeTerms) }}
+{{ form_row(registrationForm.agreeTerms, { 'row_attr': {'class': 'checkbox-container'} }) }}
 
 <button type="submit" class="btn">Register</button>
 {{ form_end(registrationForm) }}

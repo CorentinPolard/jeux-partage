@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Organisez et participez à des événements de jeux de société, rencontrez d'autres passionnés et découvrez de nouvelles parties amusantes près de chez vous.">
     <title>{% block title %}Jeux partage{% endblock %}</title>
 
     <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" />
@@ -21,7 +23,7 @@
     <header>
         <div class="mobile-container">
             <a href="{{ path('app_home')}}">
-                <img class="logo" src="{{ asset('images/logo-1-0.png')}}" alt="Logo du site représentant un dé">
+                <img class="logo" src="{{ asset('images/logo-1-0.webp')}}" alt="Logo du site représentant un dé">
             </a>
             <button class="burger-btn" aria-label="Ouvrir le menu">
                 <span></span>
@@ -32,32 +34,32 @@
 
         <nav>
             <ul class="nav-list">
-                <a href="{{ path('app_events') }}">
-                    <li>Les événements</li>
-                </a>
-                <a href="{{ path('app_games') }}">
-                    <li>Les jeux</li>
-                </a>
-                <a href="#">
-                    <li>Ma bibiliothèque de jeux</li>
-                </a>
-                <a href="#">
-                    <li>À propos</li>
-                </a>
+
+                <li><a href="{{ path('app_events') }}">Les événements</a></li>
+
+
+                <li><a href="{{ path('app_games') }}">Les jeux</a></li>
+
+
+                <li><a href="#">Ma bibiliothèque de jeux</a></li>
+
+
+                <li><a href="#">À propos</a></li>
+
                 {% if not app.user %}
-                <a href="{{ path('app_login') }}">
-                    <li>Se connecter</li>
-                </a>
-                <a href="{{ path('app_register') }}">
-                    <li>S'inscrire</li>
-                </a>
+
+                <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+
+
+                <li><a href="{{ path('app_register') }}">S'inscrire</a></li>
+
                 {% else %}
-                <a href="#">
-                    <li>Mon profil</li>
-                </a>
-                <a href="{{ path('app_logout') }}">
-                    <li>Se déconnecter</li>
-                </a>
+
+                <li><a href="#">Mon profil</a></li>
+
+
+                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+
                 {% endif %}
             </ul>
         </nav>
