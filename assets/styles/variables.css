@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Comic Relief';
+    src: url('../fonts/comic-relief/ComicRelief-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --font-base: 'Nunito', sans-serif;
+    --font-heading: 'Comic Relief', sans-serif;
+
+    --primary-text-color: #000000;
+
+    --header-footer-background-color: #A31D1D;
+    --button-background-color: #D84040;
+    --secondary-text-color: #F8F2DE;
+
+    --primary-background-color: #F8F2DE;
+    --secondary-background-color: #ECDCBF;
+
+}

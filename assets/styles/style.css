@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: var(--font-base);
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    /* font-family: 'Poppins'; */
+    /* font-family: 'Port Lligat Sans'; */
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px;
+}
+
+/* Style du header */
+/* header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 10px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    z-index: 1001;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    text-decoration: none;
+width: 100%;
+background-color: var(--primary-background-color);
+position: fixed;
+top: 0;
+left: 0;
+z-index: 1000;
+padding: 90px 20px 20px;
+transform: translateX(-100%);
+transition: transform 0.5s ease-in-out;
+}
+
+.nav-list.active {
+    transform: translateX(0);
+    height: 100vh;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--primary-text-color);
+    padding: 10px;
+font-size: 1.5rem;
+}
+
+.logo {
+    width: 80px;
+    height: auto;
+}
+
+.burger-btn {
+    display: block;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.burger-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--primary-text-color);
+    transition: all 0.3s ease-in-out;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+*/
+
+/* Events */
+.events-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 4px 4px
+}
+
+.event-container {
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: solid 1px black;
+    border-radius: 10px;
+    padding: 4px 4px;
+}
+
+.event-organizer {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 10px;
+    margin: -4px -4px 0 -4px;
+    padding: 0 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    background-color: var(--secondary-background-color);
+    border-radius: 10px 10px 0 0;
+    /* border: solid 1px black; */
+}
+
+.profil-picture {
+    width: 50px;
+    height: 50px;
+}
+
+.event-date-place-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.event-place,
+.event-date,
+.event-money {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.register {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: 4px 10px 4px 0;
+}
+
+.event-icon {
+    width: 30px;
+    height: 30px;
+}
+
+/* jeux et singleEvent */
+.game-image {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: contain;
+}
+
+/* footer */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: var(--header-footer-background-color);
+    color: var(--secondary-text-color);
+}
+
+@media(min-width: 500px) {
+    main {
+        padding: 20px 40px;
+    }
+}
+
+/* @media(min-width: 773px) {
+
+    /* Nav */
+/* .burger-btn {
+    display: none;
+}
+
+header {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav {
+    width: auto;
+}
+
+nav a {
+    font-size: 1rem;
+}
+
+.nav-list {
+    flex-direction: row;
+    position: static;
+    width: auto;
+    height: auto;
+    transform: none;
+    background: none;
+    padding: 0;
+}
+
+} */
+
+@media(min-width: 1200px) {
+
+    /* Nav */
+    /* nav a {
+        font-size: 1.2rem;
+    } */
+
+    main {
+        max-width: 900px;
+        width: 100%;
+        margin: 0 auto;
+        font-size: 1.15rem;
+    }
+
+    /* Events */
+    .event-container {
+        max-width: 700px;
+        gap: 8px;
+        padding: 10px 10px;
+    }
+
+    .event-organizer {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        gap: 10px;
+        margin: -10px -10px 0 -10px;
+        padding: 0 10px;
+
+    }
+}
