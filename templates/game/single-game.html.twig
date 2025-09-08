@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{game.name}}{% endblock %}
+
+{% block main %}
+<h1>{{game.name}}</h1>
+{% if game.imageFileName %}
+<img class="game-image" src="{{ asset('images/uploads/games/' ~ game.imageFileName) }}"
+    alt="Illustration de {{ game.name }}." />
+{% endif %}
+<p>Catégorie: {{game.category.label}}</p>
+<p>Nombre minimum de joueurs: {{game.minimumNumberOfPlayers}}
+    <br>
+    Nombre maximum de joueurs: {{game.maximumNumberOfPlayers}}
+</p>
+<section class="game-description">
+    <h2>Description</h2>
+    <p>{{game.description}}</p>
+</section>
+<a href="#">Voir les autres jeux</a>
+{% endblock %}

@@ -27,7 +27,13 @@ final class GameController extends AbstractController
         ]);
     }
 
-    // FAIRE LA ROUTE SHOW
+    #[Route('/show/{id}', name: 'app_show_game', requirements: ['id' => '\d+'])]
+    public function showGame(Game $game): Response
+    {
+        return $this->render('game/single-game.html.twig', [
+            'game' => $game,
+        ]);
+    }
 
     // ENLEVER CETTE ROUTE POUR LES USERS NORMAUX
     #[Route('/add', name: 'app_add_game')]

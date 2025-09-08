@@ -7,9 +7,11 @@
 {% if app.user is same as(event.organizer) %}
 <a href="{{ path('app_edit_event', {id: event.id}) }}">Modifier l'événement</a>
 {% endif %}
+{% if app.user and app.user in event.participants %}
+<a class="button-link" href="{{ path('app_unregister_event', {id: event.id}) }}">Se désinscrire</a>
+{% endif %}
 <h1>{{event.title}}</h1>
 <p>{{event.description}}</p>
-<p>ICONE D'HORLOGE {{event.duration}} minutes</p>
 <div class="event-money">
     <img class="event-icon" src="{{ asset('images/icones/money-green-icon.svg') }}"
         alt="Illustration d'un billet de banque">
@@ -19,14 +21,17 @@
     <p>Dépenses à prévoir</p>
     {% endif %}
 </div>
+<div class="event-duration">
+    <img class="event-icon" src="{{ asset('images/icones/clock-red-icon.svg') }}" alt="Illustration d'une horloge">
+    <p>Durée moyenne prévue: {{event.duration}}minutes</p>
+</div>
 <div class="event-date-place-container">
     <div class="event-date">
-        <img class="event-icon" src="{{ asset('images/icones/date-black-icon.svg') }}"
-            alt="Illustration d'un calendrier">
+        <img class="event-icon" src="{{ asset('images/icones/date-red-icon.svg') }}" alt="Illustration d'un calendrier">
         <p>{{event.eventAt.date | date("d/m/Y à H\\hi")}}</p>
     </div>
     <div class="event-place">
-        <img class="event-icon" src="{{ asset('images/icones/location-black-icon.svg') }}" alt="Pointeur d'une
+        <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une
                     carte">
         <p>{{event.address.street}} {{event.address.zipcode}} {{event.address.city}}</p>
     </div>
@@ -36,12 +41,14 @@
 <section class="games-container">
     <h2>Les jeux</h2>
     {% for game in event.games %}
-    <div class="game-container">
-        <img class="game-image" src="{{ asset('images/uploads/games/' ~ game.imageFileName)}}"
-            alt="Illustration de {{game.name}}">
-        <p>{{game.name}}</p>
-        <p>{{game.category.label}}</p>
-    </div>
+    <a class="game-link" href="{{ path('app_show_game', {id: game.id}) }}">
+        <div class="game-container">
+            <img class="game-image" src="{{ asset('images/uploads/games/' ~ game.imageFileName)}}"
+                alt="Illustration de {{game.name}}">
+            <p>{{game.name}}</p>
+            <p>{{game.category.label}}</p>
+        </div>
+    </a>
     {% endfor %}
 </section>
 <section class="participants-container">

@@ -117,7 +117,7 @@ font-size: 1.5rem;
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     gap: 16px;
     padding: 4px 4px
 }
@@ -160,7 +160,8 @@ font-size: 1.5rem;
 
 .event-place,
 .event-date,
-.event-money {
+.event-money,
+.event-duration {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -179,7 +180,27 @@ font-size: 1.5rem;
     height: 30px;
 }
 
+.game-link,
+.event-link {
+    width: fit-content;
+    text-decoration: none;
+    color: var(--primary-text-color);
+}
+
 /* jeux et singleEvent */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border: solid 1px black;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 300px;
+    width: 100%;
+    margin: 0 auto 20px auto;
+}
+
 .game-image {
     max-width: 150px;
     max-height: 150px;
@@ -195,11 +216,7 @@ footer {
     color: var(--secondary-text-color);
 }
 
-@media(min-width: 500px) {
-    main {
-        padding: 20px 40px;
-    }
-}
+
 
 /* @media(min-width: 773px) {
 
@@ -284,19 +301,33 @@ input[type="checkbox"] {
     height: 25px;
 }
 
-button {
+button,
+a.button-link {
     width: fit-content;
     padding: 6px 20px;
     background-color: var(--button-background-color);
     color: var(--secondary-text-color);
     font-size: 1.2rem;
+    text-decoration: none;
     border: none;
     border-radius: 10px;
     cursor: pointer;
 }
 
+@media(min-width: 500px) {
+    main {
+        padding: 20px 40px;
+    }
+}
 
-@media(min-width: 1200px) {
+@media (min-width: 768px) {
+    .event-container {
+        max-width: 600px;
+    }
+
+}
+
+@media(min-width: 1024px) {
 
     /* Nav */
     /* nav a {
@@ -324,6 +355,5 @@ button {
         gap: 10px;
         margin: -10px -10px 0 -10px;
         padding: 0 10px;
-
     }
 }

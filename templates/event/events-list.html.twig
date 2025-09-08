@@ -11,15 +11,13 @@
 {% endfor %}
 {% endfor %}
 <h1>Jouez ensemble, créez vos événements !</h1>
-<img src="" alt="">
+<img src="{{ asset('images/boardgames.webp') }}" alt="Illustration de plusieurs jeux de société." />
 <a href="{{ path('app_create_event') }}">Créer votre événement</a>
 <section class="events-section">
     <h2>Les événements</h2>
     {% for event in events %}
     {% if app.user and app.user is same as(event.organizer) %}
-    <a href="{{ path('app_show_event', {id: event.id}) }}">
-        {% include "/components/event-card.html.twig" %}
-    </a>
+    {% include "/components/event-card.html.twig" %}
     {% else %}
     {% include "/components/event-card.html.twig" %}
     {% endif %}
