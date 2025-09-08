@@ -19,7 +19,7 @@ class AddressType extends AbstractType
                 'street',
                 TextType::class,
                 [
-                    'label' => 'Adresse (rue et numéro)',
+                    'label' => 'Adresse de l\'événement',
                     'required' => true,
                 ]
             )

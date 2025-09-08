@@ -83,7 +83,6 @@ class EventType extends AbstractType
                 // 'multiple' => false,
                 'expanded' => false,      // false => <select multiple>, true => cases à cocher
                 'attr' => [
-                    // 'style' => 'display: none;',
                     "class" => 'games-list display-none',
                 ]
             ])
@@ -91,7 +90,7 @@ class EventType extends AbstractType
                 'address',
                 AddressType::class,
                 [
-                    'label' => 'Adresse de l\'événement',
+                    'label' => false,
                 ]
             )
         ;
