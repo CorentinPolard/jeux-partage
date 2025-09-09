@@ -63,7 +63,7 @@ class EventType extends AbstractType
                     'label' => 'Durée moyenne de votre événement (en minutes)',
                     'required' => true,
                     'attr' => [
-                        'min' => 1,
+                        'min' => 5,
                     ],
                 ]
             )
@@ -80,7 +80,6 @@ class EventType extends AbstractType
                 'label' => "Jeux associés à l'événement",
                 'choice_label' => 'name',
                 'multiple' => true,
-                // 'multiple' => false,
                 'expanded' => false,      // false => <select multiple>, true => cases à cocher
                 'attr' => [
                     "class" => 'games-list display-none',

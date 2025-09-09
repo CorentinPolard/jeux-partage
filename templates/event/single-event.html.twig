@@ -38,7 +38,8 @@
 </div>
 {# A FAIRE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #}
 <div>leaflet</div>
-<section class="games-container">
+<hr>
+<section class="games-section">
     <h2>Les jeux</h2>
     {% for game in event.games %}
     <a class="game-link" href="{{ path('app_show_game', {id: game.id}) }}">
@@ -51,6 +52,7 @@
     </a>
     {% endfor %}
 </section>
+<hr>
 <section class="participants-container">
     <h2>Les participants</h2>
     <p>{{event.organizer.fullName}}</p>

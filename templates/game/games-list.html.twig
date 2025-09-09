@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les jeux{% endblock %}
+
+{% block main %}
+<section class="games-section">
+    <h1>Liste des jeux enregistrés</h1>
+    {% for game in games %}
+    <a class="game-link" href="{{ path('app_show_game', {id: game.id}) }}">
+        <div class="game-container">
+            {% if game.imageFileName %}
+            <img class="game-image" src="{{ asset('images/uploads/games/' ~ game.imageFileName) }}"
+                alt="Illustration de {{ game.name }}." />
+            {% endif %}
+            <p>{{ game.name }}</p>
+        </div>
+    </a>
+    {% endfor %}
+</section>
+{% endblock %}
