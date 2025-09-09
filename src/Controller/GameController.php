@@ -25,13 +25,16 @@ final class GameController extends AbstractController
         // Notre variable page est égale à la valeur du paramètre 'page' dans l'URL
         $page = $request->query->getInt('page', 1);
 
-        if ($page < 1) {
-            $page = 1;
-        }
-
-        $games = $gameRepository->paginateGames($page, $limit);
+        $games = $gameRepository->paginate($page, $limit, "g");
 
         $maxPages = ceil($games->count() / $limit);
+
+        if ($page < 1) {
+            return $this->redirectToRoute('app_games', ['page' => 1]);
+        }
+        if ($page > $maxPages) {
+            return $this->redirectToRoute('app_games', ['page' => $maxPages]);
+        }
 
         return $this->render('game/games-list.html.twig', [
             'games' => $games,
