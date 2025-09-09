@@ -28,6 +28,7 @@ nav {
 .nav-list {
     display: flex;
     flex-direction: column;
+    gap: 20px;
     list-style: none;
     text-decoration: none;
     width: 100%;
@@ -51,6 +52,11 @@ nav a {
     color: var(--secondary-text-color);
     padding: 10px;
     font-size: 1.5rem;
+}
+
+nav a:hover {
+    color: white;
+    font-weight: bold;
 }
 
 .logo {
@@ -96,19 +102,19 @@ nav a {
         width: auto;
     }
 
-    nav a {
-        font-size: 1rem;
-    }
-
     .nav-list {
         flex-direction: row;
-        /* M */
+        gap: 8px;
         position: static;
         width: auto;
         height: auto;
         transform: none;
         background: none;
         padding: 0;
+    }
+
+    nav a {
+        font-size: 1rem;
     }
 
 }

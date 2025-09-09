@@ -12,7 +12,7 @@
 {% endfor %}
 <h1>Jouez ensemble, créez vos événements !</h1>
 <img src="{{ asset('images/boardgames.webp') }}" alt="Illustration de plusieurs jeux de société." />
-<a href="{{ path('app_create_event') }}">Créer votre événement</a>
+<a class="button-link" href="{{ path('app_create_event') }}">Créer votre événement</a>
 <section class="events-section">
     <h2>Les événements</h2>
     {% for event in events %}

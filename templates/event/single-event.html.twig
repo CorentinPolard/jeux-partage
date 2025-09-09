@@ -3,9 +3,9 @@
 {% block title %}{{event.title}}{% endblock %}
 
 {% block main %}
-<button>Consulter les événements</button>
+<a class="button-link" href="{{ path('app_events') }}">Voir les autres événements</a>
 {% if app.user is same as(event.organizer) %}
-<a href="{{ path('app_edit_event', {id: event.id}) }}">Modifier l'événement</a>
+<a class="button-link" href="{{ path('app_edit_event', {id: event.id}) }}">Modifier l'événement</a>
 {% endif %}
 {% if app.user and app.user in event.participants %}
 <a class="button-link" href="{{ path('app_unregister_event', {id: event.id}) }}">Se désinscrire</a>
@@ -28,12 +28,13 @@
 <div class="event-date-place-container">
     <div class="event-date">
         <img class="event-icon" src="{{ asset('images/icones/date-red-icon.svg') }}" alt="Illustration d'un calendrier">
-        <p>{{event.eventAt.date | date("d/m/Y à H\\hi")}}</p>
+        <time datetime="{{event.eventAt.date | date(" Y-m-d\TH:i")}}">{{event.eventAt.date | date("d/m/Y à
+            H\\hi")}}</time>
     </div>
     <div class="event-place">
         <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une
                     carte">
-        <p>{{event.address.street}} {{event.address.zipcode}} {{event.address.city}}</p>
+        <address>{{event.address.street}} {{event.address.zipcode}} {{event.address.city}}</address>
     </div>
 </div>
 {# A FAIRE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #}
