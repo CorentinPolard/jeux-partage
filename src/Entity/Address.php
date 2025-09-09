@@ -20,10 +20,16 @@ class Address
     private ?string $city = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $zipcode = null;
+    private ?string $postcode = null;
 
     #[ORM\OneToOne(mappedBy: 'address', cascade: ['persist', 'remove'])]
     private ?Event $event = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $latitude = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $longitude = null;
 
     public function getId(): ?int
     {
@@ -54,14 +60,14 @@ class Address
         return $this;
     }
 
-    public function getZipcode(): ?string
+    public function getPostcode(): ?string
     {
-        return $this->zipcode;
+        return $this->postcode;
     }
 
-    public function setZipcode(string $zipcode): static
+    public function setPostcode(string $postcode): static
     {
-        $this->zipcode = $zipcode;
+        $this->postcode = $postcode;
 
         return $this;
     }
@@ -84,6 +90,30 @@ class Address
         }
 
         $this->event = $event;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(?float $latitude): static
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(?float $longitude): static
+    {
+        $this->longitude = $longitude;
 
         return $this;
     }

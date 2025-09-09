@@ -6,6 +6,7 @@ use App\Entity\Address;
 use App\Entity\Event;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,11 +33,27 @@ class AddressType extends AbstractType
                 ]
             )
             ->add(
-                'zipcode',
+                'postcode',
                 TextType::class,
                 [
                     'label' => 'Code postal',
                     'required' => true,
+                ]
+            )
+            ->add(
+                'longitude',
+                HiddenType::class,
+                [
+                    'required' => true,
+                    'attr' => ['aria-hidden' => true],
+                ]
+            )
+            ->add(
+                'latitude',
+                HiddenType::class,
+                [
+                    'required' => true,
+                    'attr' => ['aria-hidden' => true],
                 ]
             )
         ;

@@ -40,6 +40,7 @@ final class GameController extends AbstractController
             'games' => $games,
             'maxPages' => $maxPages,
             'page' => $page,
+            'redirectTo' => 'app_games',
         ]);
     }
 

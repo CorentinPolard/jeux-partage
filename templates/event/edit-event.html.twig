@@ -10,12 +10,13 @@
 {% block javascripts %}
 {{ parent() }}
 {{ encore_entry_script_tags('scripts/searchGames') }}
+{{ encore_entry_script_tags('scripts/geocodage') }}
 {% endblock %}
 
 {% block main %}
 <h1>Modifier mon événement</h1>
 
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'id': 'eventForm'}} ) }}
 {{ form_row(form.title) }}
 {{ form_row(form.description) }}
 {{ form_row(form.address) }}

@@ -38,6 +38,7 @@ final class EventController extends AbstractController
             'events' => $events,
             'maxPages' => $maxPages,
             'page' => $page,
+            'redirectTo' => 'app_events',
         ]);
     }
 

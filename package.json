@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.45.1",
+    "leaflet": "^1.9.4",
     "tom-select": "^2.4.3"
   },
   "scripts": {
