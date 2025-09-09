@@ -16,11 +16,8 @@
 <section class="events-section">
     <h2>Les événements</h2>
     {% for event in events %}
-    {% if app.user and app.user is same as(event.organizer) %}
     {% include "/components/event-card.html.twig" %}
-    {% else %}
-    {% include "/components/event-card.html.twig" %}
-    {% endif %}
     {% endfor %}
+    {% include "/components/pagination.html.twig" %}
 </section>
 {% endblock %}

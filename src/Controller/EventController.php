@@ -16,12 +16,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class EventController extends AbstractController
 {
     #[Route('', name: 'app_events')]
-    public function index(EventRepository $eventRepository): Response
+    public function index(EventRepository $eventRepository, Request $request): Response
     {
-        $events = $eventRepository->findAll();
+        $limit = 10;
+        $page = $request->query->getInt('page', 1);
+        if ($page < 1) {
+            $page = 1;
+        }
+
+        $events = $eventRepository->paginateEvents($page, $limit);
+
+        $maxPages = ceil($events->count() / $limit);
 
         return $this->render('event/events-list.html.twig', [
             'events' => $events,
+            'maxPages' => $maxPages,
+            'page' => $page,
         ]);
     }
 

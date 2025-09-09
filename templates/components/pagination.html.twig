@@ -1,0 +1,11 @@
+<div class="pagination">
+    <div class="previous">
+        {% if page > 1 %}
+        <a href="{{ path('app_games', {page: page - 1}) }}">Page précédente</a>
+        {% endif %}
+    </div>
+    <div class="next">
+        {% if page < maxPages %} <a href="{{ path('app_games', {page: page + 1}) }}">Page suivante</a>
+            {% endif %}
+    </div>
+</div>

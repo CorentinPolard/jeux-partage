@@ -327,6 +327,31 @@ a.button-link {
     cursor: pointer;
 }
 
+.pagination {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.previous {
+    grid-area: 1 / 1 / 2 / 2;
+    text-align: left;
+}
+
+.next {
+    grid-area: 1 / 2 / 2 / 3;
+    text-align: right;
+}
+
+@media(min-width: 375px) {
+    .games-section {
+        justify-content: flex-start;
+    }
+}
+
 @media(min-width: 500px) {
     main {
         padding: 20px 40px;
@@ -337,11 +362,6 @@ a.button-link {
     .event-container {
         max-width: 600px;
     }
-
-    .games-section {
-        justify-content: flex-start;
-    }
-
 }
 
 @media(min-width: 1024px) {

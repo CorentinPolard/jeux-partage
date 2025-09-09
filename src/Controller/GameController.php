@@ -18,12 +18,25 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 final class GameController extends AbstractController
 {
     #[Route('', name: 'app_games')]
-    public function index(GameRepository $gameRepository): Response
+    public function index(GameRepository $gameRepository, Request $request): Response
     {
-        $games = $gameRepository->findAll();
+        // Nombre de jeux par page
+        $limit = 12;
+        // Notre variable page est égale à la valeur du paramètre 'page' dans l'URL
+        $page = $request->query->getInt('page', 1);
+
+        if ($page < 1) {
+            $page = 1;
+        }
+
+        $games = $gameRepository->paginateGames($page, $limit);
+
+        $maxPages = ceil($games->count() / $limit);
 
         return $this->render('game/games-list.html.twig', [
             'games' => $games,
+            'maxPages' => $maxPages,
+            'page' => $page,
         ]);
     }
 
