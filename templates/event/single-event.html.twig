@@ -37,9 +37,10 @@
         <address>{{event.address.street}} {{event.address.postcode}} {{event.address.city}}</address>
     </div>
 </div>
+{% if event.address.latitude %}
 <div id="map" class="maps" data-address="{{ jsonCoordinates }}">
-    Carte
 </div>
+{% endif %}
 <hr>
 <section class="games-section">
     <h2>Les jeux</h2>

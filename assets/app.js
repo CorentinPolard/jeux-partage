@@ -17,6 +17,8 @@ document.addEventListener("turbo:load", () => {
 
     const map = document.querySelector("#map");
     if (map) {
-        import('./scripts/map.js');
+        import('./scripts/map.js').then(module => {
+            module.initMap();
+        });
     }
 })
