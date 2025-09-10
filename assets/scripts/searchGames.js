@@ -1,7 +1,7 @@
 import TomSelect from "tom-select";
 import "tom-select/dist/css/tom-select.default.min.css";
 
-function initTomSelect() {
+export function initTomSelect() {
     const gamesSelector = document.querySelector(".games-selector");
 
     // Si il y a le select et que le tomSelect n'a pas déjà été initialisé (turbo:load)
@@ -12,5 +12,3 @@ function initTomSelect() {
         });
     }
 };
-
-initTomSelect();

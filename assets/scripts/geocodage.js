@@ -1,4 +1,4 @@
-function initGeocodage() {
+export function initGeocodage() {
     const form = document.querySelector("#eventForm");
     if (form) {
         form.addEventListener("submit", async function (e) {
@@ -39,5 +39,3 @@ function initGeocodage() {
         })
     }
 }
-
-initGeocodage();

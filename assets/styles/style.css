@@ -235,6 +235,14 @@ font-size: 1.5rem;
     object-fit: contain;
 }
 
+/* map */
+
+.maps {
+    height: 300px;
+    max-width: 300px;
+    width: 100%;
+}
+
 /* footer */
 footer {
     width: 100%;
