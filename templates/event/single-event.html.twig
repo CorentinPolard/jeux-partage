@@ -2,6 +2,11 @@
 
 {% block title %}{{event.title}}{% endblock %}
 
+{% block javascripts %}
+{{ parent() }}
+{{ encore_entry_script_tags('scripts/map') }}
+{% endblock %}
+
 {% block main %}
 <a class="button-link" href="{{ path('app_events') }}">Voir les autres événements</a>
 {% if app.user is same as(event.organizer) %}
@@ -38,7 +43,9 @@
     </div>
 </div>
 {# A FAIRE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #}
-<div>leaflet</div>
+<div id="map" data-address="{{ jsonCoordinates }}">
+    Carte
+</div>
 <hr>
 <section class="games-section">
     <h2>Les jeux</h2>

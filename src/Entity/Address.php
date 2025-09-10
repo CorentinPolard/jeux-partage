@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\AddressRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AddressRepository;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
 class Address
@@ -26,9 +27,11 @@ class Address
     private ?Event $event = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['coordinates'])]
     private ?float $latitude = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['coordinates'])]
     private ?float $longitude = null;
 
     public function getId(): ?int

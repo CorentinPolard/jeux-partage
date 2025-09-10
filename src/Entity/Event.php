@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Boolean;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -64,6 +65,7 @@ class Event
     private Collection $games;
 
     #[ORM\OneToOne(inversedBy: 'event', cascade: ['persist', 'remove'])]
+    #[Groups(['coordinates'])]
     private ?Address $address = null;
 
     public function __construct()

@@ -11,10 +11,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/events')]
 final class EventController extends AbstractController
 {
+    public function __construct(
+        private SerializerInterface $serializer
+    ) {}
+
     #[Route('', name: 'app_events')]
     public function index(EventRepository $eventRepository, Request $request): Response
     {
@@ -45,11 +50,19 @@ final class EventController extends AbstractController
     #[Route('/show/{id}', name: 'app_show_event', requirements: ['id' => '\d+'])]
     public function showEvent(Event $event): Response
     {
+        $jsonCoordinates = $this->serializer->serialize(
+            $event,
+            'json',
+            [
+                'groups' => ['coordinates'],
+            ]
+        );
 
         // Messagerie ici 
 
         return $this->render('event/single-event.html.twig', [
-            'event' => $event
+            'event' => $event,
+            'jsonCoordinates' => $jsonCoordinates,
         ]);
     }
 

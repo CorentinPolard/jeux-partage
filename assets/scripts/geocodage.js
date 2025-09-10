@@ -1,4 +1,4 @@
-document.addEventListener("turbo:load", () => {
+function initGeocodage() {
     console.log("GéoApi");
     const form = document.querySelector("#eventForm");
     if (form) {
@@ -39,4 +39,22 @@ document.addEventListener("turbo:load", () => {
             form.submit();
         })
     }
-})
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initGeocodage);
+} else {
+    initGeocodage();
+}
+
+document.addEventListener("turbo:load", initGeocodage);
+
+// document.addEventListener("DOMContentLoaded", initGeocodage);
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     console.log("DOM");
+// })
+
+// document.addEventListener('turbo:load', () => {
+//     console.log("TURBO");
+// })
