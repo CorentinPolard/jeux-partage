@@ -82,7 +82,7 @@ class EventType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,      // false => <select multiple>, true => cases à cocher
                 'attr' => [
-                    "class" => 'games-list display-none',
+                    "class" => 'games-selector display-none',
                 ]
             ])
             ->add(

@@ -2,17 +2,6 @@
 
 {% block title %}Modifier mon événement{% endblock %}
 
-{% block stylesheets %}
-{{ parent() }}
-{{ encore_entry_link_tags('scripts/searchGames') }}
-{% endblock %}
-
-{% block javascripts %}
-{{ parent() }}
-{{ encore_entry_script_tags('scripts/searchGames') }}
-{{ encore_entry_script_tags('scripts/geocodage') }}
-{% endblock %}
-
 {% block main %}
 <h1>Modifier mon événement</h1>
 
@@ -23,7 +12,7 @@
 {{ form_row(form.eventAt) }}
 {{ form_row(form.maxNumberOfParticipants) }}
 {{ form_row(form.duration) }}
-{{ form_row(form.isFree) }}
+{{ form_row(form.isFree, { 'row_attr': {'class': 'checkbox-container'} }) }}
 {{ form_row(form.games) }}
 <button type="submit">Modifier</button>
 {{ form_end(form) }}

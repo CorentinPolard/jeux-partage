@@ -2,12 +2,17 @@ import './bootstrap.js';
 
 import { Turbo } from "@hotwired/turbo"; // importe Turbo
 
-/*
- * Welcome to your app's main JavaScript file!
- *
- * This file will be included onto the page via the encore_entry_script_tags Twig function,
- * which should already be in your base.html.twig.
- */
-
 import './scripts/burgerMenu.js'
 
+document.addEventListener("turbo:load", () => {
+    const eventForm = document.querySelector("#eventForm");
+    if (eventForm) {
+        import('./scripts/geocodage.js');
+        import('./scripts/searchGames.js');
+    }
+
+    const map = document.querySelector("#map");
+    if (map) {
+        import('./scripts/map.js');
+    }
+})
