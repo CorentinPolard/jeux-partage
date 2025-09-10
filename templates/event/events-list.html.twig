@@ -6,7 +6,9 @@
 {% for label, messages in app.flashes %}
 {% for message in messages %}
 <div class="flash-{{ label }}">
-    {{ message }}
+    <p class="flash">
+        <strong>{{ message }}</strong>
+    </p>
 </div>
 {% endfor %}
 {% endfor %}
