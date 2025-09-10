@@ -118,7 +118,7 @@ final class EventController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'app_delete_event', requirements: ['id' => '\d+'])]
-    public function deleteEvent(Event $event, EntityManagerInterface $entityManager, Request $request): Response
+    public function deleteEvent(Event $event, EntityManagerInterface $entityManager): Response
     {
         if ($event->getOrganizer() === $this->getUser()) {
             $entityManager->remove($event);

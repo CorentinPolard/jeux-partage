@@ -11,7 +11,9 @@
     <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" />
 
     {% block stylesheets %}
-    {{ encore_entry_link_tags('styles/app') }}
+    {# {{ encore_entry_link_tags('styles/app') }} #}
+    {{ encore_entry_link_tags('styles/app')|replace({'rel="stylesheet"': 'rel="stylesheet"
+    data-turbo-track="reload"'})|raw }}
     {% endblock %}
 
     {% block javascripts %}
@@ -55,7 +57,9 @@
 
                 {% else %}
 
-                <li><a href="#">Mon profil</a></li>
+                {% if is_granted("ROLE_ADMIN") %}
+                <li><a href="{{ path('app_admin') }}">Fonctions Admin</a></li>
+                {% endif %}
 
 
                 <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>

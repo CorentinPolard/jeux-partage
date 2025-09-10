@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Organisez et participez à des événements de jeux de société, rencontrez d'autres passionnés et découvrez de nouvelles parties amusantes près de chez vous.">
+    <title>{% block title %}Administration{% endblock %}</title>
+
+    <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" />
+
+    {% block stylesheets %}
+    {# {{ encore_entry_link_tags('styles/admin') }} #}
+    {{ encore_entry_link_tags('styles/admin')|replace({'rel="stylesheet"': 'rel="stylesheet"
+    data-turbo-track="reload"'})|raw }}
+    {% endblock %}
+
+    {% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+
+<body>
+    <div class="nav-container">
+        <a href="{{ path('app_home')}}">
+            <img class="logo" src="{{ asset('images/logo-1-0.webp')}}" alt="Logo du site représentant un dé">
+        </a>
+        <nav>
+            <ul class="nav-list">
+                <li><a href="{{ path('app_home') }}">Retour au site</a></li>
+                <li><a href="{{ path('app_admin_events') }}">Les événements</a></li>
+                <li><a href="{{ path('app_admin_messages') }}">Les messages</a></li>
+                <li><a href="{{ path('app_admin_games') }}">Les jeux</a></li>
+                <li><a href="{{ path('app_admin_categories') }}">Les catégories</a></li>
+                <li><a href="#">Mon profil</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        {% block main %}
+        {% endblock %}
+    </main>
+</body>
+
+</html>
