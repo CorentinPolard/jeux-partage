@@ -1,0 +1,10 @@
+{% extends 'admin-base.html.twig' %}
+
+{% block title %}Menu administrateur - événements{% endblock %}
+
+{% block main %}
+<h1>Modifier {{event.title}}</h1>
+<a href="{{ path('app_admin_events') }}">Retoruner à la liste des événements</a>
+<a href="{{ path('app_admin_show_event', {id: event.id}) }}">Retourner à la fiche de l'événements</a>
+
+{% endblock %}

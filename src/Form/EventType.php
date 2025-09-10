@@ -42,7 +42,10 @@ class EventType extends AbstractType
                 DateTimeType::class,
                 [
                     'label' => 'Date et heure de l\'événement',
-                    'required' => true
+                    'required' => true,
+                    'attr' => [
+                        'min' => (new \DateTime())->format('Y-m-d\TH:i'), // aujourd'hui
+                    ],
                 ]
             )
             ->add(

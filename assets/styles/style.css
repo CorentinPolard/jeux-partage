@@ -122,14 +122,14 @@ font-size: 1.5rem;
     text-decoration: underline;
 }
 
+
 /* Events */
 .events-section {
     width: 100%;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
+    align-items: center;
     gap: 16px;
-    /* padding: 4px 4px */
     padding: 4px 0;
 }
 
@@ -197,6 +197,7 @@ font-size: 1.5rem;
     color: var(--primary-text-color);
 }
 
+
 /* jeux et singleEvent */
 
 .games-section {
@@ -235,6 +236,7 @@ font-size: 1.5rem;
     object-fit: contain;
 }
 
+
 /* map */
 
 .maps {
@@ -242,6 +244,7 @@ font-size: 1.5rem;
     max-width: 300px;
     width: 100%;
 }
+
 
 /* footer */
 footer {
@@ -253,40 +256,7 @@ footer {
 }
 
 
-
-/* @media(min-width: 773px) {
-
-    /* Nav */
-/* .burger-btn {
-    display: none;
-}
-
-header {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav {
-    width: auto;
-}
-
-nav a {
-    font-size: 1rem;
-}
-
-.nav-list {
-    flex-direction: row;
-    position: static;
-    width: auto;
-    height: auto;
-    transform: none;
-    background: none;
-    padding: 0;
-}
-
-} */
+/* Form */
 
 form {
     display: flex;
@@ -351,6 +321,7 @@ a.button-link {
 }
 
 .pagination {
+    max-width: 500px;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -382,7 +353,9 @@ a.button-link {
 }
 
 @media (min-width: 768px) {
-    .event-container {
+
+    .event-container,
+    .pagination {
         max-width: 600px;
     }
 }
@@ -410,5 +383,9 @@ a.button-link {
         gap: 10px;
         margin: -10px -10px 0 -10px;
         padding: 0 10px;
+    }
+
+    .pagination {
+        max-width: 700px;
     }
 }

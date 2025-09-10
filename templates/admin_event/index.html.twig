@@ -3,5 +3,39 @@
 {% block title %}Menu administrateur - événements{% endblock %}
 
 {% block main %}
-
+<h1>Les événements</h1>
+<a href="{{ path('app_admin_create_event') }}">Ajouter un événement</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Date de l'événement</th>
+            <th>Lieu</th>
+            <th>Organisateur</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.id }}</td>
+            <td>{{ event.title }}</td>
+            <td>{{ event.eventAt ? event.eventAt|date('d/m/Y H:i') : '' }}</td>
+            <td>{{event.address.street}}, {{event.address.postcode}}, {{event.address.city}}</td>
+            <td>{{event.organizer.getFullName }}</td>
+            <td>
+                <a href="{{ path('app_admin_show_event', {'id': event.id}) }}">Voir</a>
+                <a href="{{ path('app_admin_edit_event', {'id': event.id}) }}">Modifier</a>
+                <a href="{{ path('app_admin_delete_event', {'id': event.id}) }}">Supprimer</a>
+                {# Ajoutez d'autres actions si nécessaire #}
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="6">Aucun événement trouvé.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
