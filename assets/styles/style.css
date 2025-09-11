@@ -35,9 +35,12 @@ h6 {
 .flash {
     width: 100%;
     padding: 10px;
-    font-size: 1.2rem;
-    color: red;
+    font-size: 1.5rem;
+    color: white;
     text-decoration: underline;
+    background-color: red;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    border-radius: 10px;
 }
 
 
@@ -73,6 +76,7 @@ button,
     flex-direction: column;
     gap: 8px;
     border: solid 1px black;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     border-radius: 10px;
     padding: 4px 4px;
 }

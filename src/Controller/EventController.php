@@ -27,7 +27,7 @@ final class EventController extends AbstractController
 
         $page = $request->query->getInt('page', 1);
 
-        $events = $eventRepository->paginate($page, $limit, "e");
+        $events = $eventRepository->paginate($page, $limit, "e", new DateTime(), 'eventAt');
 
         $maxPages = ceil($events->count() / $limit);
 
