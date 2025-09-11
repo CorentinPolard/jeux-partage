@@ -1,0 +1,14 @@
+{% extends 'admin-base.html.twig' %}
+
+{% block title %}Menu administrateur - catégories{% endblock %}
+
+{% block main %}
+<h1>Ajouter une catégorie de jeux</h1>
+<a href="{{ path('app_admin_categories') }}">Retourner à la liste des catégories</a>
+
+{{ form_start(form) }}
+{{ form_row(form.label) }}
+<button type="submit">Ajouter</button>
+{{ form_end(form) }}
+
+{% endblock %}

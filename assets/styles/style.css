@@ -258,7 +258,7 @@ footer {
 
 /* Form */
 
-form {
+/* form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -299,7 +299,7 @@ textarea {
     border-radius: 4px;
     font-size: 1.2rem;
     /* Empêche l'utilisateur de modifier la taille de la textarea */
-    resize: none;
+/* resize: none;
 }
 
 input[type="checkbox"] {
@@ -318,7 +318,7 @@ a.button-link {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-}
+} */
 
 .pagination {
     max-width: 500px;

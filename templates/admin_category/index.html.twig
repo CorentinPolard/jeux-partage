@@ -3,5 +3,31 @@
 {% block title %}Menu administrateur - catégories{% endblock %}
 
 {% block main %}
-
+<h1>Les catégories de jeux</h1>
+<a href="{{ path('app_admin_create_category') }}">Ajouter une catégorie</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category in categories %}
+        <tr>
+            <td>{{ category.id }}</td>
+            <td>{{ category.label }}</td>
+            <td>
+                <a href="{{ path('app_admin_edit_category', {'id': category.id}) }}">Modifier</a>
+                <a href="{{ path('app_admin_delete_category', {'id': category.id}) }}">Supprimer</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="6">Aucune catégorie trouvée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
