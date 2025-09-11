@@ -18,9 +18,9 @@
         <tr>
             <td>{{ category.id }}</td>
             <td>{{ category.label }}</td>
-            <td>
-                <a href="{{ path('app_admin_edit_category', {'id': category.id}) }}">Modifier</a>
-                <a href="{{ path('app_admin_delete_category', {'id': category.id}) }}">Supprimer</a>
+            <td class="admin-actions">
+                <a class="button-link" href="{{ path('app_admin_edit_category', {'id': category.id}) }}">Modifier</a>
+                <a class="button-link" href="{{ path('app_admin_delete_category', {'id': category.id}) }}">Supprimer</a>
             </td>
         </tr>
         {% else %}

@@ -25,7 +25,7 @@ h6 {
     top: 0;
     left: 0;
     width: 300px;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -67,10 +67,23 @@ main {
     padding: 20px 20px 60px 20px;
 }
 
-p,
+.admin-intro,
 label,
 .nav-container a {
     font-size: 1.5rem;
+}
+
+section p,
+main a {
+    font-size: 1.2rem;
+}
+
+section p,
+.admin-intro,
+label,
+.nav-container a,
+th,
+td {
     color: var(--primary-text-color);
 }
 
@@ -107,7 +120,27 @@ tr:nth-child(odd) {
 .game-category,
 .game-details {
     width: 100%;
-    font-size: 1.2rem;
-    color: var(--primary-text-color);
     padding: 10px 40px;
 }
+
+/* actions */
+
+/* .admin-actions {
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10px;
+} */
+
+/* button,
+a.button-link {
+    width: fit-content;
+    padding: 6px 20px;
+    background-color: var(--button-background-color);
+    color: var(--secondary-text-color);
+    font-size: 1.2rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+} */

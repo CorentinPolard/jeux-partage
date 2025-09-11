@@ -13,18 +13,6 @@ body {
     color: var(--primary-text-color);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: var(--font-heading);
-    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-    /* font-family: 'Poppins'; */
-    /* font-family: 'Port Lligat Sans'; */
-}
-
 main {
     flex: 1;
     display: flex;
@@ -33,85 +21,15 @@ main {
     padding: 10px 10px;
 }
 
-/* Style du header */
-/* header {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-right: 10px;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
 }
 
-.mobile-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    z-index: 1001;
-}
-
-nav {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.nav-list {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    text-decoration: none;
-width: 100%;
-background-color: var(--primary-background-color);
-position: fixed;
-top: 0;
-left: 0;
-z-index: 1000;
-padding: 90px 20px 20px;
-transform: translateX(-100%);
-transition: transform 0.5s ease-in-out;
-}
-
-.nav-list.active {
-    transform: translateX(0);
-    height: 100vh;
-}
-
-nav a {
-    text-decoration: none;
-    color: var(--primary-text-color);
-    padding: 10px;
-font-size: 1.5rem;
-}
-
-.logo {
-    width: 80px;
-    height: auto;
-}
-
-.burger-btn {
-    display: block;
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
-.burger-btn span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
-    background-color: var(--primary-text-color);
-    transition: all 0.3s ease-in-out;
-}
-
-.no-scroll {
-    overflow: hidden;
-}
-
-*/
 
 /* Flash */
 .flash {
@@ -120,6 +38,21 @@ font-size: 1.5rem;
     font-size: 1.2rem;
     color: red;
     text-decoration: underline;
+}
+
+
+/* Liens d'actions et boutons */
+button,
+.button-link {
+    width: fit-content;
+    padding: 6px 20px;
+    background-color: var(--button-background-color);
+    color: var(--secondary-text-color);
+    font-size: 1.2rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 
@@ -161,6 +94,47 @@ font-size: 1.5rem;
     height: 50px;
 }
 
+.register {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: 4px 10px 4px 0;
+}
+
+.game-link,
+.event-link {
+    display: flex;
+    text-decoration: none;
+    color: var(--primary-text-color);
+}
+
+
+/* Single Event */
+.organizer-actions {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.event-details-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.event-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.event-icon {
+    width: 30px;
+    height: 30px;
+}
+
 .event-date-place-container {
     display: flex;
     flex-flow: row wrap;
@@ -178,33 +152,20 @@ font-size: 1.5rem;
     gap: 10px;
 }
 
-.register {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    padding: 4px 10px 4px 0;
-}
-
-.event-icon {
-    width: 30px;
-    height: 30px;
-}
-
-.game-link,
-.event-link {
-    display: flex;
-    text-decoration: none;
-    color: var(--primary-text-color);
+.maps {
+    height: 300px;
+    max-width: 300px;
+    width: 100%;
 }
 
 
-/* jeux et singleEvent */
-
+/* jeux et images singleEvent */
 .games-section {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     gap: 20px;
+    padding: 10px 20px;
 }
 
 .games-section h1,
@@ -218,12 +179,20 @@ font-size: 1.5rem;
     justify-content: space-evenly;
     align-items: center;
     gap: 4px;
-    border: solid 1px black;
+    background-color: var(--secondary-background-color);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 10px;
+}
+
+.game-container:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s;
 }
 
 .game-container p {
     max-width: 150px;
+    padding: 10px;
+    text-align: center;
 }
 
 .game-container img {
@@ -237,89 +206,7 @@ font-size: 1.5rem;
 }
 
 
-/* map */
-
-.maps {
-    height: 300px;
-    max-width: 300px;
-    width: 100%;
-}
-
-
-/* footer */
-footer {
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-    background-color: var(--header-footer-background-color);
-    color: var(--secondary-text-color);
-}
-
-
-/* Form */
-
-/* form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-}
-
-form>div {
-    width: 100%;
-}
-
-input {
-    width: 100%;
-    padding: 6px;
-    border: solid 1px black;
-    border-radius: 4px;
-    font-size: 1.2rem;
-}
-
-form>div>div {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.checkbox-container {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    gap: 6px;
-}
-
-textarea {
-    width: 100%;
-    height: 150px;
-    padding: 12px;
-    border: 1px solid black;
-    border-radius: 4px;
-    font-size: 1.2rem;
-    /* Empêche l'utilisateur de modifier la taille de la textarea */
-/* resize: none;
-}
-
-input[type="checkbox"] {
-    width: 25px;
-    height: 25px;
-}
-
-button,
-a.button-link {
-    width: fit-content;
-    padding: 6px 20px;
-    background-color: var(--button-background-color);
-    color: var(--secondary-text-color);
-    font-size: 1.2rem;
-    text-decoration: none;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-} */
-
+/* Pagination */
 .pagination {
     max-width: 500px;
     width: 100%;
@@ -340,6 +227,16 @@ a.button-link {
     text-align: right;
 }
 
+
+/* footer */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: var(--header-footer-background-color);
+    color: var(--secondary-text-color);
+}
+
 @media(min-width: 375px) {
     .games-section {
         justify-content: flex-start;
@@ -358,12 +255,31 @@ a.button-link {
     .pagination {
         max-width: 600px;
     }
+
+    .event-details {
+        max-width: none;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .event-place,
+    .event-date,
+    .event-money,
+    .event-duration {
+        flex-flow: row nowrap;
+    }
+
+    .maps {
+        height: 400px;
+        max-width: 400px;
+    }
 }
 
 @media(min-width: 1024px) {
-
     main {
-        max-width: 900px;
+        max-width: 1000px;
         width: 100%;
         margin: 0 auto;
         font-size: 1.15rem;
@@ -386,6 +302,6 @@ a.button-link {
     }
 
     .pagination {
-        max-width: 700px;
+        max-width: 1000px;
     }
 }

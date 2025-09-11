@@ -14,11 +14,61 @@
 {% endfor %}
 <h1>Jouez ensemble, créez vos événements !</h1>
 <img src="{{ asset('images/boardgames.webp') }}" alt="Illustration de plusieurs jeux de société." />
-<a class="button-link" href="{{ path('app_create_event') }}">Créer votre événement</a>
 <section class="events-section">
+    <a class="button-link" href="{{ path('app_create_event') }}">Créer votre événement</a>
     <h2>Les événements</h2>
     {% for event in events %}
-    {% include "/components/event-card.html.twig" %}
+    <div class="event-container">
+        <div class="event-organizer">
+            <img class="profil-picture"
+                src="{{ asset('images/uploads/profil-pictures/' ~ event.organizer.profilPicture) }}"
+                alt="Photo de profil de {{event.organizer.firstName ~ event.organizer.lastName}}">
+            <p>{{event.organizer.getFullName }}</p>
+        </div>
+        <h3>{{ event.title }}</h3>
+        <p>{{ event.description }}</p>
+        <div class="event-date-place-container">
+            <div class="event-place">
+                <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une
+                    carte">
+                <address>{{event.address.street}} {{event.address.postcode}} {{event.address.city}}</address>
+            </div>
+            <div class="event-date">
+                <img class="event-icon" src="{{ asset('images/icones/date-red-icon.svg') }}"
+                    alt="Illustration d'un calendrier">
+                <time datetime="{{event.eventAt.date | date(" Y-m-dTH:i")}}">{{event.eventAt.date | date("d/m/Y à
+                    H\\hi")}}</time>
+            </div>
+        </div>
+        <div class="event-money">
+            <img class="event-icon" src="{{ asset('images/icones/money-green-icon.svg') }}"
+                alt="Illustration d'un billet de banque">
+            {% if event.isFree %}
+            <p>Gratuit</p>
+            {% else %}
+            <p>Dépenses à prévoir</p>
+            {% endif %}
+        </div>
+        <div class="register">
+            {% if event.maxNumberOfParticipants %}
+            {% set totalParticipants = event.participants|length + 1 %}
+            {% set remaining = event.maxNumberOfParticipants - totalParticipants %}
+            <p>
+                {{totalParticipants}}/{{event.maxNumberOfParticipants}} ({{remaining > 1 ? remaining ~ ' places
+                restantes' : remaining ~ ' place restante'}})
+            </p>
+            {% else %}
+            <p>{{(event.participants|length + 1)}} inscrit{% if (event.participants|length + 1) > 1 %}s{% endif %}</p>
+            {% endif %}
+            {% if app.user and (app.user in event.participants or app.user is same as(event.organizer)) %}
+            <a class="button-link" href="{{ path('app_show_event', {id: event.id}) }}">Voir l'événement</a>
+            {% elseif remaining is defined and remaining == 0 %}
+            <p><strong>Complet</strong></p>
+            {% else %}
+            <a class="button-link" href="{{ path('app_register_event', {id: event.id}) }}">S'inscrire</a>
+            {% endif %}
+        </div>
+    </div>
     {% endfor %}
     {% include "/components/pagination.html.twig" %}
 </section>

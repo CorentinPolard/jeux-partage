@@ -24,10 +24,10 @@
             <td>{{ event.eventAt ? event.eventAt|date('d/m/Y H:i') : '' }}</td>
             <td>{{event.address.street}}, {{event.address.postcode}}, {{event.address.city}}</td>
             <td>{{event.organizer.getFullName }}</td>
-            <td>
-                <a href="{{ path('app_admin_show_event', {'id': event.id}) }}">Voir</a>
-                <a href="{{ path('app_admin_edit_event', {'id': event.id}) }}">Modifier</a>
-                <a href="{{ path('app_admin_delete_event', {'id': event.id}) }}">Supprimer</a>
+            <td class="admin-actions">
+                <a class="button-link" href="{{ path('app_admin_show_event', {'id': event.id}) }}">Voir</a>
+                <a class="button-link" href="{{ path('app_admin_edit_event', {'id': event.id}) }}">Modifier</a>
+                <a class="button-link" href="{{ path('app_admin_delete_event', {'id': event.id}) }}">Supprimer</a>
             </td>
         </tr>
         {% else %}

@@ -5,42 +5,51 @@
 {% block main %}
 <a class="button-link" href="{{ path('app_events') }}">Voir les autres événements</a>
 {% if app.user is same as(event.organizer) %}
-<a class="button-link" href="{{ path('app_edit_event', {id: event.id}) }}">Modifier l'événement</a>
+<div class="organizer-actions">
+    <a class="button-link" href="{{ path('app_edit_event', {id: event.id}) }}">Modifier l'événement</a>
+    <a class="button-link" href="{{ path('app_delete_event', {id: event.id}) }}">Supprimer l'événement</a>
+</div>
+{% endif %}
+{% if app.user and app.user not in event.participants %}
 {% endif %}
 {% if app.user and app.user in event.participants %}
 <a class="button-link" href="{{ path('app_unregister_event', {id: event.id}) }}">Se désinscrire</a>
 {% endif %}
 <h1>{{event.title}}</h1>
 <p>{{event.description}}</p>
-<div class="event-money">
-    <img class="event-icon" src="{{ asset('images/icones/money-green-icon.svg') }}"
-        alt="Illustration d'un billet de banque">
-    {% if event.isFree %}
-    <p>Gratuit</p>
-    {% else %}
-    <p>Dépenses à prévoir</p>
+<hr>
+<div class="event-details-container">
+    <div class="event-details">
+        <div class="event-date">
+            <img class="event-icon" src="{{ asset('images/icones/date-red-icon.svg') }}"
+                alt="Illustration d'un calendrier">
+            <time datetime="{{event.eventAt.date | date(" Y-m-d\TH:i")}}">{{event.eventAt.date | date("d/m/Y à
+                H\\hi")}}</time>
+        </div>
+        <div class="event-place">
+            <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une carte">
+            <address>{{event.address.street}} {{event.address.postcode}} {{event.address.city}}</address>
+        </div>
+        <div class="event-duration">
+            <img class="event-icon" src="{{ asset('images/icones/clock-red-icon.svg') }}"
+                alt="Illustration d'une horloge">
+            <p>Durée prévue: {{event.duration}}minutes</p>
+        </div>
+        <div class="event-money">
+            <img class="event-icon" src="{{ asset('images/icones/money-green-icon.svg') }}"
+                alt="Illustration d'un billet de banque">
+            {% if event.isFree %}
+            <p>Gratuit</p>
+            {% else %}
+            <p>Dépenses à prévoir</p>
+            {% endif %}
+        </div>
+    </div>
+    {% if event.address.latitude %}
+    <div id="map" class="maps" data-address="{{ jsonCoordinates }}">
+    </div>
     {% endif %}
 </div>
-<div class="event-duration">
-    <img class="event-icon" src="{{ asset('images/icones/clock-red-icon.svg') }}" alt="Illustration d'une horloge">
-    <p>Durée moyenne prévue: {{event.duration}}minutes</p>
-</div>
-<div class="event-date-place-container">
-    <div class="event-date">
-        <img class="event-icon" src="{{ asset('images/icones/date-red-icon.svg') }}" alt="Illustration d'un calendrier">
-        <time datetime="{{event.eventAt.date | date(" Y-m-d\TH:i")}}">{{event.eventAt.date | date("d/m/Y à
-            H\\hi")}}</time>
-    </div>
-    <div class="event-place">
-        <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une
-                    carte">
-        <address>{{event.address.street}} {{event.address.postcode}} {{event.address.city}}</address>
-    </div>
-</div>
-{% if event.address.latitude %}
-<div id="map" class="maps" data-address="{{ jsonCoordinates }}">
-</div>
-{% endif %}
 <hr>
 <section class="games-section">
     <h2>Les jeux</h2>

@@ -29,10 +29,10 @@
             Aucune image
             {% endif %}
             <td>{{ game.category.label }}</td>
-            <td>
-                <a href="{{ path('app_admin_show_game', {'id': game.id}) }}">Voir</a>
-                <a href="{{ path('app_admin_edit_game', {'id': game.id}) }}">Modifier</a>
-                <a href="{{ path('app_admin_delete_game', {'id': game.id}) }}">Supprimer</a>
+            <td class="admin-actions">
+                <a class="button-link" href="{{ path('app_admin_show_game', {'id': game.id}) }}">Voir</a>
+                <a class="button-link" href="{{ path('app_admin_edit_game', {'id': game.id}) }}">Modifier</a>
+                <a class="button-link" href="{{ path('app_admin_delete_game', {'id': game.id}) }}">Supprimer</a>
             </td>
         </tr>
         {% else %}

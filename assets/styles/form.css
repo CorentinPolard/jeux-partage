@@ -2,7 +2,7 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     padding: 10px 0;
 }
 
@@ -31,6 +31,10 @@ form>div>div {
     gap: 6px;
 }
 
+.ts-control {
+    border-color: black !important;
+}
+
 textarea {
     width: 100%;
     height: 150px;
@@ -47,8 +51,7 @@ input[type="checkbox"] {
     height: 25px;
 }
 
-button,
-a.button-link {
+button {
     width: fit-content;
     padding: 6px 20px;
     background-color: var(--button-background-color);

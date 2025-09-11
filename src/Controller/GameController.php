@@ -3,16 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Game;
-use App\Form\GameType;
 use App\Repository\GameRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/games')]
 final class GameController extends AbstractController
@@ -21,7 +16,7 @@ final class GameController extends AbstractController
     public function index(GameRepository $gameRepository, Request $request): Response
     {
         // Nombre de jeux par page
-        $limit = 12;
+        $limit = 20;
         // Notre variable page est égale à la valeur du paramètre 'page' dans l'URL
         $page = $request->query->getInt('page', 1);
 
