@@ -1,0 +1,18 @@
+<h1>{{game.name}}</h1>
+{% if game.imageFileName %}
+<img class="game-image" src="{{ asset('images/uploads/games/' ~ game.imageFileName) }}"
+    alt="Illustration de {{ game.name }}." />
+{% endif %}
+<section class="game-description">
+    <h2>Description</h2>
+    <p>{{game.description}}</p>
+</section>
+<section class="game-category">
+    <h2>Catégorie</h2>
+    <p>{{game.category.label}}</p>
+</section>
+<section class="game-details">
+    <p>Nombre minimum de joueurs: {{game.minimumNumberOfPlayers}}</p>
+    <p>Nombre maximum de joueurs: {{game.maximumNumberOfPlayers}}</p>
+    <p>Durée moyenne d'une partie: {{game.averageGameDuration}}min</p>
+</section>

@@ -1,0 +1,8 @@
+{% extends 'admin-base.html.twig' %}
+
+{% block title %}Menu administrateur - jeux{% endblock %}
+
+{% block main %}
+{% include "/components/game-details.html.twig"%}
+<a href="{{ path('app_admin_games') }}">Retour à la liste des jeux</a>
+{% endblock %}

@@ -3,5 +3,43 @@
 {% block title %}Menu administrateur - jeux{% endblock %}
 
 {% block main %}
-
+<h1>Les jeux</h1>
+<a href="{{ path('app_admin_create_game') }}">Ajouter un jeu</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Image</th>
+            <th>Catégorie</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for game in games %}
+        <tr>
+            <td>{{ game.id }}</td>
+            <td>{{ game.name }}</td>
+            <td>
+                {% if game.imageFileName %}
+                <img class="game-image" src="{{ asset('images/uploads/games/' ~ game.imageFileName) }}"
+                    alt="Illustration de {{ game.name }}." />
+            </td>
+            {% else %}
+            Aucune image
+            {% endif %}
+            <td>{{ game.category.label }}</td>
+            <td>
+                <a href="{{ path('app_admin_show_game', {'id': game.id}) }}">Voir</a>
+                <a href="{{ path('app_admin_edit_game', {'id': game.id}) }}">Modifier</a>
+                <a href="{{ path('app_admin_delete_game', {'id': game.id}) }}">Supprimer</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="6">Aucun jeu trouvé.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
