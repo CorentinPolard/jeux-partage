@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.game-title {
+    font-family: var(--font-heading);
+    color: var(--primary-text-color);
+}
+
+
+/* Flash */
+.flash {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: underline;
+    background-color: red;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    border-radius: 10px;
+}
+
+
+/* Liens d'actions et boutons */
+button,
+.button-link {
+    width: fit-content;
+    padding: 6px 20px;
+    background-color: var(--button-background-color);
+    color: var(--secondary-text-color);
+    font-size: 1.2rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+/* Single Event */
+.organizer-actions {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.event-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.event-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.event-date-place-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.event-place,
+.event-date,
+.event-money,
+.event-duration {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.maps {
+    height: 300px;
+    max-width: 300px;
+    width: 100%;
+}
+
+
+/* Games and Single Event images */
+.games-section h1,
+.games-section h2 {
+    width: 100%;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 4px;
+    background-color: var(--secondary-background-color);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+}
+
+.game-container:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s;
+}
+
+.game-container p {
+    max-width: 150px;
+    padding: 10px;
+    text-align: center;
+}
+
+.game-container img {
+    border-radius: 10px 10px 0 0;
+}
+
+.game-image {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: contain;
+}
+
+
+/* Form and inputs */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+form>div {
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    padding: 6px;
+    border: solid 1px black;
+    border-radius: 4px;
+    font-size: 1.2rem;
+}
+
+form>div>div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.ts-control {
+    border-color: black !important;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    /* Empêche l'utilisateur de modifier la taille de la textarea */
+    resize: none;
+}
+
+input[type="checkbox"] {
+    width: 25px;
+    height: 25px;
+}
+
+button {
+    width: fit-content;
+    padding: 6px 20px;
+    background-color: var(--button-background-color);
+    color: var(--secondary-text-color);
+    font-size: 1.2rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}

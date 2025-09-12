@@ -21,7 +21,7 @@
         <div class="event-date">
             <img class="event-icon" src="{{ asset('images/icones/date-red-icon.svg') }}"
                 alt="Illustration d'un calendrier">
-            <time datetime="{{event.eventAt.date | date(" Y-m-d\TH:i")}}">{{event.eventAt.date | date("d/m/Y à
+            <time datetime="{{event.eventAt.date | date(" Y-m-dTH:i")}}">{{event.eventAt.date | date("d/m/Y à
                 H\\hi")}}</time>
         </div>
         <div class="event-place">
