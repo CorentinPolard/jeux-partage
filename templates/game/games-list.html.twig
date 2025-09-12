@@ -12,7 +12,7 @@
             <img class="game-image" src="{{ asset('images/uploads/games/' ~ game.imageFileName) }}"
                 alt="Illustration de {{ game.name }}." />
             {% endif %}
-            <p>{{ game.name }}</p>
+            <p class="game-title">{{ game.name }}</p>
         </div>
     </a>
     {% endfor %}

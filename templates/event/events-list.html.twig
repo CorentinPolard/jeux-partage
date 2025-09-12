@@ -3,15 +3,7 @@
 {% block title %}Les événements{% endblock %}
 
 {% block main %}
-{% for label, messages in app.flashes %}
-{% for message in messages %}
-<div class="flash-{{ label }}">
-    <p class="flash">
-        <strong>{{ message }}</strong>
-    </p>
-</div>
-{% endfor %}
-{% endfor %}
+{% include "/components/flash.html.twig" %}
 <h1>Jouez ensemble, créez vos événements !</h1>
 <img src="{{ asset('images/boardgames.webp') }}" alt="Illustration de plusieurs jeux de société." />
 <section class="events-section">

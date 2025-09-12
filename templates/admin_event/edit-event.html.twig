@@ -3,7 +3,23 @@
 {% block title %}Menu administrateur - événements{% endblock %}
 
 {% block main %}
+{% include "/components/flash.html.twig" %}
 <h1>Modifier {{event.title}}</h1>
+
+{{ form_start(form, {'attr': {'id': 'eventForm'}}) }}
+{{ form_row(form.title) }}
+{{ form_row(form.description) }}
+{{ form_row(form.games) }}
+{{ form_row(form.address) }}
+{{ form_row(form.eventAt) }}
+{{ form_row(form.organizer) }}
+{{ form_row(form.maxNumberOfParticipants) }}
+{{ form_row(form.participants) }}
+{{ form_row(form.duration) }}
+{{ form_row(form.isFree, { 'row_attr': {'class': 'checkbox-container'} }) }}
+<button type="submit">Enregistrer les modifications</button>
+{{ form_end(form) }}
+
 <a href="{{ path('app_admin_events') }}">Retoruner à la liste des événements</a>
 <a href="{{ path('app_admin_show_event', {id: event.id}) }}">Retourner à la fiche de l'événements</a>
 

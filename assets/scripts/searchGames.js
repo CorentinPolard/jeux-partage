@@ -2,15 +2,17 @@ import TomSelect from "tom-select";
 import "tom-select/dist/css/tom-select.default.min.css";
 
 export function initTomSelect() {
-    console.log("TomSelect chargé")
-    const gamesSelector = document.querySelector(".games-selector");
+    createSelector("games");
+    createSelector("participants");
+    createSelector("organizer");
+};
 
-    if (gamesSelector && !gamesSelector.tomselect) {
-        new TomSelect(gamesSelector, {
+function createSelector(name) {
+    const selector = document.querySelector(`.${name}-selector`);
+    if (selector && !selector.tomselect) {
+        new TomSelect(selector, {
             plugins: ['remove_button'],
             sortField: { field: "text", direction: "asc" }
         });
-    } else {
-        console.log("selecteur non trouvé")
     }
-};
+}
