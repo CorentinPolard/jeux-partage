@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Event;
-use App\Form\AdminEventType;
+use App\Form\EventType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +36,9 @@ final class AdminEventController extends AbstractController
         $event = new Event();
         $event->setOrganizer($this->getUser());
 
-        $form = $this->createForm(AdminEventType::class, $event);
+        $form = $this->createForm(EventType::class, $event, [
+            'show_admin_fields' => true, // Afficher les champs admin
+        ]);
         $form->handleRequest($request);
 
 
@@ -96,7 +98,9 @@ final class AdminEventController extends AbstractController
     #[Route('/edit/{id}', name: 'app_admin_edit_event')]
     public function editEvent(Event $event, EntityManagerInterface $entityManager, Request $request): Response
     {
-        $form = $this->createForm(AdminEventType::class, $event);
+        $form = $this->createForm(EventType::class, $event, [
+            'show_admin_fields' => true, // Afficher les champs admin
+        ]);
         $form->handleRequest($request);
 
 

@@ -94,14 +94,37 @@ class EventType extends AbstractType
                 [
                     'label' => false,
                 ]
-            )
-        ;
+            );
+
+        // Champ conditionnel, affiché seulement si 'show_admin_fields' = true
+        if ($options['show_admin_fields']) {
+            $builder
+                ->add('participants', EntityType::class, [
+                    'class' => User::class,
+                    'choice_label' => 'getFullName',
+                    'multiple' => true,
+                    'by_reference' => false,
+                    'required' => false,
+                    'attr' => [
+                        "class" => 'participants-selector display-none',
+                    ]
+                ])
+                ->add('organizer', EntityType::class, [
+                    'class' => User::class,
+                    'choice_label' => 'getFullName',
+                    'multiple' => false,
+                    'attr' => [
+                        "class" => 'organizer-selector display-none',
+                    ]
+                ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Event::class,
+            'show_admin_fields' => false, // Champs admin cachés par défaut
         ]);
     }
 }
