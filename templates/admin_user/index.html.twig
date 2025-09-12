@@ -1,0 +1,47 @@
+{% extends 'admin-base.html.twig' %}
+
+{% block title %}Menu administrateur - utilisateurs{% endblock %}
+
+{% block main %}
+<h1>Gestion des utilisateurs</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Photo de profil</th>
+            <th>Evenements organisés</th>
+            <th>Message envoyés</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.firstname }}</td>
+            <td><img class="profil-picture" src="{{ asset('images/uploads/profil-pictures/' ~ user.profilPicture) }}"
+                    alt="Photo de profil de {{user.getFullName}}"></td>
+            <td>{{ user.getNumberOfEventsOrganized }}</td>
+            <td>{{ user.getNumberOfMessages }}</td>
+            <td class="admin-actions">
+                <a href="{{ path('app_admin_show_user', {'id': user.id}) }}" aria-label="Voir {{ user.getFullName }}">
+                    <img class="admin-action" src="{{ asset('images/icones/read-icon.svg') }}" alt="Icone d'oeil">
+                </a>
+                <a href="{{ path('app_admin_delete_user', {'id': user.id}) }}"
+                    aria-label="Supprimer {{ user.getFullName }}">
+                    <img class="admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
+                        alt="Icone de poubelle">
+                </a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="6">Aucun événement trouvé.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -45,9 +45,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $profilPicture = 'default-profil-picture.svg';
 
-    #[ORM\Column]
-    private ?int $numberOfEventsOrganized = 0;
-
     /**
      * @var Collection<int, Message>
      */
@@ -197,18 +194,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getNumberOfEventsOrganized(): ?int
-    {
-        return $this->numberOfEventsOrganized;
-    }
-
-    public function setNumberOfEventsOrganized(int $numberOfEventsOrganized): static
-    {
-        $this->numberOfEventsOrganized = $numberOfEventsOrganized;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Message>
      */
@@ -320,5 +305,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getFullName(): string
     {
         return $this->firstName . " " . $this->lastName;
+    }
+
+    public function getNumberOfEventsOrganized(): int
+    {
+        return $this->organizedEvents->count();
+    }
+
+    public function getNumberOfMessages(): int
+    {
+        return $this->messages->count();
     }
 }

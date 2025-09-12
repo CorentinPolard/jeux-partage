@@ -3,7 +3,7 @@
 {% block title %}Menu administrateur - événements{% endblock %}
 
 {% block main %}
-<h1>Les événements</h1>
+<h1>Gestion des événements</h1>
 <a href="{{ path('app_admin_create_event') }}">Ajouter un événement</a>
 <table>
     <thead>
@@ -23,7 +23,8 @@
             <td>{{ event.title }}</td>
             <td>{{ event.eventAt ? event.eventAt|date('d/m/Y H:i') : '' }}</td>
             <td>{{event.address.street}}, {{event.address.postcode}}, {{event.address.city}}</td>
-            <td>{{event.organizer.getFullName }}</td>
+            <td><a href="{{ path('app_admin_show_user', {id: event.organizer.id}) }}">{{event.organizer.getFullName
+                    }}</a></td>
             <td class="admin-actions">
                 <a href="{{ path('app_admin_show_event', {'id': event.id}) }}" aria-label="Voir {{ event.title }}">
                     <img class="admin-action" src="{{ asset('images/icones/read-icon.svg') }}" alt="Icone d'oeil">

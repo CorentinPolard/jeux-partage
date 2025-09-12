@@ -1,0 +1,68 @@
+{% extends 'admin-base.html.twig' %}
+
+{% block title %}Menu administrateur - utilisateurs{% endblock %}
+
+{% block main %}
+<section class="single-user-container">
+    <h1>{{ user.getFullName }}</h1>
+    <div class="user-name-container">
+        <p><strong>Nom :</strong> {{ user.lastname }}</p>
+        <p><strong>Prénom :</strong> {{ user.firstname }}</p>
+    </div>
+    <section class="user-events-section">
+        <h2>Ses événements</h2>
+        <p><strong>Nombre d'événements organisés :</strong> {{ user.getNumberOfEventsOrganized }}</p>
+        {% if user.events|length > 0 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Date de l'événement</th>
+                    <th>Lieu</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in user.organizedEvents %}
+                <tr>
+                    <td>{{ event.id }}</td>
+                    <td><a href="{{ path('app_admin_show_event', {id: event.id}) }}">{{ event.title }}</a></td>
+                    <td>{{ event.eventAt|date('d/m/Y H:i')}}</td>
+                    <td>{{event.address.street}}, {{event.address.postcode}}, {{event.address.city}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+    </section>
+
+    <section class="user-messages-section">
+        <h2>Ses messages</h2>
+        <p><strong>Nombre de messages postés :</strong> {{ user.getNumberOfMessages }}</p>
+        {% if user.messages|length > 0 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Contenu</th>
+                    <th>Date de création</th>
+                    <th>Événement associé</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message in user.messages %}
+                <tr>
+                    <td>{{ message.id }}</td>
+                    <td>{{ message.content }}</td>
+                    <td>{{ message.createdAt ? message.createdAt|date('d/m/Y H:i') : '' }}</td>
+                    <td><a href="{{ path('app_admin_show_event', {id: message.event.id}) }}">{{
+                            message.event.title}}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}
