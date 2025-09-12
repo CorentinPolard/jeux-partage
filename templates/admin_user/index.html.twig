@@ -30,7 +30,7 @@
                 <a href="{{ path('app_admin_show_user', {'id': user.id}) }}" aria-label="Voir {{ user.getFullName }}">
                     <img class="admin-action" src="{{ asset('images/icones/read-icon.svg') }}" alt="Icone d'oeil">
                 </a>
-                <a href="{{ path('app_admin_delete_user', {'id': user.id}) }}"
+                <a class="delete-button" href="{{ path('app_admin_delete_user', {'id': user.id}) }}"
                     aria-label="Supprimer {{ user.getFullName }}">
                     <img class="admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
                         alt="Icone de poubelle">
@@ -44,4 +44,5 @@
         {% endfor %}
     </tbody>
 </table>
+{% include 'components/deleteModal.html.twig' %}
 {% endblock %}

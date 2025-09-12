@@ -16,3 +16,8 @@ if (map) {
         module.initMap();
     });
 }
+
+const deleteButton = document.querySelector(".delete-button");
+if (deleteButton) {
+    import('./scripts/deleteModal.js');
+}

@@ -37,7 +37,8 @@
                     <img class="games-admin-action" src="{{ asset('images/icones/edit-icon.svg') }}"
                         alt="Icone de crayon">
                 </a>
-                <a href="{{ path('app_admin_delete_game', {'id': game.id}) }}" aria-label="Supprimer {{ game.name }}">
+                <a class="delete-button" href="{{ path('app_admin_delete_game', {'id': game.id}) }}"
+                    aria-label="Supprimer {{ game.name }}">
                     <img class="games-admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
                         alt="Icone de poubelle">
                 </a>
@@ -50,4 +51,5 @@
         {% endfor %}
     </tbody>
 </table>
+{% include 'components/deleteModal.html.twig' %}
 {% endblock %}

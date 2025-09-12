@@ -32,7 +32,7 @@
                 <a href="{{ path('app_admin_edit_event', {'id': event.id}) }}" aria-label="Modifier {{ event.title }}">
                     <img class="admin-action" src="{{ asset('images/icones/edit-icon.svg') }}" alt="Icone de crayon">
                 </a>
-                <a href="{{ path('app_admin_delete_event', {'id': event.id}) }}"
+                <a class="delete-button" href="{{ path('app_admin_delete_event', {'id': event.id}) }}"
                     aria-label="Supprimer {{ event.title }}">
                     <img class="admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
                         alt="Icone de poubelle">
@@ -46,4 +46,5 @@
         {% endfor %}
     </tbody>
 </table>
+{% include 'components/deleteModal.html.twig' %}
 {% endblock %}

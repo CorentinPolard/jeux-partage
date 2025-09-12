@@ -111,7 +111,7 @@ final class AdminGameController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_admin_delete_game', requirements: ['id' => '\d+'], methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_admin_delete_game', requirements: ['id' => '\d+'])]
     public function deleteGame(
         Game $game,
         EntityManagerInterface $entityManager,

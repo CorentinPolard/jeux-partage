@@ -23,9 +23,9 @@
                     aria-label="Modifier {{ category.label }}">
                     <img class="admin-action" src="{{ asset('images/icones/edit-icon.svg') }}" alt="Icone de crayon">
                 </a>
-                <a href="{{ path('app_admin_delete_category', {'id': category.id}) }}"
+                <a class="delete-button" href="{{ path('app_admin_delete_category', {'id': category.id}) }}"
                     aria-label="Supprimer {{ category.label }}">
-                    <img class="admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
+                    <img class=" admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
                         alt="Icone de poubelle">
                 </a>
             </td>
@@ -37,4 +37,5 @@
         {% endfor %}
     </tbody>
 </table>
+{% include 'components/deleteModal.html.twig' %}
 {% endblock %}

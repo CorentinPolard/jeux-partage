@@ -197,3 +197,56 @@ button {
     border-radius: 10px;
     cursor: pointer;
 }
+
+
+/* Modal */
+.hidden {
+    display: none;
+}
+
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--primary-background-color);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.modal-close-button {
+    width: fit-content;
+    align-self: flex-end;
+    font-size: 2rem;
+    padding: 0 10px;
+    background-color: var(--button-background-color);
+    color: var(--secondary-text-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.modal p {
+    font-size: 1.5rem;
+    color: var(--primary-text-color);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-around;
+}
