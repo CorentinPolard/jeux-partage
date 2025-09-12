@@ -31,12 +31,13 @@ final class EventController extends AbstractController
 
         $maxPages = ceil($events->count() / $limit);
 
-
-        if ($page < 1) {
-            return $this->redirectToRoute('app_events', ['page' => 1]);
-        }
-        if ($page > $maxPages) {
-            return $this->redirectToRoute('app_events', ['page' => $maxPages]);
+        if ($events->count() !== 0) {
+            if ($page < 1) {
+                return $this->redirectToRoute('app_events', ['page' => 1]);
+            }
+            if ($page > $maxPages) {
+                return $this->redirectToRoute('app_events', ['page' => $maxPages]);
+            }
         }
 
         return $this->render('event/events-list.html.twig', [

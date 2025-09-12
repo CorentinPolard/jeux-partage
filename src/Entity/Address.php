@@ -23,7 +23,7 @@ class Address
     #[ORM\Column(length: 255)]
     private ?string $postcode = null;
 
-    #[ORM\OneToOne(mappedBy: 'address', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'address')]
     private ?Event $event = null;
 
     #[ORM\Column(nullable: true)]

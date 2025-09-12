@@ -123,24 +123,24 @@ tr:nth-child(odd) {
     padding: 10px 40px;
 }
 
+
 /* actions */
-
-/* .admin-actions {
-    margin: 0;
-    display: flex;
-    flex-flow: row wrap;
-    gap: 10px;
-} */
-
-/* button,
-a.button-link {
-    width: fit-content;
-    padding: 6px 20px;
-    background-color: var(--button-background-color);
-    color: var(--secondary-text-color);
-    font-size: 1.2rem;
+.admin-actions a {
     text-decoration: none;
-    border: none;
-    border-radius: 10px;
+}
+
+.admin-action {
+    max-width: 30px;
+    max-height: 30px;
     cursor: pointer;
-} */
+    width: 100%;
+    height: auto;
+}
+
+.games-admin-action {
+    max-width: 50px;
+    max-height: 50px;
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+}

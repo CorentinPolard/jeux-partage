@@ -25,9 +25,17 @@
             <td>{{event.address.street}}, {{event.address.postcode}}, {{event.address.city}}</td>
             <td>{{event.organizer.getFullName }}</td>
             <td class="admin-actions">
-                <a class="button-link" href="{{ path('app_admin_show_event', {'id': event.id}) }}">Voir</a>
-                <a class="button-link" href="{{ path('app_admin_edit_event', {'id': event.id}) }}">Modifier</a>
-                <a class="button-link" href="{{ path('app_admin_delete_event', {'id': event.id}) }}">Supprimer</a>
+                <a href="{{ path('app_admin_show_event', {'id': event.id}) }}" aria-label="Voir {{ event.title }}">
+                    <img class="admin-action" src="{{ asset('images/icones/read-icon.svg') }}" alt="Icone d'oeil">
+                </a>
+                <a href="{{ path('app_admin_edit_event', {'id': event.id}) }}" aria-label="Modifier {{ event.title }}">
+                    <img class="admin-action" src="{{ asset('images/icones/edit-icon.svg') }}" alt="Icone de crayon">
+                </a>
+                <a href="{{ path('app_admin_delete_event', {'id': event.id}) }}"
+                    aria-label="Supprimer {{ event.title }}">
+                    <img class="admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
+                        alt="Icone de poubelle">
+                </a>
             </td>
         </tr>
         {% else %}

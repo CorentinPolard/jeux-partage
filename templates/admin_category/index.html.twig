@@ -19,8 +19,15 @@
             <td>{{ category.id }}</td>
             <td>{{ category.label }}</td>
             <td class="admin-actions">
-                <a class="button-link" href="{{ path('app_admin_edit_category', {'id': category.id}) }}">Modifier</a>
-                <a class="button-link" href="{{ path('app_admin_delete_category', {'id': category.id}) }}">Supprimer</a>
+                <a href="{{ path('app_admin_edit_category', {'id': category.id}) }}"
+                    aria-label="Modifier {{ category.label }}">
+                    <img class="admin-action" src="{{ asset('images/icones/edit-icon.svg') }}" alt="Icone de crayon">
+                </a>
+                <a href="{{ path('app_admin_delete_category', {'id': category.id}) }}"
+                    aria-label="Supprimer {{ category.label }}">
+                    <img class="admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
+                        alt="Icone de poubelle">
+                </a>
             </td>
         </tr>
         {% else %}

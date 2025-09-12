@@ -30,9 +30,17 @@
             {% endif %}
             <td>{{ game.category.label }}</td>
             <td class="admin-actions">
-                <a class="button-link" href="{{ path('app_admin_show_game', {'id': game.id}) }}">Voir</a>
-                <a class="button-link" href="{{ path('app_admin_edit_game', {'id': game.id}) }}">Modifier</a>
-                <a class="button-link" href="{{ path('app_admin_delete_game', {'id': game.id}) }}">Supprimer</a>
+                <a href="{{ path('app_admin_show_game', {'id': game.id}) }}" aria-label="Voir {{ game.name }}">
+                    <img class="games-admin-action" src="{{ asset('images/icones/read-icon.svg') }}" alt="Icone d'oeil">
+                </a>
+                <a href="{{ path('app_admin_edit_game', {'id': game.id}) }}" aria-label="Modifier {{ game.name }}">
+                    <img class="games-admin-action" src="{{ asset('images/icones/edit-icon.svg') }}"
+                        alt="Icone de crayon">
+                </a>
+                <a href="{{ path('app_admin_delete_game', {'id': game.id}) }}" aria-label="Supprimer {{ game.name }}">
+                    <img class="games-admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
+                        alt="Icone de poubelle">
+                </a>
             </td>
         </tr>
         {% else %}
