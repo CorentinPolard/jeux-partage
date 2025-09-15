@@ -43,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $lastName = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $profilPicture = 'default-profil-picture.svg';
+    private ?string $profilePicture = 'default-profil-picture.svg';
 
     /**
      * @var Collection<int, Message>
@@ -182,14 +182,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getProfilPicture(): ?string
+    public function getProfilePicture(): ?string
     {
-        return $this->profilPicture;
+        return $this->profilePicture;
     }
 
-    public function setProfilPicture(?string $profilPicture): static
+    public function setProfilePicture(?string $profilePicture): static
     {
-        $this->profilPicture = $profilPicture;
+        $this->profilePicture = $profilePicture;
 
         return $this;
     }

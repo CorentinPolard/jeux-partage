@@ -67,16 +67,59 @@
     {% endfor %}
 </section>
 <hr>
-<section class="participants-container">
+<section class="participants-section">
     <h2>Les participants</h2>
-    <p>{{event.organizer.fullName}}</p>
+    <div class="participant-container">
+        <img class="profil-picture"
+            src="{{ asset('images/uploads/profil-pictures/' ~ event.organizer.profilePicture) }}"
+            alt="Photo de profil de {{event.organizer.getFullName}}">
+        <p>{{event.organizer.fullName}} <span class="organizer">Organisateur</span></p>
+    </div>
     {% for participant in event.participants %}
-    <p>{{participant.getFullName}}</p>
+    <div class="participant-container">
+        <img class="profil-picture" src="{{ asset('images/uploads/profil-pictures/' ~ participant.profilePicture) }}"
+            alt="Photo de profil de {{participant.getFullName}}">
+        <p>{{participant.getFullName}}</p>
+    </div>
     {% endfor %}
 </section>
-{# Faire messagerie #}
-<section class="messages">
-    Messagerie
+<hr>
+<section class="messages-section">
+    <h2>Messagerie</h2>
+    <div class="messages-container">
+        {% if event.messages|length > 0 %}
+        {% for message in event.messages %}
+        <div class="message">
+            <div class="message-author">
+                <img class="profil-picture"
+                    src="{{ asset('images/uploads/profil-pictures/' ~ message.user.profilePicture) }}"
+                    alt="Photo de profil de {{message.user.getFullName}}">
+                <div class="message-details">
+                    <p><strong>{{ message.user.getFullName }}</strong></p>
+                    <time datetime="{{ message.createdAt.date | date(" Y-m-dTH:i") }}">{{ message.createdAt.date |
+                        date("d/m/Y - H\\hi")}}</time>
+                </div>
+            </div>
+            <p>{{ message.content }}</p>
+            {# {% if app.user and app.user == message.user %}
+            <button class="delete-button" data-id="{{ message.id }}">Supprimer</button>
+            {% endif %} #}
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="message">
+            <p>Aucun message</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <form id="chat-form">
+        <div>
+            <label for="message-content">Envoyez un message:</label>
+            <textarea name="message-content" id="message-content" required></textarea>
+        </div>
+        <button type="submit">Envoyer</button>
+    </form>
 </section>
 {% include 'components/deleteModal.html.twig' %}
 {% endblock %}
