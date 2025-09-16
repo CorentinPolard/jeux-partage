@@ -4,14 +4,16 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Event;
+use App\Entity\Message;
 use App\Form\EventType;
+use App\Form\MessageType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/events')]
 final class EventController extends AbstractController
@@ -49,7 +51,7 @@ final class EventController extends AbstractController
     }
 
     #[Route('/show/{id}', name: 'app_show_event', requirements: ['id' => '\d+'])]
-    public function showEvent(Event $event): Response
+    public function showEvent(Event $event, EntityManagerInterface $entityManager, Request $request): Response
     {
         $jsonCoordinates = $this->serializer->serialize(
             $event,
@@ -59,11 +61,26 @@ final class EventController extends AbstractController
             ]
         );
 
-        // Messagerie ici 
+        $message = new Message();
+
+        $form = $this->createForm(MessageType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message->setUser($this->getUser());
+            $message->setCreatedAt(new DateTime());
+            $message->setEvent($event);
+
+            $entityManager->persist($message);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
+        }
 
         return $this->render('event/single-event.html.twig', [
             'event' => $event,
             'jsonCoordinates' => $jsonCoordinates,
+            'form' => $form,
         ]);
     }
 

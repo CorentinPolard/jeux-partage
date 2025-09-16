@@ -6,7 +6,7 @@ header {
     justify-content: center;
     background-color: var(--header-footer-background-color);
     color: var(--secondary-text-color);
-    padding-right: 10px;
+    padding: 10px;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -28,7 +28,7 @@ nav {
 .nav-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
     list-style: none;
     text-decoration: none;
     width: 100%;
@@ -38,7 +38,7 @@ nav {
     top: 0;
     left: 0;
     z-index: 1000;
-    padding: 90px 20px 20px;
+    padding: 150px 20px 20px;
     transform: translateX(-100%);
     transition: transform 0.5s ease-in-out;
 }
@@ -59,8 +59,12 @@ nav a:hover {
     font-weight: bold;
 }
 
+.logo-container {
+    line-height: 0;
+}
+
 .logo {
-    width: 80px;
+    width: 100px;
     height: auto;
 }
 
@@ -114,9 +118,16 @@ nav a:hover {
     }
 
     nav a {
+        padding: 10px 0;
         font-size: 1rem;
     }
 
+}
+
+@media(min-width: 1024px) {
+    nav a {
+        padding: 10px;
+    }
 }
 
 @media(min-width: 1200px) {

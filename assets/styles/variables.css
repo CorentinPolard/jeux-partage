@@ -1,21 +1,25 @@
 @font-face {
-    font-family: 'Comic Relief';
-    src: url('../fonts/comic-relief/ComicRelief-Regular.ttf') format('truetype');
+    font-family: 'DM Serif Display';
+    src: url('../fonts/DM_Serif_Display/DMSerifDisplay-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
 :root {
     --font-base: 'Nunito', sans-serif;
-    --font-heading: 'Comic Relief', sans-serif;
+    --font-heading: 'Dm Serif Display';
 
     --primary-text-color: #000000;
 
-    --header-footer-background-color: #A31D1D;
-    --button-background-color: #A31D1D;
+    /* --header-footer-background-color: #A31D1D; */
+    --header-footer-background-color: #632024;
+    /* --button-background-color: #A31D1D; */
+    --button-background-color: #632024;
     --secondary-text-color: #F9F6E1;
 
     --primary-background-color: #F9F6E1;
-    --secondary-background-color: #ECDCBF;
+    /* --secondary-background-color: #ECDCBF; */
+    --secondary-background-color: #D5B893;
 
 }

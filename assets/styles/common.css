@@ -12,7 +12,8 @@ h5,
 h6,
 .game-title {
     font-family: var(--font-heading);
-    color: var(--primary-text-color);
+    /* color: var(--primary-text-color); */
+    color: #25344F;
 }
 
 
@@ -33,7 +34,7 @@ h6,
 button,
 .button-link {
     width: fit-content;
-    padding: 6px 20px;
+    padding: 6px 10px;
     background-color: var(--button-background-color);
     color: var(--secondary-text-color);
     font-size: 1.2rem;
@@ -49,6 +50,7 @@ button,
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
+    gap: 10px;
 }
 
 .event-details {
@@ -106,7 +108,7 @@ button,
 
 .organizer {
     font-size: 1rem;
-    color: gray;
+    color: rgb(98, 98, 98);
 }
 
 
@@ -132,16 +134,22 @@ button,
     padding: 10px;
 }
 
-.message-author {
-    width: 100%;
+.message-header {
     display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
 }
 
-/* .message-details {
+.message-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     flex: 1;
-} */
+    overflow: hidden;
+}
+
 
 /* Games and Single Event images */
 .games-section h1,
@@ -305,4 +313,13 @@ button {
 .modal-actions {
     display: flex;
     justify-content: space-around;
+}
+
+@media(min-width: 768px) {
+
+    button,
+    .button-link {
+        padding: 10px 16px;
+    }
+
 }

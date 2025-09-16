@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Event;
+use App\Entity\Message;
 use App\Form\EventType;
+use App\Form\MessageType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,7 +78,7 @@ final class AdminEventController extends AbstractController
     }
 
     #[Route('/show/{id}', name: 'app_admin_show_event', requirements: ['id' => '\d+'])]
-    public function showEvent(Event $event): Response
+    public function showEvent(Event $event, EntityManagerInterface $entityManager, Request $request): Response
     {
         $jsonCoordinates = $this->serializer->serialize(
             $event,
@@ -86,11 +88,27 @@ final class AdminEventController extends AbstractController
             ]
         );
 
-        // Messagerie ici 
+        $message = new Message();
+
+        $form = $this->createForm(MessageType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message->setUser($this->getUser());
+            $message->setCreatedAt(new DateTime());
+            $message->setEvent($event);
+
+            $entityManager->persist($message);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_admin_show_event', ['id' => $event->getId()]);
+        }
+
 
         return $this->render('admin_event/single-event.html.twig', [
             'event' => $event,
             'jsonCoordinates' => $jsonCoordinates,
+            'form' => $form,
         ]);
     }
 

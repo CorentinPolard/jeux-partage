@@ -11,7 +11,6 @@
     <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" />
 
     {% block stylesheets %}
-    {# {{ encore_entry_link_tags('styles/app') }} #}
     {{ encore_entry_link_tags('styles/app')|replace({'rel="stylesheet"': 'rel="stylesheet"
     data-turbo-track="reload"'})|raw }}
     {% endblock %}
@@ -24,8 +23,8 @@
 <body>
     <header>
         <div class="mobile-container">
-            <a href="{{ path('app_home')}}">
-                <img class="logo" src="{{ asset('images/logo-1-0.webp')}}" alt="Logo du site représentant un dé">
+            <a class="logo-container" href="{{ path('app_home')}}">
+                <img class="logo" src="{{ asset('images/logo.webp')}}" alt="Logo du site représentant un dé">
             </a>
             <button class="burger-btn" aria-label="Ouvrir le menu">
                 <span></span>
@@ -38,8 +37,8 @@
             <ul class="nav-list">
                 <li><a href="{{ path('app_home') }}">Accueil</a></li>
                 <li><a href="{{ path('app_events') }}">Les événements</a></li>
+                <li><a href="#">Mes événements</a></li>
                 <li><a href="{{ path('app_games') }}">Les jeux</a></li>
-                {# <li><a href="#">Ma ludothèque</a></li> #}
                 {% if not app.user %}
                 <li><a href="{{ path('app_login') }}">Se connecter</a></li>
                 <li><a href="{{ path('app_register') }}">S'inscrire</a></li>

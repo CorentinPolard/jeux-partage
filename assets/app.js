@@ -22,7 +22,3 @@ if (deleteButton) {
     import('./scripts/deleteModal.js');
 }
 
-const chatForm = document.querySelector("#chat-form");
-if (chatForm) {
-    import('./scripts/messages.js');
-}

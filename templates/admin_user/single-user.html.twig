@@ -12,7 +12,7 @@
     <section class="user-events-section">
         <h2>Ses événements</h2>
         <p><strong>Nombre d'événements organisés :</strong> {{ user.getNumberOfEventsOrganized }}</p>
-        {% if user.events|length > 0 %}
+        {% if user.getNumberOfEventsOrganized|length > 0 %}
         <table>
             <thead>
                 <tr>

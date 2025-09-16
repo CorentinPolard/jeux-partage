@@ -16,8 +16,9 @@ export function initMap() {
         const coordinates = JSON.parse(mapContainer.dataset.address).address;
 
         mapContainer = L.map('map').setView([coordinates.latitude, coordinates.longitude], 16);
-        L.tileLayer('https://api.maptiler.com/maps/outdoor-v2/{z}/{x}/{y}.png?key=wqbAsBHR5fA8xfe9qeYC', {
-            attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            maxZoom: 19
         }).addTo(mapContainer);
 
         L.marker([coordinates.latitude, coordinates.longitude]).addTo(mapContainer);

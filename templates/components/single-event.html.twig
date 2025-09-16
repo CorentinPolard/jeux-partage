@@ -1,0 +1,109 @@
+<h1>{{event.title}}</h1>
+<p>{{event.description}}</p>
+<hr>
+<div class="event-details-container">
+    <div class="event-details">
+        <div class="event-date">
+            <img class="event-icon" src="{{ asset('images/icones/date-red-icon.svg') }}"
+                alt="Illustration d'un calendrier">
+            <time datetime="{{event.eventAt.date | date(" Y-m-dTH:i")}}">{{event.eventAt.date | date("d/m/Y à
+                H\\hi")}}</time>
+        </div>
+        <div class="event-place">
+            <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une carte">
+            <address>{{event.address.street}} {{event.address.postcode}} {{event.address.city}}</address>
+        </div>
+        <div class="event-duration">
+            <img class="event-icon" src="{{ asset('images/icones/clock-red-icon.svg') }}"
+                alt="Illustration d'une horloge">
+            <p>Durée prévue: {{event.duration}}minutes</p>
+        </div>
+        <div class="event-money">
+            <img class="event-icon" src="{{ asset('images/icones/money-green-icon.svg') }}"
+                alt="Illustration d'un billet de banque">
+            {% if event.isFree %}
+            <p>Gratuit</p>
+            {% else %}
+            <p>Dépenses à prévoir</p>
+            {% endif %}
+        </div>
+    </div>
+    {% if event.address.latitude %}
+    <div id="map" class="maps" data-address="{{ jsonCoordinates }}">
+    </div>
+    {% endif %}
+</div>
+<hr>
+<section class="games-section">
+    <h2>Les jeux</h2>
+    {% for game in event.games %}
+    <a class="game-link" href="{{ path('app_show_game', {id: game.id}) }}">
+        <div class="game-container">
+            {% if game.imageFileName %}
+            <img class="game-image" src="{{ asset('images/uploads/games/' ~ game.imageFileName)}}"
+                alt="Illustration de {{game.name}}">
+            {% else %}
+            <p>Aucune image</p>
+            {% endif %}
+            <p class="game-title">{{game.name}}</p>
+            <p>{{game.category.label}}</p>
+        </div>
+    </a>
+    {% endfor %}
+</section>
+<hr>
+<section class="participants-section">
+    <h2>Les participants</h2>
+    <div class="participant-container">
+        <img class="profil-picture"
+            src="{{ asset('images/uploads/profil-pictures/' ~ event.organizer.profilePicture) }}"
+            alt="Photo de profil de {{event.organizer.getFullName}}">
+        <p>{{event.organizer.fullName}} <span class="organizer">Organisateur</span></p>
+    </div>
+    {% for participant in event.participants %}
+    <div class="participant-container">
+        <img class="profil-picture" src="{{ asset('images/uploads/profil-pictures/' ~ participant.profilePicture) }}"
+            alt="Photo de profil de {{participant.getFullName}}">
+        <p>{{participant.getFullName}}</p>
+    </div>
+    {% endfor %}
+</section>
+<hr>
+<section class="messages-section">
+    <h2>Messagerie</h2>
+    <div class="messages-container">
+        {% if event.messages|length > 0 %}
+        {% for message in event.messages %}
+        <div class="message">
+            <div class="message-header">
+                <div class="message-author">
+                    <img class="profil-picture"
+                        src="{{ asset('images/uploads/profil-pictures/' ~ message.user.profilePicture) }}"
+                        alt="Photo de profil de {{message.user.getFullName}}">
+                    <div class="message-details">
+                        <p><strong>{{ message.user.getFullName }}</strong></p>
+                        <time datetime="{{ message.createdAt.date | date(" Y-m-dTH:i") }}">{{ message.createdAt.date |
+                            date("d/m/Y - H\\hi")}}</time>
+                    </div>
+                </div>
+                {% if app.user == message.user or app.user %}
+                <a class="delete-button button-link message-delete-button"
+                    href="{{ path('app_delete_message', {id: message.id}) }}">X</a>
+                {% endif %}
+            </div>
+            <p>{{ message.content }}</p>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="message">
+            <p>Aucun message</p>
+        </div>
+        {% endif %}
+    </div>
+
+    {{ form_start(form) }}
+    {{ form_row(form.content) }}
+    <button type="submit">Envoyer</button>
+    {{ form_end(form) }}
+
+</section>
