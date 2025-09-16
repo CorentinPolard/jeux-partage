@@ -114,6 +114,12 @@ main {
     grid-row-gap: 0px;
 }
 
+.previous,
+.pages-numbers,
+.next {
+    font-size: 1.2rem;
+}
+
 .previous {
     grid-area: 1 / 1 / 2 / 2;
     text-align: left;
@@ -121,7 +127,9 @@ main {
 
 .pages-numbers {
     grid-area: 1 / 2 / 2 / 3;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .next {
