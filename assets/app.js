@@ -1,4 +1,4 @@
-import './scripts/burgerMenu.js'
+import './scripts/burgerMenu.js';
 
 const eventForm = document.querySelector("#eventForm");
 if (eventForm) {

@@ -108,7 +108,7 @@ final class AdminEventController extends AbstractController
         return $this->render('admin_event/single-event.html.twig', [
             'event' => $event,
             'jsonCoordinates' => $jsonCoordinates,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 

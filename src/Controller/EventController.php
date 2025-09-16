@@ -5,6 +5,7 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Event;
 use App\Entity\Message;
+use App\Form\EventsFilterType;
 use App\Form\EventType;
 use App\Form\MessageType;
 use App\Repository\EventRepository;
@@ -25,28 +26,57 @@ final class EventController extends AbstractController
     #[Route('', name: 'app_events')]
     public function index(EventRepository $eventRepository, Request $request): Response
     {
+        // Pagination
         $limit = 10;
-
         $page = $request->query->getInt('page', 1);
 
-        $events = $eventRepository->paginate($page, $limit, "e", new DateTime(), 'eventAt');
+        // $events = $eventRepository->paginate($page, $limit, "e", new DateTime(), 'eventAt');
 
-        $maxPages = ceil($events->count() / $limit);
 
-        if ($events->count() !== 0) {
-            if ($page < 1) {
-                return $this->redirectToRoute('app_events', ['page' => 1]);
-            }
-            if ($page > $maxPages) {
-                return $this->redirectToRoute('app_events', ['page' => $maxPages]);
-            }
+        $city = $request->query->has('city') ? $request->query->get('city') : null;
+
+        $departmentNumber = $request->query->has('departmentNumber') ? $request->query->get('departmentNumber') : null;
+
+        // Filtre
+        $form = $this->createForm(EventsFilterType::class, [
+            'city' => $city,
+            'departmentNumber' => $departmentNumber
+        ]);
+        $form->handleRequest($request);
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $formValues = $form->getData();
+        //     if (in_array($formValues['departmentNumber'], ["2A", "2B"])) {
+        //         $formValues['departmentNumber'] = 20;
+        //     }
+        //     $events = $eventRepository->paginate($page, $limit, "e", new DateTime(), 'eventAt', $formValues['city'], $formValues['departmentNumber']);
+        // }
+
+        $filterBy = $form->isSubmitted() && $form->isValid() ? $form->getData() : [
+            'city' => $city,
+            'departmentNumber' => $departmentNumber
+        ];
+
+        if (in_array($filterBy['departmentNumber'], ["2A", "2B"])) {
+            $filterBy['departmentNumber'] = 20;
+        }
+
+        $events = $eventRepository->paginate($page, $limit, "e", new DateTime(), 'eventAt', $filterBy['city'], $filterBy['departmentNumber']);
+
+
+        $maxPages = $events->count() > 0 ? ceil($events->count() / $limit) : 1;
+        if ($page < 1) {
+            return $this->redirectToRoute('app_events', ['page' => 1]);
+        }
+        if ($page > $maxPages) {
+            return $this->redirectToRoute('app_events', ['page' => $maxPages]);
         }
 
         return $this->render('event/events-list.html.twig', [
             'events' => $events,
             'maxPages' => $maxPages,
             'page' => $page,
-            'redirectTo' => 'app_events',
+            'form' => $form->createView(),
         ]);
     }
 
@@ -80,7 +110,7 @@ final class EventController extends AbstractController
         return $this->render('event/single-event.html.twig', [
             'event' => $event,
             'jsonCoordinates' => $jsonCoordinates,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 

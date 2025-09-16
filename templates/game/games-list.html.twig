@@ -16,6 +16,21 @@
         </div>
     </a>
     {% endfor %}
-    {% include "/components/pagination.html.twig" %}
+    <div class="pagination">
+        <div class="previous">
+            {% if page > 1 %}
+            <a href="{{ path('app_games', {page: page - 1}) }}">Page précédente</a>
+            {% endif %}
+        </div>
+        <div class="pages-numbers">
+            {% for i in 1..maxPages %}
+            <a href="{{ path('app_games', {page: i})}}">{{i}}</a>
+            {% endfor %}
+        </div>
+        <div class="next">
+            {% if page < maxPages %} <a href="{{ path('app_games', {page: page + 1}) }}">Page suivante</a>
+                {% endif %}
+        </div>
+    </div>
 </section>
 {% endblock %}

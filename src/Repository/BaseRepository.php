@@ -9,7 +9,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 abstract class BaseRepository extends ServiceEntityRepository
 {
-    public function paginate(int $page, int $limit, string $alias, ?DateTime $date = null, ?string $orderBy = null): Paginator
+    public function paginate(int $page, int $limit, string $alias, ?DateTime $date = null, ?string $orderBy = null, ?string $city = null, ?string $departmentNumber = null): Paginator
     {
         $queryBuilder = $this->createQueryBuilder($alias)
             ->setFirstResult(($page - 1) * $limit)
@@ -18,11 +18,28 @@ abstract class BaseRepository extends ServiceEntityRepository
         if ($date) {
             $queryBuilder
                 ->andWhere("$alias.eventAt >= :date")
-                ->setParameter('date', $date);
+                ->setParameter("date", $date);
+        }
+
+        if ($city || $departmentNumber) {
+            $queryBuilder
+                ->join("$alias.address", "a");
+        }
+
+        if ($city) {
+            $queryBuilder
+                ->andWhere("a.city = :city")
+                ->setParameter("city", $city);
+        }
+
+        if ($departmentNumber) {
+            $queryBuilder
+                ->andWhere("a.postcode LIKE :departmentNumber")
+                ->setParameter("departmentNumber", "$departmentNumber%");
         }
 
         if ($orderBy) {
-            $queryBuilder->orderBy("$alias.$orderBy", 'ASC');
+            $queryBuilder->orderBy("$alias.$orderBy", "ASC");
         }
 
         return new Paginator(

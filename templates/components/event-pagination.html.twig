@@ -1,0 +1,32 @@
+{# Si on ne set pas les values et qu'on fixe directement les valeurs du form dans les liens #}
+{# Alors on aura toujours &city=&departmentNumber= dans l'url si on ne remplit pas le form #}
+{% set cityFilter = form.city.vars.value ? form.city.vars.value : null %}
+{% set departmentNumberFilter = form.departmentNumber.vars.value ? form.departmentNumber.vars.value : null %}
+<div class="pagination">
+    <div class="previous">
+        {% if page > 1 %}
+        <a href="{{ path('app_events', {
+        page: page - 1,
+        city: cityFilter,
+        departmentNumber: departmentNumberFilter
+        }) }}">Page précédente</a>
+        {% endif %}
+    </div>
+    <div class="pages-numbers">
+        {% for i in 1..maxPages %}
+        <a href="{{ path('app_events', {
+        page: i,
+        city: cityFilter,
+        departmentNumber: departmentNumberFilter
+        })}}">{{i}}</a>
+        {% endfor %}
+    </div>
+    <div class="next">
+        {% if page < maxPages %} <a href="{{ path('app_events', {
+        page: page + 1,
+        city: cityFilter,
+        departmentNumber: departmentNumberFilter
+        }) }}">Page suivante</a>
+            {% endif %}
+    </div>
+</div>
