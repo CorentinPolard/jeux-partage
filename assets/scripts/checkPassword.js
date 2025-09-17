@@ -2,7 +2,7 @@ const form = document.querySelector("#registrationForm")
 const passwordInput = document.querySelector("#registration_form_plainPassword_first");
 const passwordHelp = document.querySelector(".password-help");
 const passwordValidators = document.querySelectorAll(".password-validator");
-const regex = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$/;
+const regex = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){12,}$/;
 
 passwordInput.addEventListener("input", () => {
     passwordHelp.classList.remove("hidden");
