@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CGU{% endblock %}
+
+{% block main %}
+<h1>Conditions Générales d’Utilisation (CGU)</h1>
+
+<section>
+    <h2>1. Objet</h2>
+    <p>
+        Les présentes CGU ont pour objet de définir les conditions d’accès et d’utilisation du site <strong>Jeux
+            Partage</strong>.
+    </p>
+</section>
+
+<section>
+    <h2>2. Accès au site</h2>
+    <p>
+        L’accès au site est gratuit. L’utilisateur s’engage à ne pas perturber le bon fonctionnement du site.
+    </p>
+</section>
+
+<section>
+    <h2>3. Utilisation du site</h2>
+    <p>
+        L’utilisateur s’engage à ne pas :<br>
+        - Utiliser le site à des fins frauduleuses ou illégales.<br>
+        - Diffuser de contenus offensants ou contraires à la loi.
+    </p>
+</section>
+
+<section>
+    <h2>4. Propriété intellectuelle</h2>
+    <p>
+        Tous les contenus présents sur le site (textes, logos…) sont protégés par le droit d’auteur.
+        Toute reproduction sans autorisation est interdite.
+    </p>
+</section>
+
+<section>
+    <h2>5. Responsabilité</h2>
+    <p>
+        Jeux Partage ne saurait être tenu responsable :<br>
+        - Des interruptions ou dysfonctionnements du site.<br>
+        - Des dommages liés à l’utilisation du site.
+    </p>
+</section>
+
+<section>
+    <h2>6. Données personnelles</h2>
+    <p>
+        Le traitement des données personnelles est décrit dans la
+        <a href="{{ path('app_privacy_policy') }}">Politique de confidentialité</a>.
+    </p>
+</section>
+
+<section>
+    <h2>7. Droit applicable</h2>
+    <p>
+        Les présentes CGU sont soumises au droit français. En cas de litige, seuls les tribunaux français seront
+        compétents.
+    </p>
+</section>
+{% endblock %}
