@@ -138,6 +138,13 @@ main {
 }
 
 
+/* Registration form */
+.password-help {
+    width: 100%;
+    text-align: left;
+}
+
+
 /* footer */
 footer {
     width: 100%;

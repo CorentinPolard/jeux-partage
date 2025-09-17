@@ -22,3 +22,7 @@ if (deleteButton) {
     import('./scripts/deleteModal.js');
 }
 
+const registrationForm = document.querySelector("#registrationForm");
+if (registrationForm) {
+    import('./scripts/checkPassword.js');
+}

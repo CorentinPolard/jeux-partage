@@ -86,7 +86,7 @@
                             date("d/m/Y - H\\hi")}}</time>
                     </div>
                 </div>
-                {% if app.user == message.user or app.user %}
+                {% if app.user == message.user %}
                 <a class="delete-button button-link message-delete-button"
                     href="{{ path('app_delete_message', {id: message.id}) }}">X</a>
                 {% endif %}

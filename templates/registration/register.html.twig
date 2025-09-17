@@ -7,11 +7,22 @@
 
 {{ form_errors(registrationForm) }}
 
-{{ form_start(registrationForm) }}
+{{ form_start(registrationForm, {'attr': {'id': 'registrationForm'}}) }}
 {{ form_row(registrationForm.email) }}
-{{ form_row(registrationForm.plainPassword, {
-label: 'Password'
-}) }}
+<div class="form-group">
+    <p class="password-help hidden">
+        <small>
+            Votre mot de passe doit contenir au moins :
+            <span class="password-validator">8 caractères</span>,
+            <span class="password-validator">une minuscule</span>,
+            <span class="password-validator">une majuscule</span>,
+            <span class="password-validator">un chiffre</span>
+            et <span class="password-validator">un caractère spécial</span>.
+        </small>
+    </p>
+    {{ form_widget(registrationForm.plainPassword) }}
+    {{ form_errors(registrationForm.plainPassword) }}
+</div>
 {{ form_row(registrationForm.firstName) }}
 {{ form_row(registrationForm.lastName) }}
 {{ form_row(registrationForm.agreeTerms, { 'row_attr': {'class': 'checkbox-container'} }) }}
