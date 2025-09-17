@@ -16,6 +16,21 @@ class EventRepository extends BaseRepository
         parent::__construct($registry, Event::class);
     }
 
+    /**
+     * @return Event[] Returns an array of Event objects
+     */
+    public function findByOneParticipant($value): array
+    {
+        return $this->createQueryBuilder('e')
+            ->join("e.participants", "p")
+            ->andWhere('p = :val')
+            ->setParameter('val', $value)
+            ->orderBy('e.eventAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return Event[] Returns an array of Event objects
     //     */

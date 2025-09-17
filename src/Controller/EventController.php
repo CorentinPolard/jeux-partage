@@ -208,4 +208,22 @@ final class EventController extends AbstractController
             return $this->redirectToRoute('app_events');
         }
     }
+
+    #[Route('/my-events', name: 'app_my_events_event')]
+    public function myEvents(EventRepository $eventRepository): Response
+    {
+        $user = $this->getUser();
+
+        $organizedEvents = $eventRepository->findBy(
+            ['organizer' => $user],
+            ['eventAt' => 'DESC']
+        );
+
+        $joinedEvents = $eventRepository->findByOneParticipant($user);
+
+        return $this->render('event/my-events.html.twig', [
+            'organizedEvents' => $organizedEvents,
+            'joinedEvents' => $joinedEvents,
+        ]);
+    }
 }

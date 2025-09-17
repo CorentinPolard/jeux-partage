@@ -17,6 +17,9 @@
         <button type="submit">Chercher</button>
         {{ form_end(form) }}
     </section>
+    {% if events|length == 0 %}
+    <p>Pas encore d'événements ici.</p>
+    {% endif %}
     {% for event in events %}
     <div class="event-container">
         <div class="event-organizer">

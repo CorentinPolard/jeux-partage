@@ -37,7 +37,7 @@
             <ul class="nav-list">
                 <li><a href="{{ path('app_home') }}">Accueil</a></li>
                 <li><a href="{{ path('app_events') }}">Les événements</a></li>
-                <li><a href="#">Mes événements</a></li>
+                <li><a href="{{ path('app_my_events_event') }}">Mes événements</a></li>
                 <li><a href="{{ path('app_games') }}">Les jeux</a></li>
                 {% if not app.user %}
                 <li><a href="{{ path('app_login') }}">Se connecter</a></li>
