@@ -4,4 +4,28 @@
 
 {% block main %}
 <h1>Bienvenue sur Jeux Partage!</h1>
+<p>Notre mission: connecter les passionnés de jeux de société et leur permettre de partager des moments conviviaux.</p>
+<img class="players-image" src="{{ asset('images/player.webp') }}" alt="Illustration de prersonnes s'amusant">
+<section class="notice-section">
+    <h2>Comment ça marche ?</h2>
+    <h3>La création d'événements</h3>
+    <p>
+        Créez un événement pour jouer à vos jeux préférés avec vos amis ou la communauté!
+        Profitez de ces moments pour jouer, échanger et partager vos expériences.
+        <br>
+        Lorsque vous créerez un événement, mettez le plus de détails et d'informations possible dans la description pour
+        que les autres utilisateurs aient toutes les informations.
+    </p>
+    <h3>L'inscription à un événement</h3>
+    <p>
+        Vous pouvez consulter <a href="{{ path('app_events') }}">la page des événements</a> et chercher les événements
+        près de chez vous.
+        <br>
+        Si vous avez un compte, vous pourrez vous inscrire à n'importe quel événement tant que celui-ci n'est pas
+        complet.
+    </p>
+    <p>
+        Un imprévu ? Pensez à vous désinscrire au plus vite pour laisser la place à d'autres utilisateurs.
+    </p>
+</section>
 {% endblock %}

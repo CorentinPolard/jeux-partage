@@ -16,6 +16,20 @@ main {
 }
 
 
+/* Home */
+.players-image {
+    max-width: 300px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+}
+
+.notice-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 /* Events */
 .events-section {
     width: 100%;
@@ -182,6 +196,10 @@ footer {
 }
 
 @media (min-width: 768px) {
+
+    .players-image {
+        max-width: 400px;
+    }
 
     .event-container,
     .filter-section,
