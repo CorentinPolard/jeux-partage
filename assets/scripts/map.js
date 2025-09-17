@@ -10,17 +10,15 @@ L.Icon.Default.mergeOptions({
     shadowUrl: markerShadow,
 });
 
-export function initMap() {
-    let mapContainer = document.querySelector("div[data-address]");
-    if (mapContainer) {
-        const coordinates = JSON.parse(mapContainer.dataset.address).address;
+let mapContainer = document.querySelector("div[data-address]");
+if (mapContainer) {
+    const coordinates = JSON.parse(mapContainer.dataset.address).address;
 
-        mapContainer = L.map('map').setView([coordinates.latitude, coordinates.longitude], 16);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            maxZoom: 19
-        }).addTo(mapContainer);
+    mapContainer = L.map('map').setView([coordinates.latitude, coordinates.longitude], 16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19
+    }).addTo(mapContainer);
 
-        L.marker([coordinates.latitude, coordinates.longitude]).addTo(mapContainer);
-    }
+    L.marker([coordinates.latitude, coordinates.longitude]).addTo(mapContainer);
 }

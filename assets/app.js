@@ -2,19 +2,13 @@ import './scripts/burgerMenu.js';
 
 const eventForm = document.querySelector("#eventForm");
 if (eventForm) {
-    import('./scripts/geocodage.js').then(module => {
-        module.initGeocodage();
-    });
-    import('./scripts/searchGames.js').then(module => {
-        module.initTomSelect();
-    });
+    import('./scripts/geocodage.js');
+    import('./scripts/searchGames.js');
 }
 
 const map = document.querySelector("#map");
 if (map) {
-    import('./scripts/map.js').then(module => {
-        module.initMap();
-    });
+    import('./scripts/map.js');
 }
 
 const deleteButton = document.querySelector(".delete-button");
