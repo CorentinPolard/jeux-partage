@@ -145,6 +145,17 @@ main {
 }
 
 
+/* Profile */
+.my-profile-picture {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+#delete-account-form {
+    display: block;
+}
+
 /* footer */
 footer {
     width: 100%;

@@ -3,7 +3,6 @@
 {% block title %}Les événements{% endblock %}
 
 {% block main %}
-{% include "/components/flash.html.twig" %}
 <h1>Jouez ensemble, créez vos événements !</h1>
 <img src="{{ asset('images/boardgames.webp') }}" alt="Illustration de plusieurs jeux de société." />
 <section class="events-section">
@@ -23,7 +22,7 @@
         <div class="event-organizer">
             <img class="profil-picture"
                 src="{{ asset('images/uploads/profil-pictures/' ~ event.organizer.profilePicture) }}"
-                alt="Photo de profil de {{event.organizer.firstName ~ event.organizer.lastName}}">
+                alt="Photo de profil de {{event.organizer.getFullName}}">
             <p>{{event.organizer.getFullName }}</p>
         </div>
         <h3>{{ event.title }}</h3>
