@@ -28,8 +28,8 @@ abstract class BaseRepository extends ServiceEntityRepository
 
         if ($city) {
             $queryBuilder
-                ->andWhere("a.city = :city")
-                ->setParameter("city", $city);
+                ->andWhere("LOWER(a.city) = :city")
+                ->setParameter("city", strtolower($city));
         }
 
         if ($departmentNumber) {

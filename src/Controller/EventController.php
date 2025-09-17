@@ -30,27 +30,16 @@ final class EventController extends AbstractController
         $limit = 10;
         $page = $request->query->getInt('page', 1);
 
-        // $events = $eventRepository->paginate($page, $limit, "e", new DateTime(), 'eventAt');
-
-
+        // Filtre
         $city = $request->query->has('city') ? $request->query->get('city') : null;
-
         $departmentNumber = $request->query->has('departmentNumber') ? $request->query->get('departmentNumber') : null;
 
-        // Filtre
+        // Formulaire de filtrage
         $form = $this->createForm(EventsFilterType::class, [
             'city' => $city,
             'departmentNumber' => $departmentNumber
         ]);
         $form->handleRequest($request);
-
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     $formValues = $form->getData();
-        //     if (in_array($formValues['departmentNumber'], ["2A", "2B"])) {
-        //         $formValues['departmentNumber'] = 20;
-        //     }
-        //     $events = $eventRepository->paginate($page, $limit, "e", new DateTime(), 'eventAt', $formValues['city'], $formValues['departmentNumber']);
-        // }
 
         $filterBy = $form->isSubmitted() && $form->isValid() ? $form->getData() : [
             'city' => $city,
@@ -61,9 +50,10 @@ final class EventController extends AbstractController
             $filterBy['departmentNumber'] = 20;
         }
 
+        // Récupération des événements selon les filtres (si il y en a)
         $events = $eventRepository->paginate($page, $limit, "e", new DateTime(), 'eventAt', $filterBy['city'], $filterBy['departmentNumber']);
 
-
+        // Calcul du nombre de pages pour la pagination
         $maxPages = $events->count() > 0 ? ceil($events->count() / $limit) : 1;
         if ($page < 1) {
             return $this->redirectToRoute('app_events', ['page' => 1]);
