@@ -1,16 +1,16 @@
 {% extends 'admin-base.html.twig' %}
 
-{% block title %}Menu administrateur - événements{% endblock %}
+{% block title %}Menu administrateur - évènements{% endblock %}
 
 {% block main %}
-<h1>Gestion des événements</h1>
-<a href="{{ path('app_admin_create_event') }}">Ajouter un événement</a>
+<h1>Gestion des évènements</h1>
+<a href="{{ path('app_admin_create_event') }}">Ajouter un évènement</a>
 <table>
     <thead>
         <tr>
             <th>ID</th>
             <th>Titre</th>
-            <th>Date de l'événement</th>
+            <th>Date de l'évènement</th>
             <th>Lieu</th>
             <th>Organisateur</th>
             <th>Actions</th>
@@ -41,7 +41,7 @@
         </tr>
         {% else %}
         <tr>
-            <td colspan="6">Aucun événement trouvé.</td>
+            <td colspan="6">Aucun évènement trouvé.</td>
         </tr>
         {% endfor %}
     </tbody>

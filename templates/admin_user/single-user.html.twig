@@ -10,15 +10,15 @@
         <p><strong>Prénom :</strong> {{ user.firstname }}</p>
     </div>
     <section class="user-events-section">
-        <h2>Ses événements</h2>
-        <p><strong>Nombre d'événements organisés :</strong> {{ user.getNumberOfEventsOrganized }}</p>
+        <h2>Ses évènements</h2>
+        <p><strong>Nombre d'évènements organisés :</strong> {{ user.getNumberOfEventsOrganized }}</p>
         {% if user.getNumberOfEventsOrganized|length > 0 %}
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Titre</th>
-                    <th>Date de l'événement</th>
+                    <th>Date de l'évènement</th>
                     <th>Lieu</th>
                 </tr>
             </thead>
@@ -47,7 +47,7 @@
                     <th>ID</th>
                     <th>Contenu</th>
                     <th>Date de création</th>
-                    <th>Événement associé</th>
+                    <th>Évènement associé</th>
                 </tr>
             </thead>
             <tbody>

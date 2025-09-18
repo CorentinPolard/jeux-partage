@@ -50,7 +50,7 @@ final class EventController extends AbstractController
             $filterBy['departmentNumber'] = 20;
         }
 
-        // Récupération des événements selon les filtres (si il y en a)
+        // Récupération des évènements selon les filtres (si il y en a)
         $events = $eventRepository->paginate($page, $limit, "e", new DateTime(), 'eventAt', $filterBy['city'], $filterBy['departmentNumber']);
 
         // Calcul du nombre de pages pour la pagination
@@ -150,7 +150,7 @@ final class EventController extends AbstractController
                 'form' => $form->createView(),
             ]);
         } else {
-            $this->addFlash('error', "Vous n'êtes pas autorisé à modifier cet événement.");
+            $this->addFlash('error', "Vous n'êtes pas autorisé à modifier cet évènement.");
             return $this->redirectToRoute('app_events');
         }
     }
@@ -162,7 +162,7 @@ final class EventController extends AbstractController
             $entityManager->remove($event);
             $entityManager->flush();
         } else {
-            $this->addFlash('error', "Vous n'êtes pas autorisé à supprimer cet événement.");
+            $this->addFlash('error', "Vous n'êtes pas autorisé à supprimer cet évènement.");
         }
 
         return $this->redirectToRoute('app_events');
@@ -184,7 +184,7 @@ final class EventController extends AbstractController
 
             return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
         } else {
-            $this->addFlash('error', "Vous ne pouvez pas vous inscrire à cet événement. Il est complet ou vous êtes déjà inscrit.");
+            $this->addFlash('error', "Vous ne pouvez pas vous inscrire à cet évènement. Il est complet ou vous êtes déjà inscrit.");
             return $this->redirectToRoute('app_events');
         }
     }
@@ -204,7 +204,7 @@ final class EventController extends AbstractController
 
             return $this->redirectToRoute('app_events');
         } else {
-            $this->addFlash('error', "Vous ne pouvez pas vous désinscrire de cet événement. Si vous ête l'organisateur supprimez le, ou vous n'êtes déjà pas inscrit.");
+            $this->addFlash('error', "Vous ne pouvez pas vous désinscrire de cet évènement. Si vous ête l'organisateur supprimez le, ou vous n'êtes déjà pas inscrit.");
             return $this->redirectToRoute('app_events');
         }
     }

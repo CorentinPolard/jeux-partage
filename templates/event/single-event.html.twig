@@ -3,11 +3,11 @@
 {% block title %}{{event.title}}{% endblock %}
 
 {% block main %}
-<a class="button-link" href="{{ path('app_events') }}">Voir les autres événements</a>
+<a class="button-link" href="{{ path('app_events') }}">Voir les autres évènements</a>
 {% if app.user is same as(event.organizer) %}
 <div class="organizer-actions">
-    <a class="button-link" href="{{ path('app_edit_event', {id: event.id}) }}">Modifier l'événement</a>
-    <a class="delete-button button-link" href="{{ path('app_delete_event', {id: event.id}) }}">Supprimer l'événement</a>
+    <a class="button-link" href="{{ path('app_edit_event', {id: event.id}) }}">Modifier l'évènement</a>
+    <a class="delete-button button-link" href="{{ path('app_delete_event', {id: event.id}) }}">Supprimer l'évènement</a>
 </div>
 {% endif %}
 {% if app.user and app.user in event.participants %}

@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les événements{% endblock %}
+{% block title %}Les évènements{% endblock %}
 
 {% block main %}
-<h1>Jouez ensemble, créez vos événements !</h1>
+<h1>Jouez ensemble, créez vos évènements !</h1>
 <img src="{{ asset('images/boardgames.webp') }}" alt="Illustration de plusieurs jeux de société." />
 <section class="events-section">
-    <a class="button-link" href="{{ path('app_create_event') }}">Créer votre événement</a>
-    <h2>Les événements</h2>
+    <a class="button-link" href="{{ path('app_create_event') }}">Créer votre évènement</a>
+    <h2>Les évènements</h2>
     <section class="filter-section">
-        <h2>Filtrer les événements</h2>
+        <h2>Filtrer les évènements</h2>
         <a href="{{ path('app_events') }}" class="button-link">Réinitialiser</a>
         {{ form_start(form, {'attr': {'class': 'filterForm'}}) }}
         {{ form_row(form.city) }}
@@ -18,7 +18,7 @@
         {{ form_end(form) }}
     </section>
     {% if events|length == 0 %}
-    <p>Pas encore d'événements ici.</p>
+    <p>Pas encore d'évènements ici.</p>
     {% endif %}
     {% for event in events %}
     <div class="event-container">
@@ -64,7 +64,7 @@
             <p>{{(event.participants|length + 1)}} inscrit{% if (event.participants|length + 1) > 1 %}s{% endif %}</p>
             {% endif %}
             {% if app.user and (app.user in event.participants or app.user is same as(event.organizer)) %}
-            <a class="button-link" href="{{ path('app_show_event', {id: event.id}) }}">Voir l'événement</a>
+            <a class="button-link" href="{{ path('app_show_event', {id: event.id}) }}">Voir l'évènement</a>
             {% elseif remaining is defined and remaining == 0 %}
             <p><strong>Complet</strong></p>
             {% else %}

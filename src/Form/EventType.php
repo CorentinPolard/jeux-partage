@@ -25,7 +25,7 @@ class EventType extends AbstractType
                 'title',
                 TextType::class,
                 [
-                    'label' => 'Nom de votre événement',
+                    'label' => 'Nom de votre évènement',
                     'required' => true,
                 ]
             )
@@ -33,7 +33,7 @@ class EventType extends AbstractType
                 'description',
                 TextareaType::class,
                 [
-                    'label' => "Description de l'événement",
+                    'label' => "Description de l'évènement",
                     'required' => true,
                 ]
             )
@@ -41,7 +41,7 @@ class EventType extends AbstractType
                 'eventAt',
                 DateTimeType::class,
                 [
-                    'label' => 'Date et heure de l\'événement',
+                    'label' => 'Date et heure de l\'évènement',
                     'required' => true,
                     'attr' => [
                         'min' => (new \DateTime())->format('Y-m-d\TH:i'), // aujourd'hui
@@ -63,7 +63,7 @@ class EventType extends AbstractType
                 'duration',
                 IntegerType::class,
                 [
-                    'label' => 'Durée moyenne de votre événement (en minutes)',
+                    'label' => 'Durée moyenne de votre évènement (en minutes)',
                     'required' => true,
                     'attr' => [
                         'min' => 5,
@@ -74,13 +74,13 @@ class EventType extends AbstractType
                 'isFree',
                 CheckboxType::class,
                 [
-                    'label' => 'L\'événement est-il totalement gratuit pour les participants ?',
+                    'label' => 'L\'évènement est-il totalement gratuit pour les participants ?',
                     'required' => false,
                 ]
             )
             ->add('games', EntityType::class, [
                 'class' => Game::class,
-                'label' => "Jeux associés à l'événement",
+                'label' => "Jeux associés à l'évènement",
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => false,      // false => <select multiple>, true => cases à cocher

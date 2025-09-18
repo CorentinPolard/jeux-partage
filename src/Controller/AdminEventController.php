@@ -49,7 +49,7 @@ final class AdminEventController extends AbstractController
 
             // Date dans le futur
             if ($event->getEventAt() < new DateTime()) {
-                $this->addFlash('error', 'La date de l\'événement doit être dans le futur.');
+                $this->addFlash('error', 'La date de l\'évènement doit être dans le futur.');
 
                 return $this->render('admin_event/create-event.html.twig', [
                     'form' => $form->createView(),
@@ -126,7 +126,7 @@ final class AdminEventController extends AbstractController
             $event->setUpdatedAt(new DateTime());
 
             if ($event->getEventAt() < new DateTime()) {
-                $this->addFlash('error', 'La date de l\'événement doit être dans le futur.');
+                $this->addFlash('error', 'La date de l\'évènement doit être dans le futur.');
 
                 return $this->render('admin_event/edit-event.html.twig', [
                     'form' => $form->createView(),

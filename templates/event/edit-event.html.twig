@@ -1,9 +1,9 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Modifier mon événement{% endblock %}
+{% block title %}Modifier mon évènement{% endblock %}
 
 {% block main %}
-<h1>Modifier mon événement</h1>
+<h1>Modifier mon évènement</h1>
 
 {{ form_start(form, {'attr': {'id': 'eventForm'}} ) }}
 {{ form_row(form.title) }}
@@ -17,5 +17,5 @@
 <button type="submit">Modifier</button>
 {{ form_end(form) }}
 
-<a href="{{ path('app_show_event', {id: event.id}) }}">Retourner à la fiche de l'événement</a>
+<a href="{{ path('app_show_event', {id: event.id}) }}">Retourner à la fiche de l'évènement</a>
 {% endblock %}

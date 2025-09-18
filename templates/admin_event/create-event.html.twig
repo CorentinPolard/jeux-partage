@@ -1,9 +1,9 @@
 {% extends "admin-base.html.twig" %}
 
-{% block title %}Menu administrateur - événements{% endblock %}
+{% block title %}Menu administrateur - évènements{% endblock %}
 
 {% block main %}
-<h1>Ajouter un événement</h1>
+<h1>Ajouter un évènement</h1>
 
 {{ form_start(form, {'attr': {'id': 'eventForm'}}) }}
 {{ form_row(form.title) }}
@@ -16,8 +16,8 @@
 {{ form_row(form.participants) }}
 {{ form_row(form.duration) }}
 {{ form_row(form.isFree, { 'row_attr': {'class': 'checkbox-container'} }) }}
-<button type="submit">Ajouter l'événement</button>
+<button type="submit">Ajouter l'évènement</button>
 {{ form_end(form) }}
 
-<a href="{{ path('app_admin_events') }}">Retoruner à la liste des événements</a>
+<a href="{{ path('app_admin_events') }}">Retourner à la liste des évènements</a>
 {% endblock %}

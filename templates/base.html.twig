@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-        content="Organisez et participez à des événements de jeux de société, rencontrez d'autres passionnés et découvrez de nouvelles parties amusantes près de chez vous.">
+        content="Organisez et participez à des évènements de jeux de société, rencontrez d'autres passionnés et découvrez de nouvelles parties amusantes près de chez vous.">
     <title>{% block title %}Jeux partage{% endblock %}</title>
 
     <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" />
@@ -36,8 +36,8 @@
         <nav>
             <ul class="nav-list">
                 <li><a href="{{ path('app_home') }}">Accueil</a></li>
-                <li><a href="{{ path('app_events') }}">Les événements</a></li>
-                <li><a href="{{ path('app_my_events_event') }}">Mes événements</a></li>
+                <li><a href="{{ path('app_events') }}">Les évènements</a></li>
+                <li><a href="{{ path('app_my_events_event') }}">Mes évènements</a></li>
                 <li><a href="{{ path('app_games') }}">Les jeux</a></li>
                 {% if not app.user %}
                 <li><a href="{{ path('app_login') }}">Se connecter</a></li>

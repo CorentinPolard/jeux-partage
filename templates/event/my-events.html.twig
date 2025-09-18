@@ -1,13 +1,13 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Mes événements{% endblock %}
+{% block title %}Mes évènements{% endblock %}
 
 {% block main %}
-<h1>Mes événements</h1>
+<h1>Mes évènements</h1>
 <section class="organized-events-section">
-    <h2>Les événements que j'organise</h2>
+    <h2>Les évènements que j'organise</h2>
     {% if organizedEvents|length == 0 %}
-    Vous n'avez pas encore organisé d'événements.
+    Vous n'avez pas encore organisé d'évènements.
     {% endif %}
     {% for event in organizedEvents %}
     <div>
@@ -17,9 +17,9 @@
     {% endfor %}
 </section>
 <section class="joined-events-section">
-    <h2>Les événements auxquels je participe</h2>
+    <h2>Les évènements auxquels je participe</h2>
     {% if joinedEvents|length == 0 %}
-    Vous n'êtes inscrit à aucun événements.
+    Vous n'êtes inscrit à aucun évènements.
     {% endif %}
     {% for event in joinedEvents %}
     <div>
