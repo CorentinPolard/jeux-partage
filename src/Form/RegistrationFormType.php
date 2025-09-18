@@ -24,16 +24,20 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'constraints' => [
-                    new NotBlank(['message' => 'L’email est obligatoire.']),
-                    new Email(['message' => 'L’adresse email "{{ value }}" n’est pas valide.']),
+                    new NotBlank(
+                        message: 'L’email est obligatoire.'
+                    ),
+                    new Email(
+                        message: 'L’adresse email "{{ value }}" n’est pas valide.'
+                    ),
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
+                    new IsTrue(
+                        message: 'You should agree to our terms.'
+                    ),
                 ],
             ])
             ->add('plainPassword', RepeatedType::class, [
@@ -44,30 +48,30 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Vous devez entrer un mot de passe.',
-                    ]),
-                    new Length([
-                        'min' => 12,
-                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
-                        'max' => 4096,
-                    ]),
-                    new Regex([
-                        'pattern' => '/[a-z]/',
-                        'message' => 'Le mot de passe doit contenir au moins une minuscule.'
-                    ]),
-                    new Regex([
-                        'pattern' => '/[A-Z]/',
-                        'message' => 'Le mot de passe doit contenir au moins une majuscule.'
-                    ]),
-                    new Regex([
-                        'pattern' => '/[0-9]/',
-                        'message' => 'Le mot de passe doit contenir au moins un chiffre.'
-                    ]),
-                    new Regex([
-                        'pattern' => '/[^\w\s:]/',
-                        'message' => 'Le mot de passe doit contenir au moins caractère spécial.'
-                    ]),
+                    new NotBlank(
+                        message: 'Vous devez entrer un mot de passe.'
+                    ),
+                    new Length(
+                        min: 12,
+                        minMessage: 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
+                        max: 4096,
+                    ),
+                    new Regex(
+                        pattern: '/[a-z]/',
+                        message: 'Le mot de passe doit contenir au moins une minuscule.'
+                    ),
+                    new Regex(
+                        pattern: '/[A-Z]/',
+                        message: 'Le mot de passe doit contenir au moins une majuscule.'
+                    ),
+                    new Regex(
+                        pattern: '/[0-9]/',
+                        message: 'Le mot de passe doit contenir au moins un chiffre.'
+                    ),
+                    new Regex(
+                        pattern: '/[^\w\s:]/',
+                        message: 'Le mot de passe doit contenir au moins un caractère spécial.'
+                    ),
                 ],
             ])
             ->add('firstName', TextType::class, [
