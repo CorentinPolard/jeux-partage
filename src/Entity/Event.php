@@ -199,7 +199,7 @@ class Event
 
     public function addParticipant(User $participant): static
     {
-        if (!$this->participants->contains($participant)) {
+        if (!$this->isFull() && !$this->participants->contains($participant)) {
             $this->participants->add($participant);
             $participant->addEvent($this);
         }
