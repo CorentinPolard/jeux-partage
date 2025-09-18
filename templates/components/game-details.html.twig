@@ -14,6 +14,10 @@
 <section class="game-details">
     <h2>Détails du jeu</h2>
     <p>Nombre minimum de joueurs: {{game.minimumNumberOfPlayers}}</p>
+    {% if game.maximumNumberOfPlayers %}
     <p>Nombre maximum de joueurs: {{game.maximumNumberOfPlayers}}</p>
+    {% else %}
+    <p>Pas de nombre maximum de joueurs.</p>
+    {% endif %}
     <p>Durée moyenne d'une partie: {{game.averageGameDuration}}min</p>
 </section>

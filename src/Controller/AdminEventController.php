@@ -56,12 +56,12 @@ final class AdminEventController extends AbstractController
                 ]);
             }
 
-            // Si l'organisateur a été changé dans le formulaire, on met à jour
+            // Organisateur changé dans le formulaire, on met à jour
             if ($event->getOrganizer() !== $form->getData()->getOrganizer()) {
                 $event()->setOrganizer($form->getData()->getOrganizer());
             }
 
-            // On s'assure que l'organisateur n'est pas dans les participants
+            // Organisateur pas dans participants
             if ($event->getParticipants()->contains($event->getOrganizer())) {
                 $event->removeParticipant($event->getOrganizer());
             }
@@ -133,12 +133,12 @@ final class AdminEventController extends AbstractController
                 ]);
             }
 
-            // Si l'organisateur a été changé dans le formulaire, on met à jour
+            // Organisateur changé dans le formulaire, on met à jour
             if ($event->getOrganizer() !== $form->getData()->getOrganizer()) {
                 $event()->setOrganizer($form->getData()->getOrganizer());
             }
 
-            // On s'assure que l'organisateur n'est pas dans les participants
+            // Organisateur dans participants
             if ($event->getParticipants()->contains($event->getOrganizer())) {
                 $event->removeParticipant($event->getOrganizer());
             }

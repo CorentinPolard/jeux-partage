@@ -28,7 +28,7 @@
             {% endif %}
         </div>
     </div>
-    {% if event.address.latitude %}
+    {% if event.address.latitude and event.address.longitude %}
     <div id="map" class="maps" data-address="{{ jsonCoordinates }}">
     </div>
     {% endif %}
