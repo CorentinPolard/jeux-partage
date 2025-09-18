@@ -52,10 +52,10 @@ class EventType extends AbstractType
                 'maxNumberOfParticipants',
                 IntegerType::class,
                 [
-                    'label' => "Nombre maximum de participants (vous compris)",
+                    'label' => "Nombre maximum de participants, vous compris (facultatif)",
                     'required' => false,
                     'attr' => [
-                        'min' => 1,
+                        'min' => 2,
                     ],
                 ]
             )
