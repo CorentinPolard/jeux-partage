@@ -70,7 +70,7 @@ main {
 
 .event-organizer {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row;
     align-items: center;
     gap: 10px;
     margin: -4px -4px 0 -4px;
@@ -84,8 +84,9 @@ main {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
+    align-items: center;
     /* Pour le mobile */
-    gap: 6px;
+    gap: 10px;
     padding: 4px 10px 4px 0;
 }
 
@@ -232,13 +233,6 @@ footer {
         gap: 20px;
     }
 
-    .event-place,
-    .event-date,
-    .event-money,
-    .event-duration {
-        flex-flow: row nowrap;
-    }
-
     .maps {
         height: 400px;
         max-width: 400px;
@@ -270,12 +264,7 @@ footer {
     }
 
     .event-organizer {
-        display: flex;
-        flex-flow: row wrap;
-        align-items: center;
-        gap: 10px;
         margin: -10px -10px 0 -10px;
-        padding: 0 10px;
     }
 
     .pagination {
