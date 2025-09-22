@@ -21,7 +21,7 @@ class AppFixtures extends Fixture
         $admin->setPassword(password_hash('adminpass', PASSWORD_BCRYPT));
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setFirstName("Admin");
-        $admin->setLastName("Admin");
+        $admin->setLastName("Le Boss");
         $manager->persist($admin);
 
         // Utilisateur normal
@@ -29,8 +29,8 @@ class AppFixtures extends Fixture
         $user->setEmail('user@example.com');
         $user->setPassword(password_hash('userpass', PASSWORD_BCRYPT));
         $user->setRoles(['ROLE_USER']);
-        $user->setFirstName("User");
-        $user->setLastName("User");
+        $user->setFirstName("Jean");
+        $user->setLastName("Petit");
         $manager->persist($user);
 
 
