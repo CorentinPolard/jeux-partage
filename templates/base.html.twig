@@ -11,8 +11,7 @@
     <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" />
 
     {% block stylesheets %}
-    {{ encore_entry_link_tags('styles/app')|replace({'rel="stylesheet"': 'rel="stylesheet"
-    data-turbo-track="reload"'})|raw }}
+    {{ encore_entry_link_tags('styles/app') }}
     {% endblock %}
 
     {% block javascripts %}
