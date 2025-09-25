@@ -33,6 +33,11 @@ final class AdminUserController extends AbstractController
     #[Route('/delete/{id}', name: 'app_admin_delete_user', requirements: ['id' => '\d+'])]
     public function deleteUser(User $user, EntityManagerInterface $entityManager): Response
     {
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer un administrateur.');
+            return $this->redirectToRoute('app_admin_user');
+        }
+
         $entityManager->remove($user);
         $entityManager->flush();
 

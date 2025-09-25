@@ -24,6 +24,11 @@ final class ProfileController extends AbstractController
     {
         $user = $this->getUser();
 
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer un administrateur.');
+            return $this->redirectToRoute('app_profile');
+        }
+
         // Vérification du token CSRF
         if ($this->isCsrfTokenValid('delete_account', $request->request->get('_token'))) {
             $entityManager->remove($user);

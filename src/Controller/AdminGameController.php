@@ -42,6 +42,7 @@ final class AdminGameController extends AbstractController
             $imageFile = $form->get('image')->getData();
 
             if ($imageFile) {
+                // Récupère le nom de l'image et enlève l'extension
                 $originalFileName = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFileName = $slugger->slug($originalFileName);
                 $newFileName = $safeFileName . '-' . uniqid() . '.' . $imageFile->guessExtension();
