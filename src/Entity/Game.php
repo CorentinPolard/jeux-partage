@@ -35,12 +35,6 @@ class Game
     private ?string $imageFileName = null;
 
     /**
-     * @var Collection<int, User>
-     */
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'games')]
-    private Collection $users;
-
-    /**
      * @var Collection<int, Event>
      */
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'games')]
@@ -52,7 +46,6 @@ class Game
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
         $this->events = new ArrayCollection();
     }
 

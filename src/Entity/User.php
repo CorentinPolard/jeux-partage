@@ -52,12 +52,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $messages;
 
     /**
-     * @var Collection<int, Game>
-     */
-    #[ORM\ManyToMany(targetEntity: Game::class, inversedBy: 'users')]
-    private Collection $games;
-
-    /**
      * @var Collection<int, Event>
      */
     #[ORM\OneToMany(targetEntity: Event::class, mappedBy: 'organizer', orphanRemoval: true)]
@@ -72,7 +66,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->messages = new ArrayCollection();
-        $this->games = new ArrayCollection();
         $this->organizedEvents = new ArrayCollection();
         $this->events = new ArrayCollection();
     }
