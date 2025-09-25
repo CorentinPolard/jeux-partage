@@ -12,6 +12,8 @@ final class AdminMessageController extends AbstractController
     #[Route('', name: 'app_admin_messages')]
     public function index(): Response
     {
+
+        // OrderBy event
         return $this->render('admin_message/index.html.twig', [
             'controller_name' => 'AdminMessageController',
         ]);

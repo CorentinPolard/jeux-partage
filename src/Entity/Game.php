@@ -134,33 +134,6 @@ class Game
     }
 
     /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->addGame($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): static
-    {
-        if ($this->users->removeElement($user)) {
-            $user->removeGame($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Event>
      */
     public function getEvents(): Collection

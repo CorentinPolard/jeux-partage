@@ -225,30 +225,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Game>
-     */
-    public function getGames(): Collection
-    {
-        return $this->games;
-    }
-
-    public function addGame(Game $game): static
-    {
-        if (!$this->games->contains($game)) {
-            $this->games->add($game);
-        }
-
-        return $this;
-    }
-
-    public function removeGame(Game $game): static
-    {
-        $this->games->removeElement($game);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Event>
      */
     public function getOrganizedEvents(): Collection
