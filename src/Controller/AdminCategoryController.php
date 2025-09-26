@@ -50,7 +50,6 @@ final class AdminCategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($category);
             $entityManager->flush();
             return $this->redirectToRoute('app_admin_categories');
         }

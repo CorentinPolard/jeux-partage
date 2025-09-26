@@ -101,7 +101,6 @@ final class AdminGameController extends AbstractController
                 $game->setImageFileName($newFileName);
             }
 
-            $entityManager->persist($game);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_admin_show_game', ['id' => $game->getId()]);

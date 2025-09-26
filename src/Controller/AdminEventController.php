@@ -143,7 +143,6 @@ final class AdminEventController extends AbstractController
                 $event->removeParticipant($event->getOrganizer());
             }
 
-            $entityManager->persist($event);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_admin_show_event', ['id' => $event->getId()]);

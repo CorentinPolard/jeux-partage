@@ -138,10 +138,7 @@ final class EventController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $event->setUpdatedAt(new DateTime());
-
-                $entityManager->persist($event);
                 $entityManager->flush();
-
                 return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
             }
 
