@@ -13,16 +13,16 @@
     <div class="my-event-container">
         <h3>{{ event.title }}</h3>
         <div class="event-date-place-container my-event-date-place">
-            <div class="event-place">
-                <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une
-                    carte">
-                <address>{{event.address.getFullAddress }}</address>
-            </div>
             <div class="event-date">
                 <img class="event-icon" src="{{ asset('images/icones/date-red-icon.svg') }}"
                     alt="Illustration d'un calendrier">
                 <time datetime="{{event.eventAt.date | date(" Y-m-dTH:i")}}">{{event.eventAt.date | date("d/m/Y à
                     H\\hi")}}</time>
+            </div>
+            <div class="event-place">
+                <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une
+                    carte">
+                <address>{{event.address.getFullAddress }}</address>
             </div>
         </div>
         <div class="my-event-actions-container">
@@ -41,20 +41,17 @@
     {% for event in joinedEvents %}
     <div class="my-event-container">
         <h3>{{ event.title }}</h3>
-        {# <time datetime="{{event.eventAt.date | date(" Y-m-dTH:i")}}">{{event.eventAt.date | date("d/m/Y à
-            H\\hi")}}</time>
-        <address>{{ event.address.getFullAddress }}</address> #}
         <div class="event-date-place-container my-event-date-place">
-            <div class="event-place">
-                <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une
-                    carte">
-                <address>{{event.address.getFullAddress }}</address>
-            </div>
             <div class="event-date">
                 <img class="event-icon" src="{{ asset('images/icones/date-red-icon.svg') }}"
                     alt="Illustration d'un calendrier">
                 <time datetime="{{event.eventAt.date | date(" Y-m-dTH:i")}}">{{event.eventAt.date | date("d/m/Y à
                     H\\hi")}}</time>
+            </div>
+            <div class="event-place">
+                <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une
+                    carte">
+                <address>{{event.address.getFullAddress }}</address>
             </div>
         </div>
         <div class="my-event-actions-container">
