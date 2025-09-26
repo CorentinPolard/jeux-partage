@@ -98,6 +98,36 @@ main {
 }
 
 
+/* My events */
+.organized-events-section,
+.joined-events-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.my-event-container {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--secondary-background-color);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.my-event-date-place {
+    width: 100%;
+}
+
+.my-event-actions-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+
 /* Single Event */
 .event-details-container {
     display: flex;
