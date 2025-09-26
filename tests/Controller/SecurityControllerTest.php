@@ -49,7 +49,7 @@ class SecurityControllerTest extends WebTestCase
         $form['registration_form[plainPassword][first]'] = "Id3456!";
         $form['registration_form[plainPassword][second]'] = "Id3456!";
         $form['registration_form[firstName]'] = "Testeur";
-        $form['registration_form[lastName]'] = "Unitaire";
+        $form['registration_form[lastName]'] = "Fonctionnel";
         $form['registration_form[agreeTerms]'] = true;
 
         $client->submit($form);
