@@ -28,7 +28,7 @@
                     <td>{{ event.id }}</td>
                     <td><a href="{{ path('app_admin_show_event', {id: event.id}) }}">{{ event.title }}</a></td>
                     <td>{{ event.eventAt|date('d/m/Y H:i')}}</td>
-                    <td>{{event.address.street}}, {{event.address.postcode}}, {{event.address.city}}</td>
+                    <td>{{event.address.getFullAddress }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

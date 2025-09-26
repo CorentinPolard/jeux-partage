@@ -11,7 +11,7 @@
         </div>
         <div class="event-place">
             <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une carte">
-            <address>{{event.address.street}} {{event.address.postcode}} {{event.address.city}}</address>
+            <address>{{event.address.getFullAddress }}</address>
         </div>
         <div class="event-duration">
             <img class="event-icon" src="{{ asset('images/icones/clock-red-icon.svg') }}"

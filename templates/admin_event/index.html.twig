@@ -22,7 +22,7 @@
             <td>{{ event.id }}</td>
             <td>{{ event.title }}</td>
             <td>{{ event.eventAt ? event.eventAt|date('d/m/Y H:i') : '' }}</td>
-            <td>{{event.address.street}}, {{event.address.postcode}}, {{event.address.city}}</td>
+            <td>{{event.address.getFullAddress }}</td>
             <td><a href="{{ path('app_admin_show_user', {id: event.organizer.id}) }}">{{event.organizer.getFullName
                     }}</a></td>
             <td class="admin-actions">
