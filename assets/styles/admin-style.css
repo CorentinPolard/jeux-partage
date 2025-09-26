@@ -180,3 +180,36 @@ form {
 #chat-form {
     max-width: none;
 }
+
+
+/* Messages */
+.admin-messages-section {
+    width: 100%;
+}
+
+.messages-table {
+    margin: 0;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.messages-table th,
+.messages-table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.messages-table th:nth-child(2),
+.messages-table td:nth-child(2) {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+}
+
+.messages-table th:nth-child(1),
+.messages-table td:nth-child(1),
+.messages-table th:nth-child(5),
+.messages-table td:nth-child(5) {
+    width: 10%;
+}

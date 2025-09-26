@@ -31,6 +31,15 @@ class EventRepository extends BaseRepository
         ;
     }
 
+    public function findAllAndMessages(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->join("e.messages", "m")
+            ->addSelect('m')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Event[] Returns an array of Event objects
     //     */
