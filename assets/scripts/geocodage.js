@@ -12,7 +12,7 @@ if (form) {
 
         if (street && postcode && city) {
             try {
-                const url = `https://data.geopf.fr/geocodage/search?q=${encodeURIComponent(street.value)}&postcode=${encodeURIComponent(postcode.value)}&city=${encodeURIComponent(city.value)}`;
+                const url = `https://data.geopf.fr/geocodage/search?index=address,poi&q=${encodeURIComponent(street.value)}&postcode=${encodeURIComponent(postcode.value)}&city=${encodeURIComponent(city.value)}`;
                 const response = await fetch(url);
                 if (!response.ok) {
                     alert("Erreur liée à l'adresse lors de la soumission du formulaire.");
