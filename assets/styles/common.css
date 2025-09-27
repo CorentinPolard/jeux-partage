@@ -165,7 +165,6 @@ button,
     border-radius: 10px;
 }
 
-/* Center text in game card, keep image at top */
 .game-title {
     flex: 1;
 }
