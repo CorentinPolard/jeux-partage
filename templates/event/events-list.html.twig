@@ -4,7 +4,8 @@
 
 {% block main %}
 <h1>Jouez ensemble, créez vos évènements !</h1>
-<img src="{{ asset('images/boardgames.webp') }}" alt="Illustration de plusieurs jeux de société." />
+<img src="{{ asset('images/boardgames.webp') }}" alt="Illustration de plusieurs jeux de société." width="820"
+    height="437" loading="eager" fetchpriority="high" />
 <section class="events-section">
     <a class="button-link" href="{{ path('app_create_event') }}">Créer votre évènement</a>
     <h2>Les évènements</h2>

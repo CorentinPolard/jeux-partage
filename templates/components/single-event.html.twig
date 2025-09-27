@@ -41,7 +41,7 @@
         <div class="game-container">
             {% if game.imageFileName %}
             <img class="game-image" src="{{ asset('images/uploads/games/' ~ game.imageFileName)}}"
-                alt="Illustration de {{game.name}}">
+                alt="Illustration de {{game.name}}" width="200" height="200">
             {% else %}
             <p>Aucune image</p>
             {% endif %}
