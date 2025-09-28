@@ -31,8 +31,8 @@ final class EventController extends AbstractController
         $page = $request->query->getInt('page', 1);
 
         // Filtre
-        $city = $request->query->has('city') ? $request->query->get('city') : null;
-        $departmentNumber = $request->query->has('departmentNumber') ? $request->query->get('departmentNumber') : null;
+        $city = $request->query->get('city');
+        $departmentNumber = $request->query->get('departmentNumber');
 
         // Formulaire de filtrage
         $form = $this->createForm(EventsFilterType::class, [
