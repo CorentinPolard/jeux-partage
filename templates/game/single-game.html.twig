@@ -2,6 +2,11 @@
 
 {% block title %}{{game.name}}{% endblock %}
 
+{% block meta_description %}
+Découvrez en détail le jeu [Nom du jeu] : règles, nombre de joueurs, durée et conseils pour organiser vos prochaines
+parties. Tout ce qu’il faut savoir pour jouer et s’amuser !
+{% endblock %}
+
 {% block main %}
 {% include "/components/game-details.html.twig"%}
 <a href="{{ path('app_games') }}">Voir les autres jeux</a>
