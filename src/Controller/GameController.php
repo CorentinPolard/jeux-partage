@@ -22,19 +22,20 @@ final class GameController extends AbstractController
 
         $games = $gameRepository->paginate($page, $limit, "g");
 
-        $maxPages = ceil($games->count() / $limit);
+        $maxPage = ceil($games->count() / $limit);
 
         if ($page < 1) {
             return $this->redirectToRoute('app_games', ['page' => 1]);
         }
-        if ($page > $maxPages) {
-            return $this->redirectToRoute('app_games', ['page' => $maxPages]);
+        if ($page > $maxPage) {
+            return $this->redirectToRoute('app_games', ['page' => $maxPage]);
         }
 
         return $this->render('game/games-list.html.twig', [
             'games' => $games,
-            'maxPages' => $maxPages,
+            'maxPage' => $maxPage,
             'page' => $page,
+            'route' => 'app_games',
         ]);
     }
 

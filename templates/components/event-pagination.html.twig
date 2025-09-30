@@ -1,8 +1,9 @@
-{# Si on ne set pas les values et qu'on fixe directement les valeurs du form dans les liens #}
-{# Alors on aura toujours &city=&departmentNumber= dans l'url si on ne remplit pas le form #}
-{% set cityFilter = form.city.vars.value ? form.city.vars.value : null %}
-{% set departmentNumberFilter = form.departmentNumber.vars.value ? form.departmentNumber.vars.value : null %}
-<div class="pagination">
+{% set start = (page - 2) > 0 ? (page - 2) : 1 %}
+{% set end = (page + 2) < maxPage ? (page + 2) : maxPage %} {# Si on ne set pas les values et qu'on fixe directement les
+    valeurs du form dans les liens #} {# Alors on aura toujours &city=&departmentNumber=dans l'url si on ne remplit pas
+    le form #} {% set cityFilter=form.city.vars.value ? form.city.vars.value : null %} {% set
+    departmentNumberFilter=form.departmentNumber.vars.value ? form.departmentNumber.vars.value : null %} <div
+    class="pagination">
     <div class="previous">
         {% if page > 1 %}
         <a href="{{ path('app_events', {
@@ -13,20 +14,35 @@
         {% endif %}
     </div>
     <div class="pages-numbers">
-        {% for i in 1..maxPages %}
+        {% if start > 1 %}
+        <a href="{{ path('app_events', {
+        page: 1,
+        city: cityFilter,
+        departmentNumber: departmentNumberFilter
+        })}}">1</a>
+        <p>...</p>
+        {% endif %}
+        {% for i in start..end %}
         <a href="{{ path('app_events', {
         page: i,
         city: cityFilter,
         departmentNumber: departmentNumberFilter
         })}}">{{i}}</a>
         {% endfor %}
+        {% if end < maxPage %} <a href="{{ path('app_events', {
+        page: maxPage,
+        city: cityFilter,
+        departmentNumber: departmentNumberFilter
+        })}}">{{maxPage}}</a>
+            <p>...</p>
+            {% endif %}
     </div>
     <div class="next">
-        {% if page < maxPages %} <a href="{{ path('app_events', {
+        {% if page < maxPage %} <a href="{{ path('app_events', {
         page: page + 1,
         city: cityFilter,
         departmentNumber: departmentNumberFilter
         }) }}">Page suivante</a>
             {% endif %}
     </div>
-</div>
+    </div>

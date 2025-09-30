@@ -54,17 +54,17 @@ final class EventController extends AbstractController
         $events = $eventRepository->paginate($page, $limit, "e", new DateTime(), 'eventAt', $filterBy['city'], $filterBy['departmentNumber']);
 
         // Calcul du nombre de pages pour la pagination
-        $maxPages = $events->count() > 0 ? ceil($events->count() / $limit) : 1;
+        $maxPage = $events->count() > 0 ? ceil($events->count() / $limit) : 1;
         if ($page < 1) {
             return $this->redirectToRoute('app_events', ['page' => 1]);
         }
-        if ($page > $maxPages) {
-            return $this->redirectToRoute('app_events', ['page' => $maxPages]);
+        if ($page > $maxPage) {
+            return $this->redirectToRoute('app_events', ['page' => $maxPage]);
         }
 
         return $this->render('event/events-list.html.twig', [
             'events' => $events,
-            'maxPages' => $maxPages,
+            'maxPage' => $maxPage,
             'page' => $page,
             'form' => $form->createView(),
         ]);
