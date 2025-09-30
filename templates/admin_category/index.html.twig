@@ -37,27 +37,6 @@
         {% endfor %}
     </tbody>
 </table>
-<div class="pagination">
-    {% if page > 1 %}
-    <div class="previous">
-        <a href="{{ path('app_admin_categories', {
-        page: page - 1 }) }}">Page précédente</a>
-    </div>
-    {% endif %}
-    <div class="pages-numbers">
-        {% for i in 1..maxPages %}
-        <a href="{{ path('app_admin_categories', {
-        page: i}) }}">
-            {{i}}
-        </a>
-        {% endfor %}
-    </div>
-    {% if page < maxPages %} <div class="next">
-        <a href="{{ path('app_admin_categories', { page: page + 1 }) }}">
-            Page suivante
-        </a>
-</div>
-{% endif %}
-</div>
+{% include "components/pagination.html.twig" %}
 {% include 'components/deleteModal.html.twig' %}
 {% endblock %}

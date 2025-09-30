@@ -1,0 +1,22 @@
+<div class="pagination">
+    {% if page > 1 %}
+    <div class="previous">
+        <a href="{{ path('route', {
+        page: page - 1 }) }}">Page précédente</a>
+    </div>
+    {% endif %}
+    <div class="pages-numbers">
+        {% for i in 1..maxPages %}
+        <a href="{{ path('route', {
+        page: i}) }}">
+            {{i}}
+        </a>
+        {% endfor %}
+    </div>
+    {% if page < maxPages %} <div class="next">
+        <a href="{{ path('route', { page: page + 1 }) }}">
+            Page suivante
+        </a>
+</div>
+{% endif %}
+</div>

@@ -27,6 +27,7 @@ final class AdminCategoryController extends AbstractController
             'categories' => $categories,
             'page' => $page,
             'maxPages' => $maxPages,
+            'route' => 'app_admin_categories',
         ]);
     }
 
