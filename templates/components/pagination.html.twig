@@ -1,34 +1,50 @@
+{# Récupère les paramètres pour les évènements si il y en a besoin et que le formulaire de filtration d'évènements
+existe #}
+{% if eventForm is defined %}
+{% set cityFilter = eventForm.city.vars.value ? eventForm.city.vars.value : null %}
+{% set departmentNumberFilter = eventForm.departmentNumber.vars.value ? eventForm.departmentNumber.vars.value : null %}
+{% else %}
+{% set cityFilter = null %}
+{% set departmentNumberFilter = null %}
+{% endif %}
+
 {% set start = (page - 2) > 0 ? (page - 2) : 1 %}
 {% set end = (page + 2) < maxPage ? (page + 2) : maxPage %} <div class="pagination">
-    {% if page > 1 %}
     <div class="previous">
-        <a href="{{ path(route, {
-        page: page - 1 }) }}">Page précédente</a>
+        {% if page > 1 %}
+        <a href="{{ path(route, {page: page - 1, city: cityFilter, departmentNumber: departmentNumberFilter }) }}">
+            Page précédente
+        </a>
+        {% endif %}
     </div>
-    {% endif %}
+
     <div class="pages-numbers">
         {% if start > 1 %}
-        <a href="{{ path(route, {page: 1}) }}">
+        <a href="{{ path(route, {page: 1, city: cityFilter, departmentNumber: departmentNumberFilter })}}">
             1
         </a>
         <p>...</p>
         {% endif %}
 
-        {% for i in start..end %} <a href="{{ path(route, {page: i}) }}">
+        {% for i in start..end %}
+        <a href="{{ path(route, {page: i, city: cityFilter, departmentNumber: departmentNumberFilter })}}">
             {{i}}
         </a>
         {% endfor %}
 
-        {% if end < maxPage %} <p>...</p>
-            <a href="{{ path(route, {page: maxPage}) }}">
-                {{maxPage}}
+        {% if end < maxPage %} <a
+            href="{{ path(route, {page: maxPage, city: cityFilter, departmentNumber: departmentNumberFilter })}}">
+            {{maxPage}}
+            </a>
+            <p>...</p>
+            {% endif %}
+    </div>
+
+    <div class="next">
+        {% if page < maxPage %} <a
+            href="{{ path(route, {page: page + 1, city: cityFilter, departmentNumber: departmentNumberFilter }) }}">
+            Page suivante
             </a>
             {% endif %}
     </div>
-    {% if page < maxPage %} <div class="next">
-        <a href="{{ path(route, { page: page + 1 }) }}">
-            Page suivante
-        </a>
-        </div>
-        {% endif %}
-        </div>
+    </div>

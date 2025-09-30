@@ -66,7 +66,8 @@ final class EventController extends AbstractController
             'events' => $events,
             'maxPage' => $maxPage,
             'page' => $page,
-            'form' => $form->createView(),
+            'route' => 'app_events',
+            'eventForm' => $form->createView(),
         ]);
     }
 

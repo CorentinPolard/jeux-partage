@@ -12,11 +12,11 @@
     <section class="filter-section">
         <h2>Filtrer les évènements</h2>
         <a href="{{ path('app_events') }}" class="button-link">Réinitialiser</a>
-        {{ form_start(form, {'attr': {'class': 'filterForm'}}) }}
-        {{ form_row(form.city) }}
-        {{ form_row(form.departmentNumber) }}
+        {{ form_start(eventForm, {'attr': {'class': 'filterForm'}}) }}
+        {{ form_row(eventForm.city) }}
+        {{ form_row(eventForm.departmentNumber) }}
         <button type="submit">Chercher</button>
-        {{ form_end(form) }}
+        {{ form_end(eventForm) }}
     </section>
     {% if events|length == 0 %}
     <p>Pas encore d'évènements ici.</p>
@@ -74,6 +74,6 @@
         </div>
     </div>
     {% endfor %}
-    {% include "/components/event-pagination.html.twig" %}
+    {% include "/components/pagination.html.twig" %}
 </section>
 {% endblock %}
