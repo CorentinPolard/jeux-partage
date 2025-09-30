@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/admin/user')]
 final class AdminUserController extends AbstractController
 {
-    #[Route('', name: 'app_admin_user')]
+    #[Route('', name: 'app_admin_users')]
     public function index(UserRepository $userRepository, Request $request): Response
     {
         $limit = 50;
@@ -25,7 +25,7 @@ final class AdminUserController extends AbstractController
             'users' => $users,
             'page' => $page,
             'maxPage' => $maxPage,
-            'route' => 'app_admin_user',
+            'route' => 'app_admin_users',
         ]);
     }
 
@@ -42,12 +42,12 @@ final class AdminUserController extends AbstractController
     {
         if (in_array('ROLE_ADMIN', $user->getRoles())) {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer un administrateur.');
-            return $this->redirectToRoute('app_admin_user');
+            return $this->redirectToRoute('app_admin_users');
         }
 
         $entityManager->remove($user);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_admin_user');
+        return $this->redirectToRoute('app_admin_users');
     }
 }
