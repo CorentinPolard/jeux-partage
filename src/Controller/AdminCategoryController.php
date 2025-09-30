@@ -15,12 +15,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class AdminCategoryController extends AbstractController
 {
     #[Route('', name: 'app_admin_categories')]
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(CategoryRepository $categoryRepository, Request $request): Response
     {
-        $categories = $categoryRepository->findAll();
+        $limit = 50;
+        $page = max(1, $request->query->getInt('page', 1));
+        $categories = $categoryRepository->paginate($page, $limit, 'c');
+
+        $maxPages = min(1, ceil($categories->count() / $limit));
 
         return $this->render('admin_category/index.html.twig', [
             'categories' => $categories,
+            'page' => $page,
+            'maxPages' => $maxPages,
         ]);
     }
 
