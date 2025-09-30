@@ -148,41 +148,6 @@ main {
 }
 
 
-/* Pagination */
-.pagination {
-    max-width: 500px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-}
-
-.previous,
-.pages-numbers,
-.next {
-    font-size: 1.2rem;
-}
-
-.previous {
-    grid-area: 1 / 1 / 2 / 2;
-    text-align: left;
-}
-
-.pages-numbers {
-    grid-area: 1 / 2 / 2 / 3;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.next {
-    grid-area: 1 / 3 / 2 / 4;
-    text-align: right;
-}
-
-
 /* Registration form */
 .password-help {
     width: 100%;
