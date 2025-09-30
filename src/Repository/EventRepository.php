@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Event;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\User;
 
 /**
  * @extends ServiceEntityRepository<Event>
@@ -19,7 +20,7 @@ class EventRepository extends BaseRepository
     /**
      * @return Event[] Returns an array of Event objects
      */
-    public function findByOneParticipant($value): array
+    public function findByOneParticipant(User $value): array
     {
         return $this->createQueryBuilder('e')
             ->join("e.participants", "p")

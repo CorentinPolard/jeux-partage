@@ -23,12 +23,18 @@ final class AdminEventController extends AbstractController
     ) {}
 
     #[Route('', name: 'app_admin_events')]
-    public function index(EventRepository $eventRepository): Response
+    public function index(EventRepository $eventRepository, Request $request): Response
     {
-        $events = $eventRepository->findAll();
+        $limit = 50;
+        $page = max(1, $request->query->getInt('page', 1));
+        $events = $eventRepository->paginate($page, $limit, 'e');
+        $maxPage = max(1, ceil($events->count() / $limit));
 
         return $this->render('admin_event/index.html.twig', [
             'events' => $events,
+            'page' => $page,
+            'maxPage' => $maxPage,
+            'route' => 'app_admin_events',
         ]);
     }
 

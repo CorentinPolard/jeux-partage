@@ -17,12 +17,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class AdminGameController extends AbstractController
 {
     #[Route('', name: 'app_admin_games')]
-    public function index(GameRepository $gameRepository): Response
+    public function index(GameRepository $gameRepository, Request $request): Response
     {
-        $games = $gameRepository->findAll();
+        $limit = 50;
+        $page = max(1, $request->query->getInt('page', 1));
+        $games = $gameRepository->paginate($page, $limit, 'g');
+        $maxPage = max(1, ceil($games->count() / $limit));
 
         return $this->render('admin_game/index.html.twig', [
             'games' => $games,
+            'page' => $page,
+            'maxPage' => $maxPage,
+            'route' => 'app_admin_games',
         ]);
     }
 

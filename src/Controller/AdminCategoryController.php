@@ -20,13 +20,12 @@ final class AdminCategoryController extends AbstractController
         $limit = 50;
         $page = max(1, $request->query->getInt('page', 1));
         $categories = $categoryRepository->paginate($page, $limit, 'c');
-
-        $maxPages = min(1, ceil($categories->count() / $limit));
+        $maxPage = max(1, ceil($categories->count() / $limit));
 
         return $this->render('admin_category/index.html.twig', [
             'categories' => $categories,
             'page' => $page,
-            'maxPages' => $maxPages,
+            'maxPage' => $maxPage,
             'route' => 'app_admin_categories',
         ]);
     }
