@@ -16,7 +16,7 @@ final class GameController extends AbstractController
     #[Route('', name: 'app_games')]
     public function index(PaginatorService $paginatorService, GameRepository $gameRepository, Request $request): Response
     {
-        $paginationDatas = $paginatorService->initPagination($gameRepository, 30, 'g', $request);
+        $paginationDatas = $paginatorService->initPagination($gameRepository, 20, 'g', $request);
 
         return $this->render('game/games-list.html.twig', [
             'games' => $paginationDatas['items'],
