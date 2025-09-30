@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Form\GameType;
 use App\Repository\GameRepository;
+use App\Service\PaginatorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,17 +18,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class AdminGameController extends AbstractController
 {
     #[Route('', name: 'app_admin_games')]
-    public function index(GameRepository $gameRepository, Request $request): Response
+    public function index(PaginatorService $paginatorService, GameRepository $gameRepository, Request $request): Response
     {
-        $limit = 50;
-        $page = max(1, $request->query->getInt('page', 1));
-        $games = $gameRepository->paginate($page, $limit, 'g');
-        $maxPage = max(1, ceil($games->count() / $limit));
+        $paginationDatas = $paginatorService->initPagination($gameRepository, 50, 'g', $request);
 
         return $this->render('admin_game/index.html.twig', [
-            'games' => $games,
-            'page' => $page,
-            'maxPage' => $maxPage,
+            'games' => $paginationDatas['items'],
+            'page' => $paginationDatas['page'],
+            'maxPage' => $paginationDatas['maxPage'],
             'route' => 'app_admin_games',
         ]);
     }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Service\PaginatorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,17 +16,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class AdminCategoryController extends AbstractController
 {
     #[Route('', name: 'app_admin_categories')]
-    public function index(CategoryRepository $categoryRepository, Request $request): Response
+    public function index(PaginatorService $paginatorService, CategoryRepository $categoryRepository, Request $request): Response
     {
-        $limit = 50;
-        $page = max(1, $request->query->getInt('page', 1));
-        $categories = $categoryRepository->paginate($page, $limit, 'c');
-        $maxPage = max(1, ceil($categories->count() / $limit));
+        $paginationDatas = $paginatorService->initPagination($categoryRepository, 25, 'c', $request);
 
         return $this->render('admin_category/index.html.twig', [
-            'categories' => $categories,
-            'page' => $page,
-            'maxPage' => $maxPage,
+            'categories' => $paginationDatas['items'],
+            'page' => $paginationDatas['page'],
+            'maxPage' => $paginationDatas['maxPage'],
             'route' => 'app_admin_categories',
         ]);
     }

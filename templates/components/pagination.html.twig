@@ -32,11 +32,10 @@ existe #}
         </a>
         {% endfor %}
 
-        {% if end < maxPage %} <a
-            href="{{ path(route, {page: maxPage, city: cityFilter, departmentNumber: departmentNumberFilter })}}">
-            {{maxPage}}
+        {% if end < maxPage %} <p>...</p>
+            <a href="{{ path(route, {page: maxPage, city: cityFilter, departmentNumber: departmentNumberFilter })}}">
+                {{maxPage}}
             </a>
-            <p>...</p>
             {% endif %}
     </div>
 

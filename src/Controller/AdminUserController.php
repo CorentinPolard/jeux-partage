@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Service\PaginatorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,17 +15,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class AdminUserController extends AbstractController
 {
     #[Route('', name: 'app_admin_users')]
-    public function index(UserRepository $userRepository, Request $request): Response
+    public function index(PaginatorService $paginatorService, UserRepository $userRepository, Request $request): Response
     {
-        $limit = 50;
-        $page = max(1, $request->query->getInt('page', 1));
-        $users = $userRepository->paginate($page, $limit, 'u');
-        $maxPage = max(1, ceil($users->count() / $limit));
+        $paginationDatas = $paginatorService->initPagination($userRepository, 50, 'u', $request);
 
         return $this->render('admin_user/index.html.twig', [
-            'users' => $users,
-            'page' => $page,
-            'maxPage' => $maxPage,
+            'users' => $paginationDatas['items'],
+            'page' => $paginationDatas['page'],
+            'maxPage' => $paginationDatas['maxPage'],
             'route' => 'app_admin_users',
         ]);
     }

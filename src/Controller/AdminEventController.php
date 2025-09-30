@@ -8,6 +8,7 @@ use App\Entity\Message;
 use App\Form\EventType;
 use App\Form\MessageType;
 use App\Repository\EventRepository;
+use App\Service\PaginatorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,17 +24,14 @@ final class AdminEventController extends AbstractController
     ) {}
 
     #[Route('', name: 'app_admin_events')]
-    public function index(EventRepository $eventRepository, Request $request): Response
+    public function index(PaginatorService $paginatorService, EventRepository $eventRepository, Request $request): Response
     {
-        $limit = 50;
-        $page = max(1, $request->query->getInt('page', 1));
-        $events = $eventRepository->paginate($page, $limit, 'e');
-        $maxPage = max(1, ceil($events->count() / $limit));
+        $paginationDatas = $paginatorService->initPagination($eventRepository, 50, 'e', $request);
 
         return $this->render('admin_event/index.html.twig', [
-            'events' => $events,
-            'page' => $page,
-            'maxPage' => $maxPage,
+            'events' => $paginationDatas['items'],
+            'page' => $paginationDatas['page'],
+            'maxPage' => $paginationDatas['maxPage'],
             'route' => 'app_admin_events',
         ]);
     }
