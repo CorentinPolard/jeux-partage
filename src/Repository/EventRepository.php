@@ -32,11 +32,24 @@ class EventRepository extends BaseRepository
         ;
     }
 
-    public function findAllAndMessages(): array
+    public function countEventsWithMessages(): int
+    {
+        return $this->createQueryBuilder('e')
+            ->join("e.messages", "m")
+            ->select("COUNT(e.id)")
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    // Faire un join permet de récupérer uniquement les évènements qui ont des messages 
+    // Mais aussi de réduire les requêtes envoyés par Doctrine depuis le twig pour récupérer les messages 
+    public function findAllAndMessages(int $page, int $limit = 10): array
     {
         return $this->createQueryBuilder('e')
             ->join("e.messages", "m")
             ->addSelect('m')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
     }
