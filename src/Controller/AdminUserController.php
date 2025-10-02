@@ -35,16 +35,19 @@ final class AdminUserController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_admin_delete_user', requirements: ['id' => '\d+'])]
+    #[Route('/block/{id}', name: 'app_admin_block_user', requirements: ['id' => '\d+'])]
     public function deleteUser(User $user, EntityManagerInterface $entityManager): Response
     {
         if (in_array('ROLE_ADMIN', $user->getRoles())) {
-            $this->addFlash('error', 'Vous ne pouvez pas supprimer un administrateur.');
+            $this->addFlash('error', 'Vous ne pouvez pas bloquer un administrateur.');
             return $this->redirectToRoute('app_admin_users');
         }
 
-        $entityManager->remove($user);
+        $user->setIsBlocked(!$user->isBlocked());
         $entityManager->flush();
+
+        $status = $user->isBlocked() ? 'bloqué' : 'débloqué';
+        $this->addFlash('success', "Utilisateur $status avec succès.");
 
         return $this->redirectToRoute('app_admin_users');
     }

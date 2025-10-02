@@ -30,10 +30,15 @@
                 <a href="{{ path('app_admin_show_user', {'id': user.id}) }}" aria-label="Voir {{ user.getFullName }}">
                     <img class="admin-action" src="{{ asset('images/icones/read-icon.svg') }}" alt="Icone d'oeil">
                 </a>
-                <a class="delete-button" href="{{ path('app_admin_delete_user', {'id': user.id}) }}"
-                    aria-label="Supprimer {{ user.getFullName }}">
-                    <img class="admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
-                        alt="Icone de poubelle">
+                <a href="{{ path('app_admin_block_user', {'id': user.id}) }}"
+                    aria-label="Bloquer l'accès au site pour {{ user.getFullName }}">
+                    {% if user.isBlocked %}
+                    <img class="admin-action" src="{{ asset('images/icones/unblocked-red-icon.svg') }}"
+                        alt="Icone d'accès autorisé">
+                    {% else %}
+                    <img class="admin-action" src="{{ asset('images/icones/blocked-red-icon.svg') }}"
+                        alt="Icone d'accès interdit">
+                    {% endif %}
                 </a>
             </td>
         </tr>

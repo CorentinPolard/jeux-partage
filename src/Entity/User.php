@@ -63,6 +63,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'participants')]
     private Collection $events;
 
+    #[ORM\Column]
+    private ?bool $isBlocked = false;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -284,5 +287,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getNumberOfMessages(): int
     {
         return $this->messages->count();
+    }
+
+    public function isBlocked(): ?bool
+    {
+        return $this->isBlocked;
+    }
+
+    public function setIsBlocked(bool $isBlocked): static
+    {
+        $this->isBlocked = $isBlocked;
+
+        return $this;
     }
 }
