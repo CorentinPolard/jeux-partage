@@ -176,7 +176,7 @@ final class EventController extends AbstractController
             return $this->redirectToRoute('app_events');
         } elseif ($event->getOrganizer() === $user) {
             $this->addFlash('error', "Vous ne pouvez pas vous inscrire à un évènement que vous organisez.");
-            return $this->redirectToRoute('app_my_events_event');
+            return $this->redirectToRoute('app_my_events');
         }
 
         if (!$event->getParticipants()->contains($user)) {
@@ -192,7 +192,7 @@ final class EventController extends AbstractController
         }
     }
 
-    #[Route('/my-events', name: 'app_my_events_event')]
+    #[Route('/my-events', name: 'app_my_events')]
     public function myEvents(EventRepository $eventRepository): Response
     {
         $user = $this->getUser();

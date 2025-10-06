@@ -56,7 +56,8 @@
         </div>
         <div class="my-event-actions-container">
             <a class="button-link" href="{{ path('app_show_event', {id: event.id}) }}">Voir</a>
-            <a class="button-link" href="{{ path('app_unregister_event', {id: event.id}) }}">Se désinscrire</a>
+            {# <a class="button-link" href="{{ path('app_unregister_event', {id: event.id}) }}">Se désinscrire</a> #}
+            <a class="button-link" href="{{ path('app_register_event', {id: event.id}) }}">Se désinscrire</a>
         </div>
     </div>
     {% endfor %}

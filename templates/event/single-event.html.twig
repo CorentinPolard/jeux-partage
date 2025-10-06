@@ -11,7 +11,8 @@
 </div>
 {% endif %}
 {% if app.user and app.user in event.participants %}
-<a class="button-link" href="{{ path('app_unregister_event', {id: event.id}) }}">Se désinscrire</a>
+{# <a class="button-link" href="{{ path('app_unregister_event', {id: event.id}) }}">Se désinscrire</a> #}
+<a class="button-link" href="{{ path('app_register_event', {id: event.id}) }}">Se désinscrire</a>
 {% endif %}
 {% include "/components/single-event.html.twig" %}
 {% include 'components/deleteModal.html.twig' %}
