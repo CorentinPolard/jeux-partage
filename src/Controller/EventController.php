@@ -171,38 +171,23 @@ final class EventController extends AbstractController
     {
         $user = $this->getUser();
 
-        if (
-            $event->getOrganizer() !== $user
-            && !$event->getParticipants()->contains($user)
-            && !$event->isFull()
-        ) {
+        if ($event->isFull()) {
+            $this->addFlash('error', "Cet évènement est complet.");
+            return $this->redirectToRoute('app_events');
+        } elseif ($event->getOrganizer() === $user) {
+            $this->addFlash('error', "Vous ne pouvez pas vous inscrire à un évènement que vous organisez.");
+            return $this->redirectToRoute('app_my_events_event');
+        }
+
+        if (!$event->getParticipants()->contains($user)) {
             $event->addParticipant($user);
-            $entityManager->persist($event);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
         } else {
-            $this->addFlash('error', "Vous ne pouvez pas vous inscrire à cet évènement. Il est complet ou vous êtes déjà inscrit.");
-            return $this->redirectToRoute('app_events');
-        }
-    }
-
-    #[Route('/unregister/{id}', name: 'app_unregister_event', requirements: ['id' => '\d+'])]
-    public function unregister(Event $event, EntityManagerInterface $entityManager): Response
-    {
-        $user = $this->getUser();
-
-        if (
-            $event->getOrganizer() !== $user
-            && $event->getParticipants()->contains($user)
-        ) {
             $event->removeParticipant($user);
-            $entityManager->persist($event);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_events');
-        } else {
-            $this->addFlash('error', "Vous ne pouvez pas vous désinscrire de cet évènement. Si vous ête l'organisateur supprimez le, ou vous n'êtes déjà pas inscrit.");
             return $this->redirectToRoute('app_events');
         }
     }
