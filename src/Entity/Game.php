@@ -32,7 +32,7 @@ class Game
     private ?int $averageGameDuration = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $imageFileName = null;
+    private ?string $imageFileName = "no-image.svg";
 
     /**
      * @var Collection<int, Event>

@@ -96,7 +96,7 @@ final class AdminGameController extends AbstractController
                 $safeFileName = $slugger->slug($originalFileName);
                 $newFileName = $safeFileName . '-' . uniqid() . '.' . $newImageFile->guessExtension();
 
-                if ($oldImageName && file_exists($imagesDirectory . '/' . $oldImageName)) {
+                if ($oldImageName != "no-image.svg" && file_exists($imagesDirectory . '/' . $oldImageName)) {
                     unlink($imagesDirectory . '/' . $oldImageName);
                 }
 
@@ -122,7 +122,7 @@ final class AdminGameController extends AbstractController
         #[Autowire('%kernel.project_dir%/public/images/uploads/games')] string $imagesDirectory,
     ): Response {
         $imageName = $game->getImageFileName();
-        if ($imageName && file_exists($imagesDirectory . '/' . $imageName)) {
+        if ($imageName != "no-image.svg" && file_exists($imagesDirectory . '/' . $imageName)) {
             unlink($imagesDirectory . '/' . $imageName);
         }
 

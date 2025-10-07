@@ -39,12 +39,8 @@
     {% for game in event.games %}
     <a class="game-link" href="{{ path('app_show_game', {id: game.id}) }}">
         <div class="game-container">
-            {% if game.imageFileName %}
             <img class="game-image" src="{{ asset('images/uploads/games/' ~ game.imageFileName)}}"
                 alt="Illustration de {{game.name}}" width="200" height="200">
-            {% else %}
-            <p>Aucune image</p>
-            {% endif %}
             <p class="game-title">{{game.name}}</p>
             <p>{{game.category.label}}</p>
         </div>

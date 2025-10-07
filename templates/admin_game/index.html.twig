@@ -21,13 +21,9 @@
             <td>{{ game.id }}</td>
             <td>{{ game.name }}</td>
             <td>
-                {% if game.imageFileName %}
                 <img class="game-image" src="{{ asset('images/uploads/games/' ~ game.imageFileName) }}"
                     alt="Illustration de {{ game.name }}." />
             </td>
-            {% else %}
-            Aucune image
-            {% endif %}
             <td>{{ game.category.label }}</td>
             <td class="admin-actions">
                 <a href="{{ path('app_admin_show_game', {'id': game.id}) }}" aria-label="Voir {{ game.name }}">

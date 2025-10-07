@@ -1,8 +1,6 @@
 <h1>{{game.name}}</h1>
-{% if game.imageFileName %}
 <img class="game-image" src="{{ asset('images/uploads/games/' ~ game.imageFileName) }}"
     alt="Illustration de {{ game.name }}." />
-{% endif %}
 <section class="game-description">
     <h2>Description</h2>
     <p>{{game.description}}</p>
