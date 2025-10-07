@@ -199,6 +199,8 @@ button,
 .profil-picture {
     width: 50px;
     height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 /* Form and inputs */

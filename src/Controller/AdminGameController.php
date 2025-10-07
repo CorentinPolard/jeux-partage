@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Form\GameType;
 use App\Repository\GameRepository;
+use App\Service\ImageUploadService;
 use App\Service\PaginatorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,9 +33,8 @@ final class AdminGameController extends AbstractController
 
     #[Route('/create', name: 'app_admin_create_game')]
     public function createGame(
-        SluggerInterface $slugger,
         EntityManagerInterface $entityManager,
-        #[Autowire('%kernel.project_dir%/public/images/uploads/games')] string $imagesDirectory,
+        ImageUploadService $imageUploadService,
         Request $request
     ): Response {
         $game = new Game();
@@ -43,16 +43,9 @@ final class AdminGameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $imageFile = $form->get('image')->getData();
-
-            if ($imageFile) {
-                // Récupère le nom de l'image et enlève l'extension
-                $originalFileName = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFileName = $slugger->slug($originalFileName);
-                $newFileName = $safeFileName . '-' . uniqid() . '.' . $imageFile->guessExtension();
-
-                $imageFile->move($imagesDirectory, $newFileName);
-
+            $newImage = $form->get('image')->getData();
+            if ($newImage) {
+                $newFileName = $imageUploadService->processFile($game->getImageFileName(), $newImage, 'games');
                 $game->setImageFileName($newFileName);
             }
 
@@ -78,35 +71,23 @@ final class AdminGameController extends AbstractController
     #[Route('/edit/{id}', name: 'app_admin_edit_game', requirements: ['id' => '\d+'])]
     public function editGame(
         Game $game,
-        SluggerInterface $slugger,
         EntityManagerInterface $entityManager,
-        #[Autowire('%kernel.project_dir%/public/images/uploads/games')] string $imagesDirectory,
+        ImageUploadService $imageUploadService,
         Request $request
     ): Response {
-        $oldImageName = $game->getImageFileName();
 
         $form = $this->createForm(GameType::class, $game);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $newImageFile = $form->get('image')->getData();
-
-            if ($newImageFile) {
-                $originalFileName = pathinfo($newImageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFileName = $slugger->slug($originalFileName);
-                $newFileName = $safeFileName . '-' . uniqid() . '.' . $newImageFile->guessExtension();
-
-                if ($oldImageName != "no-image.svg" && file_exists($imagesDirectory . '/' . $oldImageName)) {
-                    unlink($imagesDirectory . '/' . $oldImageName);
-                }
-
-                $newImageFile->move($imagesDirectory, $newFileName);
-
+            $newImage = $form->get('image')->getData();
+            if ($newImage) {
+                $oldImageName = $game->getImageFileName();
+                $newFileName = $imageUploadService->processFile($oldImageName, $newImage, 'games');
                 $game->setImageFileName($newFileName);
             }
 
             $entityManager->flush();
-
             return $this->redirectToRoute('app_admin_show_game', ['id' => $game->getId()]);
         }
 

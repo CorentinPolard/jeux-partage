@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\UserType;
+use App\Service\ImageUploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +18,30 @@ final class ProfileController extends AbstractController
     {
         return $this->render('profile/index.html.twig', [
             'user' => $this->getUser(),
+        ]);
+    }
+
+    #[Route('/edit', name: 'app_edit_profile')]
+    public function edit(ImageUploadService $imageUploadService, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newImage = $form->get('profilePicture')->getData();
+            if ($newImage) {
+                $newFileName = $imageUploadService->processFile($user->getProfilePicture(), $newImage, 'profil-pictures');
+                $user->setProfilePicture($newFileName);
+            }
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Profil mis à jour avec succès !');
+            return $this->redirectToRoute('app_profile');
+        }
+
+        return $this->render('profile/edit-profile.html.twig', [
+            'form' => $form,
         ]);
     }
 
