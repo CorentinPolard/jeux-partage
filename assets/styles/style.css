@@ -31,6 +31,11 @@ main {
 }
 
 /* Events */
+.events-list-page-image {
+    width: 100%;
+    height: auto;
+}
+
 .events-section {
     width: 100%;
     display: flex;
