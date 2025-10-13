@@ -22,7 +22,11 @@
             <div class="event-place">
                 <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une
                     carte">
+                {% if event.address %}
                 <address>{{event.address.getFullAddress }}</address>
+                {% else %}
+                <address>Adresse non renseignée</address>
+                {% endif %}
             </div>
         </div>
         <div class="my-event-actions-container">
@@ -51,7 +55,11 @@
             <div class="event-place">
                 <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une
                     carte">
+                {% if event.address %}
                 <address>{{event.address.getFullAddress }}</address>
+                {% else %}
+                <p>Adresse non renseignée</p>
+                {% endif %}
             </div>
         </div>
         <div class="my-event-actions-container">

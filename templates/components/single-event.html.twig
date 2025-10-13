@@ -11,7 +11,11 @@
         </div>
         <div class="event-place">
             <img class="event-icon" src="{{ asset('images/icones/location-red-icon.svg') }}" alt="Pointeur d'une carte">
+            {% if event.address %}
             <address>{{event.address.getFullAddress }}</address>
+            {% else %}
+            <p>Adresse non renseignée</p>
+            {% endif %}
         </div>
         <div class="event-duration">
             <img class="event-icon" src="{{ asset('images/icones/clock-red-icon.svg') }}"
@@ -28,7 +32,7 @@
             {% endif %}
         </div>
     </div>
-    {% if event.address.latitude and event.address.longitude %}
+    {% if event.address and event.address.latitude and event.address.longitude %}
     <div id="map" class="maps" data-address="{{ jsonCoordinates }}">
     </div>
     {% endif %}
