@@ -17,7 +17,7 @@ class UserChecker implements UserCheckerInterface
 
         if ($user->isBlocked()) {
             throw new CustomUserMessageAuthenticationException(
-                'Votre compte a été bloqué par un administrateur.'
+                'Votre compte a été bloqué par un administrateur. Vous pouvez contacter l\'administrateur du site à cette adresse pour plus d\'informations : corentin.polard@gmail.com'
             );
         }
     }
