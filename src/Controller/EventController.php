@@ -74,35 +74,42 @@ final class EventController extends AbstractController
     #[Route('/show/{id}', name: 'app_show_event', requirements: ['id' => '\d+'])]
     public function showEvent(Event $event, EntityManagerInterface $entityManager, Request $request): Response
     {
-        $jsonCoordinates = $this->serializer->serialize(
-            $event,
-            'json',
-            [
-                'groups' => ['coordinates'],
-            ]
-        );
+        $user = $this->getUser();
+        if ($event->getOrganizer() === $user || $event->getParticipants()->contains($user)) {
 
-        $message = new Message();
+            $jsonCoordinates = $this->serializer->serialize(
+                $event,
+                'json',
+                [
+                    'groups' => ['coordinates'],
+                ]
+            );
 
-        $form = $this->createForm(MessageType::class, $message);
-        $form->handleRequest($request);
+            $message = new Message();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $message->setUser($this->getUser());
-            $message->setCreatedAt(new DateTime());
-            $message->setEvent($event);
+            $form = $this->createForm(MessageType::class, $message);
+            $form->handleRequest($request);
 
-            $entityManager->persist($message);
-            $entityManager->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $message->setUser($this->getUser());
+                $message->setCreatedAt(new DateTime());
+                $message->setEvent($event);
 
-            return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
+                $entityManager->persist($message);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
+            }
+
+            return $this->render('event/single-event.html.twig', [
+                'event' => $event,
+                'jsonCoordinates' => $jsonCoordinates,
+                'form' => $form->createView(),
+            ]);
+        } else {
+            $this->addFlash('error', "Vous n'êtes pas autorisé à voir cet évènement.");
+            return $this->redirectToRoute('app_events');
         }
-
-        return $this->render('event/single-event.html.twig', [
-            'event' => $event,
-            'jsonCoordinates' => $jsonCoordinates,
-            'form' => $form->createView(),
-        ]);
     }
 
     #[Route('/create', name: 'app_create_event')]
