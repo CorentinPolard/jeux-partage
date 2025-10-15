@@ -69,7 +69,10 @@
         </div>
         <div class="my-event-actions-container">
             <a class="button-link" href="{{ path('app_show_event', {id: event.id}) }}">Voir</a>
-            <a class="button-link" href="{{ path('app_register_event', {id: event.id}) }}">Se désinscrire</a>
+            <form action="{{ path('app_register_event', {id: event.id}) }}" method="post">
+                <input type="hidden" name="_token" value="{{ csrf_token('register_event_' ~ event.id) }}">
+                <button type="submit" class="button-link">Se désinscrire</button>
+            </form>
         </div>
     </div>
     {% endfor %}

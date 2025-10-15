@@ -271,7 +271,8 @@ button {
 
 
 /* Delete and Modal */
-.delete-form {
+.delete-form,
+.unregister-form {
     display: inline;
     width: fit-content;
     padding: 0;

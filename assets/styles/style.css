@@ -143,6 +143,11 @@ main {
 }
 
 
+/* Delete Button */
+.delete-button {
+    padding: 6px 10px;
+}
+
 /* jeux et images singleEvent */
 .games-section {
     display: flex;
@@ -233,6 +238,10 @@ footer {
     .legal-container {
         flex-flow: row wrap;
         justify-content: space-around;
+    }
+
+    .delete-button {
+        padding: 10px 16px;
     }
 }
 

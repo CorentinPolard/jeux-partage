@@ -174,30 +174,37 @@ final class EventController extends AbstractController
         return $this->redirectToRoute('app_my_events');
     }
 
-    #[Route('/register/{id}', name: 'app_register_event', requirements: ['id' => '\d+'])]
-    public function register(Event $event, EntityManagerInterface $entityManager): Response
+    #[Route('/register/{id}', name: 'app_register_event', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function register(Event $event, EntityManagerInterface $entityManager, Request $request): Response
     {
-        $user = $this->getUser();
-
-        if ($event->isFull()) {
-            $this->addFlash('error', "Cet évènement est complet.");
+        $submittedToken = $request->request->get('_token');
+        if (!$this->isCsrfTokenValid('register_event_' . $event->getId(), $submittedToken)) {
+            $this->addFlash('error', "Token CSRF invalide.");
             return $this->redirectToRoute('app_events');
-        } elseif ($event->getOrganizer() === $user) {
+        }
+
+        $user = $this->getUser();
+        if ($event->getParticipants()->contains($user)) {
+            $event->removeParticipant($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_my_events');
+        }
+
+        if ($event->getOrganizer() === $user) {
             $this->addFlash('error', "Vous ne pouvez pas vous inscrire à un évènement que vous organisez.");
             return $this->redirectToRoute('app_my_events');
         }
 
-        if (!$event->getParticipants()->contains($user)) {
-            $event->addParticipant($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
-        } else {
-            $event->removeParticipant($user);
-            $entityManager->flush();
-
+        if ($event->isFull()) {
+            $this->addFlash('error', "Cet évènement est complet.");
             return $this->redirectToRoute('app_events');
         }
+
+        $event->addParticipant($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
     }
 
     #[Route('/my-events', name: 'app_my_events')]
