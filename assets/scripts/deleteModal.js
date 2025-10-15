@@ -1,15 +1,15 @@
 const modalBackground = document.querySelector("#modal-background");
 
-const deleteButtons = document.querySelectorAll(".delete-button");
-deleteButtons.forEach(button => {
-    button.addEventListener("click", (e) => {
+const deleteForms = document.querySelectorAll(".delete-form");
+deleteForms.forEach(deleteForm => {
+    deleteForm.addEventListener("submit", (e) => {
         e.preventDefault();
         if (modalBackground) {
             modalBackground.classList.remove("hidden");
             modalBackground.classList.add("modal-background")
 
-            confirmedDelete = document.querySelector(".delete-entity");
-            confirmedDelete.setAttribute("href", e.currentTarget.getAttribute("href"));
+            const confirmedDelete = document.querySelector(".delete-entity");
+            confirmedDelete.addEventListener("click", () => deleteForm.submit())
         }
     })
 })

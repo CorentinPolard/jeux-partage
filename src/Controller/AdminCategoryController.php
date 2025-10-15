@@ -63,11 +63,14 @@ final class AdminCategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_admin_delete_category', requirements: ['id' => '\d+'])]
-    public function deleteCategory(Category $category, EntityManagerInterface $entityManager): Response
+    #[Route('/delete/{id}', name: 'app_admin_delete_category', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function deleteCategory(Request $request, Category $category, EntityManagerInterface $entityManager): Response
     {
-        $entityManager->remove($category);
-        $entityManager->flush();
+        $submittedToken = $request->request->get('_token');
+        if ($this->isCsrfTokenValid('delete_category_' . $category->getId(), $submittedToken)) {
+            $entityManager->remove($category);
+            $entityManager->flush();
+        }
         return $this->redirectToRoute('app_admin_categories');
     }
 }

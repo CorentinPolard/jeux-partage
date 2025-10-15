@@ -96,20 +96,24 @@ final class AdminGameController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_admin_delete_game', requirements: ['id' => '\d+'])]
+    #[Route('/delete/{id}', name: 'app_admin_delete_game', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function deleteGame(
         Game $game,
         EntityManagerInterface $entityManager,
         #[Autowire('%kernel.project_dir%/public/images/uploads/games')] string $imagesDirectory,
+        Request $request
     ): Response {
-        $imageName = $game->getImageFileName();
-        if ($imageName != "no-image.svg" && file_exists($imagesDirectory . '/' . $imageName)) {
-            unlink($imagesDirectory . '/' . $imageName);
+
+        $submittedToken = $request->request->get('_token');
+        if ($this->isCsrfTokenValid('delete_category_' . $game->getId(), $submittedToken)) {
+            $imageName = $game->getImageFileName();
+            if ($imageName != "no-image.svg" && file_exists($imagesDirectory . '/' . $imageName)) {
+                unlink($imagesDirectory . '/' . $imageName);
+            }
+
+            $entityManager->remove($game);
+            $entityManager->flush();
         }
-
-        $entityManager->remove($game);
-        $entityManager->flush();
-
         return $this->redirectToRoute('app_admin_games');
     }
 }

@@ -270,7 +270,16 @@ button {
 }
 
 
-/* Modal */
+/* Delete and Modal */
+.delete-form {
+    display: inline;
+    width: fit-content;
+}
+
+.delete-button {
+    background: none;
+}
+
 .hidden {
     display: none;
 }

@@ -31,11 +31,14 @@ final class AdminMessageController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_admin_delete_message', requirements: ['id' => '\d+'])]
-    public function deleteMessage(Message $message, EntityManagerInterface $entityManager): Response
+    #[Route('/delete/{id}', name: 'app_admin_delete_message', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function deleteMessage(Message $message, EntityManagerInterface $entityManager, Request $request): Response
     {
-        $entityManager->remove($message);
-        $entityManager->flush();
+        $submittedToken = $request->request->get('_token');
+        if ($this->isCsrfTokenValid('delete_category_' . $message->getId(), $submittedToken)) {
+            $entityManager->remove($message);
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('app_admin_messages');
     }

@@ -158,11 +158,14 @@ final class AdminEventController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_admin_delete_event', requirements: ['id' => '\d+'])]
-    public function deleteEvent(Event $event, EntityManagerInterface $entityManager): Response
+    #[Route('/delete/{id}', name: 'app_admin_delete_event', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function deleteEvent(Event $event, EntityManagerInterface $entityManager, Request $request): Response
     {
-        $entityManager->remove($event);
-        $entityManager->flush();
+        $submittedToken = $request->request->get('_token');
+        if ($this->isCsrfTokenValid('delete_category_' . $event->getId(), $submittedToken)) {
+            $entityManager->remove($event);
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('app_admin_events');
     }
