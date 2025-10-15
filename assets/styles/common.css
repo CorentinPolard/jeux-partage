@@ -274,10 +274,6 @@ button {
 .delete-form {
     display: inline;
     width: fit-content;
-}
-
-.delete-button {
-    background: none;
     padding: 0;
 }
 

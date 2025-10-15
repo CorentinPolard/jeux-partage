@@ -153,17 +153,18 @@ final class EventController extends AbstractController
         }
     }
 
-    #[Route('/delete/{id}', name: 'app_delete_event', requirements: ['id' => '\d+'])]
-    public function deleteEvent(Event $event, EntityManagerInterface $entityManager): Response
+    #[Route('/delete/{id}', name: 'app_delete_event', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function deleteEvent(Event $event, EntityManagerInterface $entityManager, Request $request): Response
     {
-        if ($event->getOrganizer() === $this->getUser()) {
+        $submittedToken = $request->request->get('_token');
+        if ($this->isCsrfTokenValid('delete_event_' . $event->getId(), $submittedToken) && $event->getOrganizer() === $this->getUser()) {
             $entityManager->remove($event);
             $entityManager->flush();
         } else {
             $this->addFlash('error', "Vous n'êtes pas autorisé à supprimer cet évènement.");
         }
 
-        return $this->redirectToRoute('app_events');
+        return $this->redirectToRoute('app_my_events');
     }
 
     #[Route('/register/{id}', name: 'app_register_event', requirements: ['id' => '\d+'])]

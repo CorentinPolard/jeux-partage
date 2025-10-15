@@ -32,7 +32,12 @@
         <div class="my-event-actions-container">
             <a class="button-link" href="{{ path('app_show_event', {id: event.id}) }}">Voir</a>
             <a class="button-link" href="{{ path('app_edit_event', {id: event.id}) }}">Modifier</a>
-            <a class="delete-button button-link" href="{{ path('app_delete_event', {id: event.id}) }}">Supprimer</a>
+            <form method="post" action="{{ path('app_delete_event', {'id': event.id}) }}" class="delete-form">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete_event_' ~ event.id) }}">
+                <button type="submit" class="delete-button" aria-label="Supprimer {{ event.title }}">
+                    Supprimer
+                </button>
+            </form>
         </div>
     </div>
     {% endfor %}
@@ -64,7 +69,6 @@
         </div>
         <div class="my-event-actions-container">
             <a class="button-link" href="{{ path('app_show_event', {id: event.id}) }}">Voir</a>
-            {# <a class="button-link" href="{{ path('app_unregister_event', {id: event.id}) }}">Se désinscrire</a> #}
             <a class="button-link" href="{{ path('app_register_event', {id: event.id}) }}">Se désinscrire</a>
         </div>
     </div>

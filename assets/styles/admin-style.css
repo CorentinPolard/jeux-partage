@@ -129,6 +129,11 @@ tr:nth-child(odd) {
     height: auto;
 }
 
+.delete-button {
+    background: none;
+    padding: 0;
+}
+
 .games-admin-action {
     max-width: 50px;
     max-height: 50px;
