@@ -36,10 +36,9 @@
                 <a href="{{ path('app_admin_edit_event', {'id': event.id}) }}" aria-label="Modifier {{ event.title }}">
                     <img class="admin-action" src="{{ asset('images/icones/edit-icon.svg') }}" alt="Icone de crayon">
                 </a>
-                <form method="post" action="{{ path('app_admin_delete_category', {'id': category.id}) }}"
-                    class="delete-form">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete_category_' ~ category.id) }}">
-                    <button type="submit" class="delete-button" aria-label="Supprimer {{ category.label }}">
+                <form method="post" action="{{ path('app_admin_delete_event', {'id': event.id}) }}" class="delete-form">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete_event_' ~ event.id) }}">
+                    <button type="submit" class="delete-button" aria-label="Supprimer {{ event.title }}">
                         <img class="admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
                             alt="Icone de poubelle">
                     </button>

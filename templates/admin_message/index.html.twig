@@ -30,10 +30,10 @@
                     <a href="{{ path('app_admin_show_event', {id: message.event.id}) }}">{{ event.title }}</a>
                 </td>
                 <td class="admin-actions">
-                    <form method="post" action="{{ path('app_admin_delete_category', {'id': category.id}) }}"
+                    <form method="post" action="{{ path('app_admin_delete_message', {'id': message.id}) }}"
                         class="delete-form">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete_category_' ~ category.id) }}">
-                        <button type="submit" class="delete-button" aria-label="Supprimer {{ category.label }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_message_' ~ message.id) }}">
+                        <button type="submit" class="delete-button" aria-label="Supprimer {{ message.id }}">
                             <img class="admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
                                 alt="Icone de poubelle">
                         </button>

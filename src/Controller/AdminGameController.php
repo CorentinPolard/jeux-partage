@@ -103,9 +103,8 @@ final class AdminGameController extends AbstractController
         #[Autowire('%kernel.project_dir%/public/images/uploads/games')] string $imagesDirectory,
         Request $request
     ): Response {
-
         $submittedToken = $request->request->get('_token');
-        if ($this->isCsrfTokenValid('delete_category_' . $game->getId(), $submittedToken)) {
+        if ($this->isCsrfTokenValid('delete_game_' . $game->getId(), $submittedToken)) {
             $imageName = $game->getImageFileName();
             if ($imageName != "no-image.svg" && file_exists($imagesDirectory . '/' . $imageName)) {
                 unlink($imagesDirectory . '/' . $imageName);

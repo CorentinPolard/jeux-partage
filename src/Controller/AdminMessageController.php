@@ -35,7 +35,7 @@ final class AdminMessageController extends AbstractController
     public function deleteMessage(Message $message, EntityManagerInterface $entityManager, Request $request): Response
     {
         $submittedToken = $request->request->get('_token');
-        if ($this->isCsrfTokenValid('delete_category_' . $message->getId(), $submittedToken)) {
+        if ($this->isCsrfTokenValid('delete_message_' . $message->getId(), $submittedToken)) {
             $entityManager->remove($message);
             $entityManager->flush();
         }

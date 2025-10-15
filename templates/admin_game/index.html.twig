@@ -33,11 +33,10 @@
                     <img class="games-admin-action" src="{{ asset('images/icones/edit-icon.svg') }}"
                         alt="Icone de crayon">
                 </a>
-                <form method="post" action="{{ path('app_admin_delete_category', {'id': category.id}) }}"
-                    class="delete-form">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete_category_' ~ category.id) }}">
-                    <button type="submit" class="delete-button" aria-label="Supprimer {{ category.label }}">
-                        <img class="admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
+                <form method="post" action="{{ path('app_admin_delete_game', {'id': game.id}) }}" class="delete-form">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete_game_' ~ game.id) }}">
+                    <button type="submit" class="delete-button" aria-label="Supprimer {{ game.name }}">
+                        <img class="games-admin-action" src="{{ asset('images/icones/delete-icon.svg') }}"
                             alt="Icone de poubelle">
                     </button>
                 </form>

@@ -162,7 +162,7 @@ final class AdminEventController extends AbstractController
     public function deleteEvent(Event $event, EntityManagerInterface $entityManager, Request $request): Response
     {
         $submittedToken = $request->request->get('_token');
-        if ($this->isCsrfTokenValid('delete_category_' . $event->getId(), $submittedToken)) {
+        if ($this->isCsrfTokenValid('delete_event_' . $event->getId(), $submittedToken)) {
             $entityManager->remove($event);
             $entityManager->flush();
         }
