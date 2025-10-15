@@ -12,7 +12,7 @@
 <p>Nombre d'évènements organisés: {{user.getNumberOfEventsOrganized}}</p>
 
 {% if not is_granted('ROLE_ADMIN') %}
-<a href="#" class="delete-account">Supprimer mon compte</a>
+<button type="button" class="delete-account">Supprimer mon compte</button>
 {% endif %}
 
 <form id="delete-account-form" method="post" action="{{ path('app_delete_profile') }}">
@@ -29,8 +29,8 @@
             Cette action est irréversible.
         </p>
         <div class="modal-actions">
-            <button class="close-modal">Annuler</button>
-            <button id="confirm-delete-account">Supprimer</button>
+            <button type="button" class="close-modal">Annuler</button>
+            <button type="button" id="confirm-delete-account">Supprimer</button>
         </div>
     </div>
 </div>

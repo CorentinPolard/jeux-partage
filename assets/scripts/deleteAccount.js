@@ -1,8 +1,8 @@
-const deleteAccountLink = document.querySelector(".delete-account");
+const deleteAccountButton = document.querySelector(".delete-account");
 const deleteAccountForm = document.querySelector("#delete-account-form");
 const modalBackground = document.querySelector("#modal-background");
 
-deleteAccountLink.addEventListener("click", () => {
+deleteAccountButton.addEventListener("click", () => {
     if (modalBackground) {
         modalBackground.classList.remove("hidden");
         modalBackground.classList.add("modal-background");
