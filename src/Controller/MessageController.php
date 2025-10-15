@@ -19,7 +19,7 @@ final class MessageController extends AbstractController
         $event = $message->getEvent();
 
         $submittedToken = $request->request->get('_token');
-        if ($this->isCsrfTokenValid('delete_event_' . $event->getId(), $submittedToken) && $this->getUser() === $message->getUser()) {
+        if ($this->isCsrfTokenValid('delete_message_' . $message->getId(), $submittedToken) && $this->getUser() === $message->getUser()) {
             $entityManager->remove($message);
             $entityManager->flush();
         } else {
