@@ -13,12 +13,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/messages')]
 final class MessageController extends AbstractController
 {
-    #[Route('/delete/{id}', name: 'app_delete_message', requirements: ['id' => '\d+'])]
-    public function deleteMessage(Message $message, EntityManagerInterface $entityManager): Response
+    #[Route('/delete/{id}', name: 'app_delete_message', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function deleteMessage(Message $message, EntityManagerInterface $entityManager, Request $request): Response
     {
         $event = $message->getEvent();
 
-        if ($this->getUser() === $message->getUser()) {
+        $submittedToken = $request->request->get('_token');
+        if ($this->isCsrfTokenValid('delete_event_' . $event->getId(), $submittedToken) && $this->getUser() === $message->getUser()) {
             $entityManager->remove($message);
             $entityManager->flush();
         } else {
