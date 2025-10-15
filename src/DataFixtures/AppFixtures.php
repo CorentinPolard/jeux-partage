@@ -22,6 +22,7 @@ class AppFixtures extends Fixture
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setFirstName("Admin");
         $admin->setLastName("Le Boss");
+        $admin->setIsBlocked(false);
         $manager->persist($admin);
 
         // Utilisateur normal
@@ -31,6 +32,7 @@ class AppFixtures extends Fixture
         $user->setRoles(['ROLE_USER']);
         $user->setFirstName("Jean");
         $user->setLastName("Petit");
+        $user->setIsBlocked(false);
         $manager->persist($user);
 
 
