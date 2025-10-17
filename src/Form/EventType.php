@@ -4,15 +4,16 @@ namespace App\Form;
 
 use App\Entity\Game;
 use App\Entity\User;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use App\Entity\Event;
 use App\Entity\Address;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -27,6 +28,11 @@ class EventType extends AbstractType
                 [
                     'label' => 'Nom de votre évènement',
                     'required' => true,
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'Le nom de l’évènement ne peut pas être vide.',
+                        ]),
+                    ],
                 ]
             )
             ->add(
@@ -35,6 +41,11 @@ class EventType extends AbstractType
                 [
                     'label' => "Description de l'évènement",
                     'required' => true,
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'La description de l’évènement ne peut pas être vide.',
+                        ]),
+                    ],
                 ]
             )
             ->add(
