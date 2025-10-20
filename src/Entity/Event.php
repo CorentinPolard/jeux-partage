@@ -282,6 +282,13 @@ class Event
         return $this;
     }
 
+    /**
+     * Check if the event is already full
+     * Compare maxNumberOfParticipants (can be null) with current number of participants +1 (the organizer)
+     * getParticipants() always return a Collection (so never null)
+     * 
+     * @return bool 
+     */
     public function isFull(): bool
     {
         return $this->getMaxNumberOfParticipants() === count($this->getParticipants()) + 1;
