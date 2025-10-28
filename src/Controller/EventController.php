@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mercure\HubInterface;
+use Symfony\Component\Mercure\Update;
 
 #[Route('/events')]
 final class EventController extends AbstractController
@@ -72,7 +74,8 @@ final class EventController extends AbstractController
     }
 
     #[Route('/show/{id}', name: 'app_show_event', requirements: ['id' => '\d+'])]
-    public function showEvent(Event $event, EntityManagerInterface $entityManager, Request $request): Response
+    // public function showEvent(Event $event, EntityManagerInterface $entityManager, Request $request): Response
+    public function showEvent(Event $event, EntityManagerInterface $entityManager, HubInterface $hub, Request $request): Response
     {
         $user = $this->getUser();
         if ($event->getOrganizer() === $user || $event->getParticipants()->contains($user)) {
@@ -90,6 +93,20 @@ final class EventController extends AbstractController
             $form = $this->createForm(MessageType::class, $message);
             $form->handleRequest($request);
 
+            // if ($form->isSubmitted() && $form->isValid()) {
+            //     $message->setUser($this->getUser());
+            //     $message->setCreatedAt(new DateTime());
+            //     $message->setEvent($event);
+
+            //     $entityManager->persist($message);
+            //     $entityManager->flush();
+
+            //     return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
+            // }
+
+            $topic = "/event/" . $event->getId() . "/messages";
+            dump($topic);
+
             if ($form->isSubmitted() && $form->isValid()) {
                 $message->setUser($this->getUser());
                 $message->setCreatedAt(new DateTime());
@@ -98,6 +115,17 @@ final class EventController extends AbstractController
                 $entityManager->persist($message);
                 $entityManager->flush();
 
+                $update = new Update(
+                    $topic,
+                    $this->serializer->serialize(
+                        $message,
+                        'json',
+                        ['groups' => ['message_with_user']]
+                    )
+                );
+
+                $hub->publish($update);
+
                 return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
             }
 
@@ -105,6 +133,7 @@ final class EventController extends AbstractController
                 'event' => $event,
                 'jsonCoordinates' => $jsonCoordinates,
                 'form' => $form->createView(),
+                'topic' => $topic,
             ]);
         } else {
             $this->addFlash('error', "Vous n'êtes pas autorisé à voir cet évènement.");

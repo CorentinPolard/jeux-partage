@@ -11,6 +11,11 @@ if (map) {
     import('./scripts/map.js');
 }
 
+const messagesContainer = document.querySelector("div[data-topic]");
+if (messagesContainer) {
+    import('./scripts/mercure.js');
+}
+
 const deleteButton = document.querySelector(".delete-button");
 if (deleteButton) {
     import('./scripts/deleteModal.js');

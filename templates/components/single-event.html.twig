@@ -71,7 +71,7 @@
 <hr>
 <section class="messages-section">
     <h2>Messagerie</h2>
-    <div class="messages-container">
+    <div class="messages-container" data-topic="{{ topic }}">
         {% if event.messages|length > 0 %}
         {% for message in event.messages %}
         <div class="message">
