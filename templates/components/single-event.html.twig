@@ -87,8 +87,6 @@
                     </div>
                 </div>
                 {% if app.user == message.user %}
-                {# <a class="delete-button button-link message-delete-button"
-                    href="{{ path('app_delete_message', {id: message.id}) }}">X</a> #}
                 <form method="post" action="{{ path('app_delete_message', {'id': message.id}) }}" class="delete-form">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete_message_' ~ message.id) }}">
                     <button type="submit" class="delete-button" aria-label="Supprimer {{ message.id }}">
