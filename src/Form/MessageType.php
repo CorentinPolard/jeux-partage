@@ -26,6 +26,9 @@ class MessageType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Message::class,
+            'csrf_protection' => true,      // active la protection CSRF
+            'csrf_field_name' => '_token',  // nom du champ caché
+            'csrf_token_id' => 'message', // identifiant unique pour ce formulaire
         ]);
     }
 }

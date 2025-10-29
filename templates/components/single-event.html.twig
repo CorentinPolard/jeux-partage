@@ -105,7 +105,7 @@
         {% endif %}
     </div>
 
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'id': 'messageForm', 'data-event-id': event.id}}) }}
     {{ form_row(form.content) }}
     <button type="submit">Envoyer</button>
     {{ form_end(form) }}

@@ -25,3 +25,36 @@ eventSource.onmessage = (event) => {
     messagesContainer.innerHTML += messageHTML;
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 };
+
+
+const messageForm = document.querySelector("#messageForm");
+if (messageForm) {
+    messageForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const data = {
+            content: messageForm.message_content.value,
+            event_id: messageForm.dataset.eventId,
+            _csrf_token: messageForm.message__token.value
+        };
+
+        try {
+            const response = await fetch('/messages/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                messageForm.reset();
+            } else {
+                alert("Impossible d’envoyer le message. Veuillez réessayer plus tard.");
+                return;
+            }
+
+        } catch (e) {
+            console.error(e);
+            alert("Erreur réseau");
+        }
+    })
+}

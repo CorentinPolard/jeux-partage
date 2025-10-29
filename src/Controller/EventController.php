@@ -89,7 +89,6 @@ final class EventController extends AbstractController
             );
 
             $message = new Message();
-
             $form = $this->createForm(MessageType::class, $message);
             $form->handleRequest($request);
 
@@ -105,29 +104,29 @@ final class EventController extends AbstractController
             // }
 
             $topic = "/event/" . $event->getId() . "/messages";
-            dump($topic);
+            // dump($topic);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $message->setUser($this->getUser());
-                $message->setCreatedAt(new DateTime());
-                $message->setEvent($event);
+            // if ($form->isSubmitted() && $form->isValid()) {
+            //     $message->setUser($this->getUser());
+            //     $message->setCreatedAt(new DateTime());
+            //     $message->setEvent($event);
 
-                $entityManager->persist($message);
-                $entityManager->flush();
+            //     $entityManager->persist($message);
+            //     $entityManager->flush();
 
-                $update = new Update(
-                    $topic,
-                    $this->serializer->serialize(
-                        $message,
-                        'json',
-                        ['groups' => ['message_with_user']]
-                    )
-                );
+            //     $update = new Update(
+            //         $topic,
+            //         $this->serializer->serialize(
+            //             $message,
+            //             'json',
+            //             ['groups' => ['message_with_user']]
+            //         )
+            //     );
 
-                $hub->publish($update);
+            //     $hub->publish($update);
 
-                return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
-            }
+            //     return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
+            // }
 
             return $this->render('event/single-event.html.twig', [
                 'event' => $event,
@@ -171,7 +170,6 @@ final class EventController extends AbstractController
 
             $form = $this->createForm(EventType::class, $event);
             $form->handleRequest($request);
-
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $event->setUpdatedAt(new DateTime());
