@@ -23,6 +23,9 @@ class CategoryType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Category::class,
+            'csrf_protection' => true,      // active la protection CSRF
+            'csrf_field_name' => '_token',  // nom du champ caché
+            'csrf_token_id' => 'category', // identifiant unique pour ce formulaire
         ]);
     }
 }

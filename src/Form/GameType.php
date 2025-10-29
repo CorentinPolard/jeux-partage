@@ -105,6 +105,9 @@ class GameType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Game::class,
+            'csrf_protection' => true,      // active la protection CSRF
+            'csrf_field_name' => '_token',  // nom du champ caché
+            'csrf_token_id' => 'game', // identifiant unique pour ce formulaire
         ]);
     }
 }

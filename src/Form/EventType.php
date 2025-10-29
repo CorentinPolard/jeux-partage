@@ -136,6 +136,9 @@ class EventType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Event::class,
             'show_admin_fields' => false, // Champs admin cachés par défaut
+            'csrf_protection' => true,      // active la protection CSRF
+            'csrf_field_name' => '_token',  // nom du champ caché
+            'csrf_token_id' => 'event', // identifiant unique pour ce formulaire
         ]);
     }
 }
