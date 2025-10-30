@@ -1,28 +1,54 @@
 const messagesContainer = document.querySelector("div[data-topic]");
 const topic = messagesContainer.dataset.topic;
+const currentUserId = messagesContainer.dataset.userId;
 const url = new URL('http://127.0.0.1:3000/.well-known/mercure');
 url.searchParams.append('topic', topic);
 
 const eventSource = new EventSource(url);
-eventSource.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    console.log('Nouveau message reçu:', data);
-    const messageHTML = `
-        <div class="message">
-            <div class="message-header">
-                <div class="message-author">
-                    <img class="profil-picture" src="/images/uploads/profil-pictures/${data.user.profilePicture}" alt="Photo de profil de ${data.user.firstName} ${data.user.lastName}">
-                    <div class="message-details">
-                        <p><strong>${data.user.firstName} ${data.user.lastName}</strong></p>
-                        <time datetime="${data.createdAt}">${new Date(data.createdAt).toLocaleString()}</time>
-                    </div>
-                </div>
-            </div>
-            <p>${data.content}</p>
-        </div>
-    `;
+eventSource.onmessage = generateMessage;
 
-    messagesContainer.innerHTML += messageHTML;
+function generateMessage(event) {
+    const data = JSON.parse(event.data);
+
+    const messageContainer = document.createElement("div");
+    messageContainer.classList.add("message");
+
+    const messageHeader = document.createElement("div");
+    messageHeader.classList.add("message-header");
+
+    const messageAuthor = document.createElement("div");
+    messageAuthor.classList.add("message-author");
+
+    const profilePicture = document.createElement("img");
+    profilePicture.classList.add("profil-picture");
+    profilePicture.src = `/images/uploads/profil-pictures/${data.user.profilePicture}`;
+    profilePicture.alt = `Photo de profil de ${data.user.firstName} ${data.user.lastName}`;
+
+    const messageDetails = document.createElement("div");
+    messageDetails.classList.add("message-details");
+
+    const usernameP = document.createElement("p");
+    const strongUsername = document.createElement("strong");
+    strongUsername.textContent = `${data.user.firstName} ${data.user.lastName}`;
+
+    const messageDate = document.createElement('time');
+    messageDate.dateTime = data.createdAt;
+    messageDate.textContent = new Date(data.createdAt).toLocaleString();
+
+    const messageContent = document.createElement("p");
+    messageContent.textContent = data.content;
+
+    usernameP.appendChild(strongUsername);
+    messageDetails.appendChild(usernameP);
+    messageDetails.appendChild(messageDate);
+    messageAuthor.appendChild(profilePicture);
+    messageAuthor.appendChild(messageDetails);
+    messageHeader.appendChild(messageAuthor);
+    messageContainer.appendChild(messageHeader);
+    messageContainer.appendChild(messageContent);
+    messagesContainer.appendChild(messageContainer);
+
+    messagesContainer.appendChild(messageContainer);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 };
 
