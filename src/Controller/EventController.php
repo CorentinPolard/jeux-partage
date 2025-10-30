@@ -9,7 +9,11 @@ use App\Form\EventsFilterType;
 use App\Form\EventType;
 use App\Form\MessageType;
 use App\Repository\EventRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\Configuration;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -104,35 +108,31 @@ final class EventController extends AbstractController
             // }
 
             $topic = "/event/" . $event->getId() . "/messages";
-            // dump($topic);
 
-            // if ($form->isSubmitted() && $form->isValid()) {
-            //     $message->setUser($this->getUser());
-            //     $message->setCreatedAt(new DateTime());
-            //     $message->setEvent($event);
+            // Génération d'un token pour le hub Mercure
+            $config = Configuration::forSymmetricSigner(
+                new Sha256(),
+                InMemory::plainText($_ENV['MERCURE_JWT_SECRET'])
+            );
+            $now = new DateTimeImmutable();
 
-            //     $entityManager->persist($message);
-            //     $entityManager->flush();
+            $token = $config->builder()
+                ->issuedAt($now)
+                ->expiresAt($now->modify('+1 hour'))
+                ->withClaim('mercure', [
+                    'subscribe' => [$topic],
+                    'publish' => [],
+                ])
+                ->getToken($config->signer(), $config->signingKey());
 
-            //     $update = new Update(
-            //         $topic,
-            //         $this->serializer->serialize(
-            //             $message,
-            //             'json',
-            //             ['groups' => ['message_with_user']]
-            //         )
-            //     );
-
-            //     $hub->publish($update);
-
-            //     return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
-            // }
+            $mercureToken = $token->toString();
 
             return $this->render('event/single-event.html.twig', [
                 'event' => $event,
                 'jsonCoordinates' => $jsonCoordinates,
                 'form' => $form->createView(),
                 'topic' => $topic,
+                'mercureToken' => $mercureToken,
             ]);
         } else {
             $this->addFlash('error', "Vous n'êtes pas autorisé à voir cet évènement.");

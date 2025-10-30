@@ -71,7 +71,8 @@
 <hr>
 <section class="messages-section">
     <h2>Messagerie</h2>
-    <div class="messages-container" data-topic="{{ topic }}" data-user-id="{{ app.user.id }}">
+    <div class="messages-container" data-topic="{{ topic }}" data-user-id="{{ app.user.id }}" data-mercure-token="{{
+        mercureToken}}">
         {% if event.messages|length > 0 %}
         {% for message in event.messages %}
         <div class="message">
