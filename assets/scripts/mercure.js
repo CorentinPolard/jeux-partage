@@ -10,14 +10,25 @@ const url = new URL('http://127.0.0.1:3000/.well-known/mercure');
 url.searchParams.append('topic', topic);
 url.searchParams.append('jwt', mercureToken);
 
+// Ecoute la réception de message sur le hub
 const eventSource = new EventSource(url);
-eventSource.onmessage = generateMessage;
+// eventSource.onmessage = generateMessage;
+eventSource.onmessage = manageMessage;
 
-function generateMessage(event) {
+function manageMessage(event) {
     const data = JSON.parse(event.data);
+    if (data.action === "create") {
+        generateMessage(data);
+    } else if (data.action === "delete") {
+        document.querySelector(`#message${data.id}`).remove();
+    }
+}
 
+// Génération de message
+function generateMessage(data) {
     const messageContainer = document.createElement("div");
     messageContainer.classList.add("message");
+    messageContainer.id = `message${data.message.id}`
 
     const messageHeader = document.createElement("div");
     messageHeader.classList.add("message-header");
@@ -67,11 +78,17 @@ function generateMessage(event) {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 };
 
+// Génération du formulaire de suppression
+const modalBackground = document.querySelector("#modal-background");
+const confirmedDelete = document.querySelector(".delete-entity");
+let currentForm = null; // formulaire en cours de suppression
+
 function generateDeleteForm(messageId, tokenValue) {
     const form = document.createElement("form");
     form.method = "post";
     form.action = `/messages/delete/${messageId}`;
-    form.classList.add("delete-form")
+    form.classList.add("delete-form");
+    form.dataset.delete = "message";
 
     const token = document.createElement("input");
     token.type = "hidden";
@@ -87,23 +104,47 @@ function generateDeleteForm(messageId, tokenValue) {
     form.appendChild(token);
     form.appendChild(submit);
 
-    const modalBackground = document.querySelector("#modal-background");
-
     form.addEventListener("submit", (e) => {
         e.preventDefault();
+        currentForm = form; // on garde le formulaire actuel
         if (modalBackground) {
             modalBackground.classList.remove("hidden");
-            modalBackground.classList.add("modal-background")
-
-            const confirmedDelete = document.querySelector(".delete-entity");
-            confirmedDelete.addEventListener("click", () => form.submit())
+            modalBackground.classList.add("modal-background");
         }
-    })
+    });
 
     return form;
 }
 
+// Listener unique pour le bouton de confirmation
+if (confirmedDelete) {
+    confirmedDelete.addEventListener("click", async () => {
+        if (!currentForm) {
+            return;
+        }
 
+        if (currentForm.dataset.delete === "message") {
+            const formData = new FormData(currentForm);
+            try {
+                const response = await fetch(currentForm.action, {
+                    method: "POST",
+                    body: formData
+                });
+                if (!response.ok) alert("Erreur lors de la suppression");
+            } catch (err) {
+                console.error(err);
+                alert("Erreur réseau");
+            }
+        }
+
+        // Fermer la modal
+        modalBackground.classList.remove("modal-background");
+        modalBackground.classList.add("hidden");
+        currentForm = null;
+    });
+}
+
+// Ecoute de l'envoie de message
 const messageForm = document.querySelector("#messageForm");
 if (messageForm) {
     messageForm.addEventListener("submit", async (e) => {

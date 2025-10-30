@@ -75,7 +75,7 @@
         mercureToken}}">
         {% if event.messages|length > 0 %}
         {% for message in event.messages %}
-        <div class="message">
+        <div id={{"message"~message.id}} class="message">
             <div class="message-header">
                 <div class="message-author">
                     <img class="profil-picture"
@@ -88,7 +88,8 @@
                     </div>
                 </div>
                 {% if app.user == message.user %}
-                <form method="post" action="{{ path('app_delete_message', {'id': message.id}) }}" class="delete-form">
+                <form method="post" action="{{ path('app_delete_message', {'id': message.id}) }}" data-delete="message"
+                    class="delete-form">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete_message_' ~ message.id) }}">
                     <button type="submit" class="delete-button" aria-label="Supprimer {{ message.id }}">
                         X

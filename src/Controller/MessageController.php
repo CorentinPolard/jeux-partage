@@ -78,6 +78,7 @@ final class MessageController extends AbstractController
                 ['groups' => ['message_with_user']]
             ),
             'token' => $csrfDeleteToken,
+            'action' => 'create',
         ];
 
         // Publication du message via Mercure
@@ -93,18 +94,33 @@ final class MessageController extends AbstractController
 
 
     #[Route('/delete/{id}', name: 'app_delete_message', requirements: ['id' => '\d+'], methods: ['POST'])]
-    public function deleteMessage(Message $message, EntityManagerInterface $entityManager, Request $request): Response
-    {
-        $event = $message->getEvent();
-
+    public function deleteMessage(
+        Message $message,
+        EntityManagerInterface $entityManager,
+        HubInterface $hub,
+        Request $request
+    ): JsonResponse {
         $submittedToken = $request->request->get('_token');
         if ($this->isCsrfTokenValid('delete_message_' . $message->getId(), $submittedToken) && $this->getUser() === $message->getUser()) {
+
+            $eventId = $message->getEvent()->getId();
+
+            $topic = "/event/$eventId/messages";
+            $update = new Update(
+                $topic,
+                json_encode([
+                    'action' => 'delete',
+                    'id' => $message->getId(),
+                ])
+            );
+            $hub->publish($update);
+
             $entityManager->remove($message);
             $entityManager->flush();
-        } else {
-            $this->addFlash('error', "Vous ne pouvez pas supprimer ce commentaire.");
-        }
 
-        return $this->redirectToRoute('app_show_event', ['id' => $event->getId()]);
+            return new JsonResponse(['status' => 'Message deleted'], Response::HTTP_OK);
+        } else {
+            return new JsonResponse(['error' => 'Invalid CSRF token or unauthorized'], Response::HTTP_FORBIDDEN);
+        }
     }
 }
