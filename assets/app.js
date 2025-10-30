@@ -16,7 +16,8 @@ if (messagesContainer) {
     import('./scripts/mercure.js');
 }
 
-const deleteButton = document.querySelector(".delete-button");
+// const deleteButton = document.querySelector(".delete-button");
+const deleteButton = document.querySelector(".close-modal");
 if (deleteButton) {
     import('./scripts/deleteModal.js');
 }

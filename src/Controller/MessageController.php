@@ -11,16 +11,23 @@ use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/messages')]
 final class MessageController extends AbstractController
 {
     #[Route('/create', name: 'app_create_message', methods: ['POST'])]
-    public function createMessage(EventRepository $eventRepository, SerializerInterface $serializer, EntityManagerInterface $entityManager, HubInterface $hub, Request $request): Response
-    {
+    public function createMessage(
+        EventRepository $eventRepository,
+        NormalizerInterface $normalizer,
+        EntityManagerInterface $entityManager,
+        HubInterface $hub,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        Request $request
+    ): Response {
         $user = $this->getUser();
         $data = json_decode($request->getContent(), true);
 
@@ -60,14 +67,23 @@ final class MessageController extends AbstractController
         $entityManager->persist($message);
         $entityManager->flush();
 
-        // Publication du message via Mercure
-        $update = new Update(
-            $topic,
-            $serializer->serialize(
+        // Génération du token pour suppression 
+        $csrfDeleteToken = $csrfTokenManager->getToken('delete_message_' . $message->getId())->getValue();
+
+        // Préparation des données à envoyer via Mercure
+        $payload = [
+            'message' => $normalizer->normalize(
                 $message,
                 'json',
                 ['groups' => ['message_with_user']]
-            )
+            ),
+            'token' => $csrfDeleteToken,
+        ];
+
+        // Publication du message via Mercure
+        $update = new Update(
+            $topic,
+            json_encode($payload)
         );
 
         $hub->publish($update);

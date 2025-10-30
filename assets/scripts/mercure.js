@@ -27,22 +27,27 @@ function generateMessage(event) {
 
     const profilePicture = document.createElement("img");
     profilePicture.classList.add("profil-picture");
-    profilePicture.src = `/images/uploads/profil-pictures/${data.user.profilePicture}`;
-    profilePicture.alt = `Photo de profil de ${data.user.firstName} ${data.user.lastName}`;
+    profilePicture.src = `/images/uploads/profil-pictures/${data.message.user.profilePicture}`;
+    profilePicture.alt = `Photo de profil de ${data.message.user.firstName} ${data.message.user.lastName}`;
 
     const messageDetails = document.createElement("div");
     messageDetails.classList.add("message-details");
 
     const usernameP = document.createElement("p");
     const strongUsername = document.createElement("strong");
-    strongUsername.textContent = `${data.user.firstName} ${data.user.lastName}`;
+    strongUsername.textContent = `${data.message.user.firstName} ${data.message.user.lastName}`;
 
     const messageDate = document.createElement('time');
-    messageDate.dateTime = data.createdAt;
-    messageDate.textContent = new Date(data.createdAt).toLocaleString();
+    messageDate.dateTime = data.message.createdAt;
+    messageDate.textContent = new Date(data.message.createdAt).toLocaleString();
 
     const messageContent = document.createElement("p");
-    messageContent.textContent = data.content;
+    messageContent.textContent = data.message.content;
+
+    const noMessagesDiv = document.querySelector("#noMessages");
+    if (noMessagesDiv) {
+        noMessagesDiv.remove();
+    }
 
     usernameP.appendChild(strongUsername);
     messageDetails.appendChild(usernameP);
@@ -54,9 +59,49 @@ function generateMessage(event) {
     messageContainer.appendChild(messageContent);
     messagesContainer.appendChild(messageContainer);
 
+    if (data.message.user.id == currentUserId) {
+        messageHeader.appendChild(generateDeleteForm(data.message.id, data.token));
+    }
+
     messagesContainer.appendChild(messageContainer);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 };
+
+function generateDeleteForm(messageId, tokenValue) {
+    const form = document.createElement("form");
+    form.method = "post";
+    form.action = `/messages/delete/${messageId}`;
+    form.classList.add("delete-form")
+
+    const token = document.createElement("input");
+    token.type = "hidden";
+    token.name = "_token";
+    token.value = tokenValue;
+
+    const submit = document.createElement("button");
+    submit.type = "submit";
+    submit.classList.add("delete-button");
+    submit.ariaLabel = `supprimer ${messageId}`;
+    submit.textContent = "X";
+
+    form.appendChild(token);
+    form.appendChild(submit);
+
+    const modalBackground = document.querySelector("#modal-background");
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (modalBackground) {
+            modalBackground.classList.remove("hidden");
+            modalBackground.classList.add("modal-background")
+
+            const confirmedDelete = document.querySelector(".delete-entity");
+            confirmedDelete.addEventListener("click", () => form.submit())
+        }
+    })
+
+    return form;
+}
 
 
 const messageForm = document.querySelector("#messageForm");
