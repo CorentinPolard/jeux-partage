@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use DateTime;
-use App\Entity\Event;
 use App\Entity\Message;
 use App\Repository\EventRepository;
 use Symfony\Component\Mercure\Update;
@@ -25,30 +24,31 @@ final class MessageController extends AbstractController
         $user = $this->getUser();
         $data = json_decode($request->getContent(), true);
 
-        // 1️⃣ Vérification CSRF
+        // Vérification CSRF
         $csrfToken = $data['_csrf_token'] ?? '';
         if (!$this->isCsrfTokenValid('message', $csrfToken)) {
             return new JsonResponse(['error' => 'Invalid CSRF token'], 400);
         }
 
-        // 2️⃣ Récupération de l'event
+        // Récupération de l'event
         $eventId = $data['event_id'] ?? null;
         $event = $eventRepository->find($eventId);
         if (!$eventId || !$event) {
             return new JsonResponse(['error' => 'Event missing'], 400);
         }
 
-        // 3️⃣ Vérification de l'accès
+        // Vérification de l'accès utilisateur à l'évènement
         if ($event->getOrganizer() !== $user && !$event->getParticipants()->contains($user)) {
             return new JsonResponse(['error' => 'Unauthorized to post on this event'], 403);
         }
 
-        // 4️⃣ Validation du contenu
+        // Validation du contenu
         $content = trim($data['content'] ?? '');
         if (empty($content)) {
             return new JsonResponse(['error' => 'Message content cannot be empty'], 400);
         }
 
+        // Création et sauvegarde du message
         $message = new Message();
         $topic = "/event/$eventId/messages";
 
@@ -60,6 +60,7 @@ final class MessageController extends AbstractController
         $entityManager->persist($message);
         $entityManager->flush();
 
+        // Publication du message via Mercure
         $update = new Update(
             $topic,
             $serializer->serialize(
