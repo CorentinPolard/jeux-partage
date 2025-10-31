@@ -97,7 +97,7 @@
                 </form>
                 {% endif %}
             </div>
-            <p>{{ message.content }}</p>
+            <p>{{ message.content|nl2br }}</p>
         </div>
         {% endfor %}
         {% else %}
