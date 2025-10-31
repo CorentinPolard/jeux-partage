@@ -1,4 +1,5 @@
 import './scripts/burgerMenu.js';
+import { initDeleteSystem } from './scripts/deleteModal.js';
 
 const eventForm = document.querySelector("#eventForm");
 if (eventForm) {
@@ -16,10 +17,9 @@ if (messagesContainer) {
     import('./scripts/mercure.js');
 }
 
-// const deleteButton = document.querySelector(".delete-button");
 const deleteButton = document.querySelector(".close-modal");
 if (deleteButton) {
-    import('./scripts/deleteModal.js');
+    initDeleteSystem();
 }
 
 const registrationForm = document.querySelector("#registrationForm");

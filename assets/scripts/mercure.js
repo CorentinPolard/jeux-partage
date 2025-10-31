@@ -1,3 +1,8 @@
+import { initDeleteSystem } from './deleteModal.js';
+
+// Initialisation du système de suppression
+const attachDeleteListener = initDeleteSystem();
+
 const messagesContainer = document.querySelector("div[data-topic]");
 messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
@@ -12,7 +17,6 @@ url.searchParams.append('jwt', mercureToken);
 
 // Ecoute la réception de message sur le hub
 const eventSource = new EventSource(url);
-// eventSource.onmessage = generateMessage;
 eventSource.onmessage = manageMessage;
 
 function manageMessage(event) {
@@ -70,8 +74,13 @@ function generateMessage(data) {
     messageContainer.appendChild(messageContent);
     messagesContainer.appendChild(messageContainer);
 
+    // Ajout du formulaire de suppression si auteur du message
     if (data.message.user.id == currentUserId) {
-        messageHeader.appendChild(generateDeleteForm(data.message.id, data.token));
+        const deleteForm = generateDeleteForm(data.message.id, data.token);
+        messageHeader.appendChild(deleteForm);
+
+        // Ajout de la fonction pour supprimer le message
+        attachDeleteListener(deleteForm);
     }
 
     messagesContainer.appendChild(messageContainer);
@@ -79,10 +88,6 @@ function generateMessage(data) {
 };
 
 // Génération du formulaire de suppression
-const modalBackground = document.querySelector("#modal-background");
-const confirmedDelete = document.querySelector(".delete-entity");
-let currentForm = null; // formulaire en cours de suppression
-
 function generateDeleteForm(messageId, tokenValue) {
     const form = document.createElement("form");
     form.method = "post";
@@ -104,44 +109,7 @@ function generateDeleteForm(messageId, tokenValue) {
     form.appendChild(token);
     form.appendChild(submit);
 
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        currentForm = form; // on garde le formulaire actuel
-        if (modalBackground) {
-            modalBackground.classList.remove("hidden");
-            modalBackground.classList.add("modal-background");
-        }
-    });
-
     return form;
-}
-
-// Listener unique pour le bouton de confirmation
-if (confirmedDelete) {
-    confirmedDelete.addEventListener("click", async () => {
-        if (!currentForm) {
-            return;
-        }
-
-        if (currentForm.dataset.delete === "message") {
-            const formData = new FormData(currentForm);
-            try {
-                const response = await fetch(currentForm.action, {
-                    method: "POST",
-                    body: formData
-                });
-                if (!response.ok) alert("Erreur lors de la suppression");
-            } catch (err) {
-                console.error(err);
-                alert("Erreur réseau");
-            }
-        }
-
-        // Fermer la modal
-        modalBackground.classList.remove("modal-background");
-        modalBackground.classList.add("hidden");
-        currentForm = null;
-    });
 }
 
 // Ecoute de l'envoie de message
