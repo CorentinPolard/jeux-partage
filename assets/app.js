@@ -3,7 +3,8 @@ import { initDeleteSystem } from './scripts/deleteModal.js';
 
 const eventForm = document.querySelector("#eventForm");
 if (eventForm) {
-    import('./scripts/geocodage.js');
+    // import('./scripts/geocodage.js');
+    import('./scripts/geocodage_2.js');
     import('./scripts/searchGames.js');
 }
 

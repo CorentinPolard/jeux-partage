@@ -9,7 +9,11 @@
 {{ form_row(form.title) }}
 {{ form_row(form.description) }}
 {{ form_row(form.games) }}
-{{ form_row(form.address) }}
+{# {{ form_row(form.address) }} #}
+{{ form_row(form.address.street) }}
+<ul id="addresses-suggestions" class="suggestions"></ul>
+{{ form_row(form.address.postcode) }}
+{{ form_row(form.address.city) }}
 {{ form_row(form.eventAt) }}
 {{ form_row(form.maxNumberOfParticipants) }}
 {{ form_row(form.duration) }}
