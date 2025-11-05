@@ -269,6 +269,23 @@ button {
     cursor: pointer;
 }
 
+.addresses-suggestions {
+    list-style-type: none;
+    border: 1px solid black;
+    border-radius: 4px;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: white;
+}
+
+.address-suggestion {
+    padding: 6px;
+    cursor: pointer;
+}
+
+.address-suggestion:hover {
+    background-color: var(--primary-background-color);
+}
 
 /* Delete and Modal */
 .delete-form,

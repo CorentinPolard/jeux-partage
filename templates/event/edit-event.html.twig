@@ -5,11 +5,16 @@
 {% block main %}
 <h1>Modifier mon évènement</h1>
 
-{{ form_start(form, {'attr': {'id': 'eventForm'}} ) }}
+{{ form_start(form, {'attr': {'id': 'eventForm'}}) }}
 {{ form_row(form.title) }}
 {{ form_row(form.description) }}
 {{ form_row(form.games) }}
-{{ form_row(form.address) }}
+<div class="street">
+    {{ form_row(form.address.street, {'attr': {'autocomplete': 'off'}}) }}
+    <ul id="addresses-suggestions" class="addresses-suggestions hidden"></ul>
+</div>
+{{ form_row(form.address.postcode) }}
+{{ form_row(form.address.city) }}
 {{ form_row(form.eventAt) }}
 {{ form_row(form.maxNumberOfParticipants) }}
 {{ form_row(form.duration) }}

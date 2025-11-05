@@ -10,8 +10,10 @@
 {{ form_row(form.description) }}
 {{ form_row(form.games) }}
 {# {{ form_row(form.address) }} #}
-{{ form_row(form.address.street) }}
-<ul id="addresses-suggestions" class="suggestions"></ul>
+<div class="street">
+    {{ form_row(form.address.street, {'attr': {'autocomplete': 'off'}}) }}
+    <ul id="addresses-suggestions" class="addresses-suggestions hidden"></ul>
+</div>
 {{ form_row(form.address.postcode) }}
 {{ form_row(form.address.city) }}
 {{ form_row(form.eventAt) }}
