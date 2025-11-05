@@ -10,10 +10,14 @@ if (form) {
     const url = "https://data.geopf.fr/geocodage/completion/?text=";
     const addressesSuggestions = document.querySelector("#addresses-suggestions");
 
+    let timeoutId;
+
     streetField.addEventListener("input", async () => {
         const streetFieldValue = streetField.value.trim();
         if (streetFieldValue.length >= 3 && streetFieldValue.length <= 200) {
-            console.log(streetFieldValue);
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
             timeoutId = setTimeout(async () => {
                 await findAddresses(streetFieldValue);
             }, 300);
