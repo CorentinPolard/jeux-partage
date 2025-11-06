@@ -5,46 +5,32 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
-class RegistrationFormType extends AbstractType
+class ChangePasswordType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, [
+            ->add('oldPassword', PasswordType::class, [
+                'label' => 'Mot de passe actuel',
+                'mapped' => false,
+                'attr' => ['autocomplete' => 'current-password'],
                 'constraints' => [
                     new NotBlank(
-                        message: 'L’email est obligatoire.'
-                    ),
-                    new Email(
-                        message: 'L’adresse email "{{ value }}" n’est pas valide.'
-                    ),
-                ],
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'label' => 'J\'accepte les conditions d\'utilisation',
-                'constraints' => [
-                    new IsTrue(
-                        message: 'Vous devez acceptez les conditions.'
+                        message: 'Veuillez entrer votre mot de passe actuel.'
                     ),
                 ],
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmez le mot de passe'],
+                'first_options'  => ['label' => 'Nouveau mot de passe'],
+                'second_options' => ['label' => 'Confirmez le nouveau mot de passe'],
                 'invalid_message' => 'Les mots de passe doivent correspondre.',
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
@@ -74,16 +60,7 @@ class RegistrationFormType extends AbstractType
                         message: 'Le mot de passe doit contenir au moins un caractère spécial.'
                     ),
                 ],
-            ])
-            ->add('firstName', TextType::class, [
-                'label' => 'Prénom',
-                'required' => true,
-            ])
-            ->add('lastName', TextType::class, [
-                'label' => 'Nom',
-                'required' => true,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -92,7 +69,7 @@ class RegistrationFormType extends AbstractType
             'data_class' => User::class,
             'csrf_protection' => true,      // active la protection CSRF
             'csrf_field_name' => '_token',  // nom du champ caché
-            'csrf_token_id' => 'registration', // identifiant unique pour ce formulaire
+            'csrf_token_id' => 'password', // identifiant unique pour ce formulaire
         ]);
     }
 }

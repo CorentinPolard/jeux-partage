@@ -4,7 +4,8 @@
 
 {% block main %}
 <h1>Mon profil</h1>
-<a href="{{ path('app_edit_profile', {id: user.id}) }}">Modifier</a>
+<a href="{{ path('app_edit_profile') }}">Modifier mes informations</a>
+<a href="{{ path('app_edit_password') }}">Modifier mon mot de passe</a>
 <img class="my-profile-picture" src="{{ asset('images/uploads/profil-pictures/' ~ user.profilePicture) }}"
     alt="Photo de profil de {{user.getFullName}}">
 <p>Nom: {{user.lastname}}</p>
