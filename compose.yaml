@@ -1,6 +1,37 @@
-
 services:
-###> symfony/mercure-bundle ###
+  # Service de base de données MySQL pour le développement
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Service Node pour exécuter npm run watch dans un conteneur (utile sur Windows)
+  node:
+    image: node:18
+    working_dir: /app
+    volumes:
+      - ./:/app:cached
+      - /app/node_modules
+    command: bash -lc "npm ci && npm run watch"
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    depends_on:
+      - db
+
+  ###> symfony/mercure-bundle ###
   mercure:
     image: dunglas/mercure
     restart: unless-stopped
@@ -24,10 +55,11 @@ services:
       - mercure_config:/config
     ports:
       - "3000:80"
-###< symfony/mercure-bundle ###
+  ###< symfony/mercure-bundle ###
 
 volumes:
-###> symfony/mercure-bundle ###
+  ###> symfony/mercure-bundle ###
   mercure_data:
   mercure_config:
-###< symfony/mercure-bundle ###
+  ###< symfony/mercure-bundle ###
+  db_data:
