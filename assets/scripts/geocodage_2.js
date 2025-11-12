@@ -31,18 +31,28 @@ if (form) {
         try {
             const response = await fetch(completion_url + encodeURIComponent(street));
             if (!response.ok) {
-                console.log("response not ok");
+                console.error("API response error:", response.status);
+                addressesSuggestions.innerHTML = "";
                 return;
             }
             const datas = await response.json();
             if (datas.results && datas.results.length > 0) {
                 addressesSuggestions.innerHTML = "";
-                datas.results.map(result => addressesSuggestions.innerHTML += `<li class="address-suggestion" data-name="address-suggestion" data-longitude="${result.x}" data-latitude="${result.y}">${result.fulltext}</li>`);
+                datas.results.map(result => {
+                    const li = document.createElement("li");
+                    li.className = "address-suggestion";
+                    li.dataset.name = "address-suggestion";
+                    li.dataset.longitude = result.x;
+                    li.dataset.latitude = result.y;
+                    li.textContent = result.fulltext;
+                    addressesSuggestions.appendChild(li);
+                });
                 initAdrressValidation();
                 addressesSuggestions.classList.remove("hidden");
             }
         } catch (e) {
-            console.error(e);
+            console.error("Geocoding error:", e);
+            addressesSuggestions.innerHTML = "";
         }
     }
 
@@ -72,32 +82,62 @@ if (form) {
     form.addEventListener("submit", async function (e) {
         e.preventDefault();
 
-        if (streetField.value.trim() == "" || postcodeField.value.trim() == "" || cityField.value.trim() == "") {
+        const streetValue = streetField.value.trim();
+        const postcodeValue = postcodeField.value.trim();
+        const cityValue = cityField.value.trim();
+        const latitudeValue = latitudeField.value.trim();
+
+        if (!streetValue || !postcodeValue || !cityValue) {
             alert("Certains champs d'adresse sont manquants !");
             return;
-        } else if (latitudeField.value.trim() == "") {
-            console.log("try")
-            try {
-                const search_url = `https://data.geopf.fr/geocodage/search?index=address,poi&q=${encodeURIComponent(streetField.value)}&postcode=${encodeURIComponent(postcodeField.value)}&city=${encodeURIComponent(cityField.value)}`;
-                const response = await fetch(search_url);
-                if (!response.ok) {
-                    alert("Erreur liée à l'adresse lors de la soumission du formulaire.");
-                    return;
-                }
-                const datas = await response.json();
-                if (!datas.features || datas.features.length === 0) {
-                    alert("Aucune adresse trouvée !");
-                    return;
-                }
-                const coordinates = [...datas.features[0].geometry.coordinates]; //longitude puis latitude
-                longitudeField.value = coordinates[0];
-                latitudeField.value = coordinates[1];
-            } catch (error) {
-                console.error(error);
-            }
         }
 
-        form.submit();
+        // Check if coordinates are already set and valid
+        if (latitudeValue && !isNaN(parseFloat(latitudeField.value))) {
+            form.submit();
+            return;
+        }
+
+        // Try to geocode if coordinates are missing
+        try {
+            const search_url = `https://data.geopf.fr/geocodage/search?index=address,poi&q=${encodeURIComponent(streetValue)}&postcode=${encodeURIComponent(postcodeValue)}&city=${encodeURIComponent(cityValue)}`;
+            const response = await fetch(search_url);
+
+            if (!response.ok) {
+                alert("Erreur liée à l'adresse lors de la soumission du formulaire.");
+                return;
+            }
+
+            const datas = await response.json();
+
+            if (!datas.features || datas.features.length === 0) {
+                alert("Aucune adresse trouvée !");
+                return;
+            }
+
+            // Validate and extract coordinates
+            const geometry = datas.features[0].geometry;
+            if (!geometry || !geometry.coordinates || geometry.coordinates.length < 2) {
+                alert("Coordonnées invalides reçues de l'API.");
+                return;
+            }
+
+            const [longitude, latitude] = geometry.coordinates;
+
+            // Validate coordinates are valid numbers
+            if (isNaN(longitude) || isNaN(latitude)) {
+                alert("Coordonnées invalides reçues de l'API.");
+                return;
+            }
+
+            longitudeField.value = longitude;
+            latitudeField.value = latitude;
+
+            form.submit();
+        } catch (error) {
+            console.error("Geocoding error during form submission:", error);
+            alert("Une erreur s'est produite lors de la géocodification de l'adresse.");
+        }
     })
 
 } 
