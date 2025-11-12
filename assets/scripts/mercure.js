@@ -1,6 +1,6 @@
 import { initDeleteSystem } from './deleteModal.js';
 
-// Initialisation du système de suppression
+// Init delete system from the deleteModal.js file
 const attachDeleteListener = initDeleteSystem();
 
 const messagesContainer = document.querySelector("div[data-topic]");
@@ -8,14 +8,14 @@ messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
 const currentUserId = messagesContainer.dataset.userId;
 
-// Connection au hub mercure
+// Connection to mercure hub
 const topic = messagesContainer.dataset.topic;
 const mercureToken = messagesContainer.dataset.mercureToken;
 const url = new URL('http://127.0.0.1:3000/.well-known/mercure');
 url.searchParams.append('topic', topic);
 url.searchParams.append('jwt', mercureToken);
 
-// Ecoute la réception de message sur le hub
+// Listen for new messages reception on the hub
 const eventSource = new EventSource(url);
 eventSource.onmessage = manageMessage;
 
@@ -28,7 +28,6 @@ function manageMessage(event) {
     }
 }
 
-// Génération de message
 function generateMessage(data) {
     const messageContainer = document.createElement("div");
     messageContainer.classList.add("message");
@@ -74,12 +73,12 @@ function generateMessage(data) {
     messageContainer.appendChild(messageContent);
     messagesContainer.appendChild(messageContainer);
 
-    // Ajout du formulaire de suppression si auteur du message
+    // Adding a form to delete the message if connected user = sender
     if (data.message.user.id == currentUserId) {
         const deleteForm = generateDeleteForm(data.message.id, data.token);
         messageHeader.appendChild(deleteForm);
 
-        // Ajout de la fonction pour supprimer le message
+        // Adding function to delete the message from the deleteModal.js file
         attachDeleteListener(deleteForm);
     }
 
@@ -87,7 +86,6 @@ function generateMessage(data) {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 };
 
-// Génération du formulaire de suppression
 function generateDeleteForm(messageId, tokenValue) {
     const form = document.createElement("form");
     form.method = "post";
@@ -112,7 +110,7 @@ function generateDeleteForm(messageId, tokenValue) {
     return form;
 }
 
-// Ecoute de l'envoie de message
+// Listening messages sent
 const messageForm = document.querySelector("#messageForm");
 if (messageForm) {
     messageForm.addEventListener("submit", async (e) => {
