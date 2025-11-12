@@ -3,7 +3,7 @@ export function initDeleteSystem() {
     const confirmedDelete = document.querySelector(".delete-entity");
     let currentForm = null;
 
-    // Fonction d’ouverture du modal
+    // Fonction to open the modal
     function openModal(form) {
         currentForm = form;
         if (!modalBackground) return;
@@ -11,7 +11,7 @@ export function initDeleteSystem() {
         modalBackground.classList.add("modal-background");
     }
 
-    // Fonction de fermeture du modal
+    // Function to close the modal
     function closeModal() {
         if (!modalBackground) return;
 
@@ -24,7 +24,7 @@ export function initDeleteSystem() {
         currentForm = null;
     }
 
-    // Confirmation de suppression
+    // Confirmation for delete
     async function confirmHandler() {
         if (!currentForm) return;
 
@@ -47,18 +47,18 @@ export function initDeleteSystem() {
         closeModal();
     }
 
-    // Ajout listener sur le bouton de confirmation
+    // Add listener to show the modal before delete
     if (confirmedDelete) {
         confirmedDelete.addEventListener("click", confirmHandler);
     }
 
-    // Boutons pour fermer la modale
+    // Buttons to close the modal
     const closeModalButtons = document.querySelectorAll(".close-modal");
     closeModalButtons.forEach(button =>
         button.addEventListener("click", closeModal)
     );
 
-    // Fonction d'attache la logique à un formulaire
+    // Adding listener for delete on forms
     function attachDeleteListener(form) {
         form.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -66,9 +66,9 @@ export function initDeleteSystem() {
         });
     }
 
-    // Attache à tous les formulaires existants
+    // Adding attachDeleteListener on all forms
     document.querySelectorAll(".delete-form").forEach(attachDeleteListener);
 
-    // Et retourne la fonction pour l’utiliser sur les nouveaux messages
+    // Return the function to use them on new messages (for mercure)
     return attachDeleteListener;
 }
