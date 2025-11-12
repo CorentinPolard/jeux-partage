@@ -3,28 +3,25 @@ export function initDeleteSystem() {
     const confirmedDelete = document.querySelector(".delete-entity");
     let currentForm = null;
 
-    // Fonction to open the modal
+    if (!modalBackground) return () => { };
+
     function openModal(form) {
         currentForm = form;
-        if (!modalBackground) return;
         modalBackground.classList.remove("hidden");
         modalBackground.classList.add("modal-background");
+        console.log(currentForm, confirmedDelete)
     }
 
-    // Function to close the modal
     function closeModal() {
-        if (!modalBackground) return;
-
         if (document.activeElement) {
             document.activeElement.blur();
         }
-
         modalBackground.classList.remove("modal-background");
         modalBackground.classList.add("hidden");
         currentForm = null;
     }
 
-    // Confirmation for delete
+    // Handle delete confirmation
     async function confirmHandler() {
         if (!currentForm) return;
 
@@ -35,9 +32,11 @@ export function initDeleteSystem() {
                     method: "POST",
                     body: formData
                 });
-                if (!response.ok) alert("Erreur lors de la suppression");
+                if (!response.ok) {
+                    alert("Erreur lors de la suppression");
+                }
             } catch (err) {
-                console.error(err);
+                console.error("Delete error:", err);
                 alert("Erreur réseau");
             }
         } else {
@@ -47,7 +46,7 @@ export function initDeleteSystem() {
         closeModal();
     }
 
-    // Add listener to show the modal before delete
+    // Add listener to confirmation button
     if (confirmedDelete) {
         confirmedDelete.addEventListener("click", confirmHandler);
     }
@@ -58,7 +57,7 @@ export function initDeleteSystem() {
         button.addEventListener("click", closeModal)
     );
 
-    // Adding listener for delete on forms
+    // Add listener for delete on forms
     function attachDeleteListener(form) {
         form.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -66,9 +65,9 @@ export function initDeleteSystem() {
         });
     }
 
-    // Adding attachDeleteListener on all forms
+    // Attach listeners to all delete forms
     document.querySelectorAll(".delete-form").forEach(attachDeleteListener);
 
-    // Return the function to use them on new messages (for mercure)
+    // Return the function to attach listeners to new forms (for mercure)
     return attachDeleteListener;
 }

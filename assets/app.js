@@ -26,8 +26,3 @@ const registrationForm = document.querySelector("#registrationForm");
 if (registrationForm) {
     import('./scripts/checkPassword.js');
 }
-
-const deleteAccountLink = document.querySelector(".delete-account");
-if (deleteAccountLink) {
-    import('./scripts/deleteAccount.js');
-}

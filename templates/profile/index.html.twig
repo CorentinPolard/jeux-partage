@@ -13,11 +13,10 @@
 <p>Nombre d'évènements organisés: {{user.getNumberOfEventsOrganized}}</p>
 
 {% if not is_granted('ROLE_ADMIN') %}
-<button type="button" class="delete-account">Supprimer mon compte</button>
-{% endif %}
-
-<form id="delete-account-form" method="post" action="{{ path('app_delete_profile') }}">
+<form id="delete-account-form" class="delete-form" method="post" action="{{ path('app_delete_profile') }}">
     <input type="hidden" name="_token" value="{{ csrf_token('delete_account') }}">
+    <button type="submit" id="delete-account-button" class="delete-button" aria-label="Supprimer mon compte">Supprimer
+        mon compte</button>
 </form>
 
 <div id="modal-background" class="hidden" aria-hidden="true">
@@ -31,8 +30,9 @@
         </p>
         <div class="modal-actions">
             <button type="button" class="close-modal">Annuler</button>
-            <button type="button" id="confirm-delete-account">Supprimer</button>
+            <button type="button" id="confirm-delete-account" class="delete-entity">Supprimer</button>
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock %}
