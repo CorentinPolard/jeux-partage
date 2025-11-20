@@ -6,6 +6,7 @@
 <h1>Mes évènements</h1>
 <section class="organized-events-section">
     <h2>Les évènements que j'organise</h2>
+    <a class="button-link" href="{{ path('app_create_event') }}">Organiser un évènement</a>
     {% if organizedEvents|length == 0 %}
     Vous n'avez pas encore organisé d'évènements.
     {% endif %}
