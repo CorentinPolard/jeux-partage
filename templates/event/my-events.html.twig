@@ -12,7 +12,7 @@
     {% endif %}
     {% for event in organizedEvents %}
     <div class="my-event-container">
-        <h3>{{ event.title }}</h3>
+        <h3 class="event-title">{{ event.title }}</h3>
         <div class="event-date-place-container my-event-date-place">
             <div class="event-date">
                 <img class="event-icon" src="{{ asset('images/icones/date-red-icon.svg') }}"
@@ -50,7 +50,7 @@
     {% endif %}
     {% for event in joinedEvents %}
     <div class="my-event-container">
-        <h3>{{ event.title }}</h3>
+        <h3 class="event-title">{{ event.title }}</h3>
         <div class="event-date-place-container my-event-date-place">
             <div class="event-date">
                 <img class="event-icon" src="{{ asset('images/icones/date-red-icon.svg') }}"

@@ -3,7 +3,7 @@
 {% block title %}Menu administrateur - évènements{% endblock %}
 
 {% block main %}
-<h1>Modifier {{event.title}}</h1>
+<h1 class="event-title">Modifier {{event.title}}</h1>
 
 {{ form_start(form, {'attr': {'id': 'eventForm'}}) }}
 {{ form_row(form.title) }}

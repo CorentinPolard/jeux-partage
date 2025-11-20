@@ -53,10 +53,21 @@ button,
     gap: 10px;
 }
 
+.event-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
 .event-details {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    /* allow children (like .event-title) to shrink inside flex layouts */
+    min-width: 0;
 }
 
 .event-icon {
