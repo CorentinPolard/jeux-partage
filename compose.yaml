@@ -17,6 +17,19 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  
+  php-my-admin:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: "${MYSQL_USER}"
+      PMA_PASSWORD: "${MYSQL_PASSWORD}"
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
 
   # Service Node pour exécuter npm run watch dans un conteneur (utile sur Windows)
   node:
