@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PaginatorService
 {
-    public function initPagination(BaseRepository $repository, int $limit, string $alias, ?string $orderBy = null, Request $request): array
+    public function initPagination(BaseRepository $repository, int $limit, string $alias, Request $request, ?string $orderBy = null): array
     {
         $page = max(1, $request->query->getInt('page', 1));
         $items = $repository->paginate(

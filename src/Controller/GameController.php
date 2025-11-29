@@ -20,7 +20,7 @@ final class GameController extends AbstractController
         if ($request->query->getInt('page', 1) < 1) {
             return $this->redirectToRoute('app_games', ['page' => 1]);
         }
-        $paginationDatas = $paginatorService->initPagination($gameRepository, 20, 'g', 'name', $request);
+        $paginationDatas = $paginatorService->initPagination($gameRepository, 20, 'g', $request, 'name');
         if ($paginationDatas['page'] > $paginationDatas['maxPage']) {
             return $this->redirectToRoute('app_games', ['page' => $paginationDatas['maxPage']]);
         }
