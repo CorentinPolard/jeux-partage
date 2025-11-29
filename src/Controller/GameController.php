@@ -16,10 +16,11 @@ final class GameController extends AbstractController
     #[Route('', name: 'app_games')]
     public function index(PaginatorService $paginatorService, GameRepository $gameRepository, Request $request): Response
     {
+        // Ce if n'est pas nécessaire au bon fonctionnement, mais évite d'avoir des pages négatives dans l'URL
         if ($request->query->getInt('page', 1) < 1) {
             return $this->redirectToRoute('app_games', ['page' => 1]);
         }
-        $paginationDatas = $paginatorService->initPagination($gameRepository, 20, 'g', $request);
+        $paginationDatas = $paginatorService->initPagination($gameRepository, 20, 'g', 'name', $request);
         if ($paginationDatas['page'] > $paginationDatas['maxPage']) {
             return $this->redirectToRoute('app_games', ['page' => $paginationDatas['maxPage']]);
         }
