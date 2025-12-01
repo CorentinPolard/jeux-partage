@@ -54,18 +54,23 @@
 <hr>
 <section class="participants-section">
     <h2>Les participants</h2>
-    <div class="participant-container">
-        <img class="profil-picture"
-            src="{{ asset('images/uploads/profil-pictures/' ~ event.organizer.profilePicture) }}"
-            alt="Photo de profil de {{event.organizer.getFullName}}">
-        <p>{{event.organizer.fullName}} <span class="organizer">Organisateur</span></p>
-    </div>
+    <a href="{{ path('app_profile', {'id': event.organizer.id}) }}" class="user-profile-link">
+        <div class="participant-container">
+            <img class="profil-picture"
+                src="{{ asset('images/uploads/profil-pictures/' ~ event.organizer.profilePicture) }}"
+                alt="Photo de profil de {{event.organizer.getFullName}}">
+            <p>{{event.organizer.fullName}} <span class="organizer">Organisateur</span></p>
+        </div>
+    </a>
     {% for participant in event.participants %}
-    <div class="participant-container">
-        <img class="profil-picture" src="{{ asset('images/uploads/profil-pictures/' ~ participant.profilePicture) }}"
-            alt="Photo de profil de {{participant.getFullName}}">
-        <p>{{participant.getFullName}}</p>
-    </div>
+    <a href="{{ path('app_profile', {'id': participant.id}) }}" class="user-profile-link">
+        <div class="participant-container">
+            <img class="profil-picture"
+                src="{{ asset('images/uploads/profil-pictures/' ~ participant.profilePicture) }}"
+                alt="Photo de profil de {{participant.getFullName}}">
+            <p>{{participant.getFullName}}</p>
+        </div>
+    </a>
     {% endfor %}
 </section>
 <hr>
@@ -77,16 +82,19 @@
         {% for message in event.messages %}
         <div id={{"message"~message.id}} class="message">
             <div class="message-header">
-                <div class="message-author">
-                    <img class="profil-picture"
-                        src="{{ asset('images/uploads/profil-pictures/' ~ message.user.profilePicture) }}"
-                        alt="Photo de profil de {{message.user.getFullName}}">
-                    <div class="message-details">
-                        <p><strong>{{ message.user.getFullName }}</strong></p>
-                        <time datetime="{{ message.createdAt.date | date(" Y-m-dTH:i") }}">{{ message.createdAt.date |
-                            date("d/m/Y - H\\hi")}}</time>
+                <a href="{{ path('app_profile', {'id': message.user.id}) }}" class="user-profile-link">
+                    <div class="message-author">
+                        <img class="profil-picture"
+                            src="{{ asset('images/uploads/profil-pictures/' ~ message.user.profilePicture) }}"
+                            alt="Photo de profil de {{ message.user.getFullName }}">
+                        <div class="message-details">
+                            <p><strong>{{ message.user.getFullName }}</strong></p>
+                            <time datetime="{{ message.createdAt.date | date(" Y-m-dTH:i") }}">{{ message.createdAt.date
+                                |
+                                date("d/m/Y - H\\hi")}}</time>
+                        </div>
                     </div>
-                </div>
+                </a>
                 {% if app.user == message.user %}
                 <form method="post" action="{{ path('app_delete_message', {'id': message.id}) }}" data-delete="message"
                     class="delete-form">

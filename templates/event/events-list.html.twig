@@ -28,12 +28,14 @@ d’autres passionnés et partagez votre passion pour les jeux de société.
     {% endif %}
     {% for event in events %}
     <div class="event-container">
-        <div class="event-organizer">
-            <img class="profil-picture"
-                src="{{ asset('images/uploads/profil-pictures/' ~ event.organizer.profilePicture) }}"
-                alt="Photo de profil de {{event.organizer.getFullName}}">
-            <p>{{event.organizer.getFullName }}</p>
-        </div>
+        <a href="{{path('app_profile', {'id': event.organizer.id}) }}" class="user-profile-link">
+            <div class="event-organizer">
+                <img class="profil-picture"
+                    src="{{ asset('images/uploads/profil-pictures/' ~ event.organizer.profilePicture) }}"
+                    alt="Photo de profil de {{event.organizer.getFullName}}">
+                <p>{{event.organizer.getFullName }}</p>
+            </div>
+        </a>
         <h3 class="event-title">{{ event.title }}</h3>
         <p>{{ event.description|nl2br }}</p>
         <div class="event-date-place-container">

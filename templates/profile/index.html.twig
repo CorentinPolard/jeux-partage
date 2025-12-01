@@ -3,9 +3,13 @@
 {% block title %}Mon profil{% endblock %}
 
 {% block main %}
+{% if app.user and app.user == user %}
 <h1>Mon profil</h1>
 <a href="{{ path('app_edit_profile') }}">Modifier mes informations</a>
 <a href="{{ path('app_edit_password') }}">Modifier mon mot de passe</a>
+{% else %}
+<h1>Profil de {{ user.getFullName }}</h1>
+{% endif %}
 <div class="user-main-information">
     <img class="my-profile-picture" src="{{ asset('images/uploads/profil-pictures/' ~ user.profilePicture) }}"
         alt="Photo de profil de {{user.getFullName}}">
@@ -14,14 +18,16 @@
         <p>Biographie :</p>
         {% if user.biography %}
         <p id="biography" class="biography">{{ user.biography|nl2br }}</p>
-        {% else %}
+        {% elseif app.user and app.user == user %}
         <p id="biography" class="biography"><a href="{{ path('app_edit_profile') }}">Ajouter une biographie</a></p>
+        {% else %}
+        <p id="biography" class="biography">Cette utilisateur n'a pas encore ajouté de biographie.</p>
         {% endif %}
     </div>
 </div>
 <p>Nombre d'évènements organisés: {{user.getNumberOfEventsOrganized}}</p>
 
-{% if not is_granted('ROLE_ADMIN') %}
+{% if app.user and app.user == user and not is_granted('ROLE_ADMIN') %}
 <form id="delete-account-form" class="delete-form" method="post" action="{{ path('app_delete_profile') }}">
     <input type="hidden" name="_token" value="{{ csrf_token('delete_account') }}">
     <button type="submit" id="delete-account-button" class="delete-button" aria-label="Supprimer mon compte">Supprimer

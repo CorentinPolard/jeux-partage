@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\UserType;
 use App\Form\ChangePasswordType;
 use App\Service\ImageUploadService;
@@ -15,11 +16,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[Route('/profile')]
 final class ProfileController extends AbstractController
 {
-    #[Route('', name: 'app_profile')]
-    public function index(): Response
+    #[Route('/{id}', name: 'app_profile', requirements: ['id' => '\d+'])]
+    public function index(User $user): Response
     {
         return $this->render('profile/index.html.twig', [
-            'user' => $this->getUser(),
+            'user' => $user,
         ]);
     }
 
