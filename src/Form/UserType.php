@@ -6,9 +6,13 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class UserType extends AbstractType
 {
@@ -25,6 +29,33 @@ class UserType extends AbstractType
                 'label' => 'Nom (facultatif)',
                 'required' => false,
             ])
+            ->add('biography', TextareaType::class, [
+                'label' => 'Biographie (facultatif)',
+                'required' => false,
+                'constraints' => [
+                    new Length([
+                        'max' => 150,
+                        'maxMessage' => 'Votre biographie ne peut pas dépasser {{ limit }} caractères.'
+                    ]),
+                ],
+                'attr' => [
+                    'maxlength' => 150,
+                    'rows' => 5,
+                    'placeholder' => 'Votre bio (150 caractères max)...'
+                ],
+            ])
+            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+                $data = $event->getData();
+                if (!is_array($data)) {
+                    return;
+                }
+
+                if (array_key_exists('biography', $data) && null !== $data['biography']) {
+                    $data['biography'] = preg_replace('/\R/u', "\n", $data['biography']);
+                }
+
+                $event->setData($data);
+            })
             ->add('profilePicture', FileType::class, [
                 'label' => 'Photo de profil (facultatif)',
                 'mapped' => false,

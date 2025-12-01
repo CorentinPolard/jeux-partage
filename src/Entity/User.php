@@ -71,6 +71,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isBlocked = false;
 
+    #[ORM\Column(length: 150, nullable: true)]
+    private ?string $biography = null;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -302,6 +305,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsBlocked(bool $isBlocked): static
     {
         $this->isBlocked = $isBlocked;
+
+        return $this;
+    }
+
+    public function getBiography(): ?string
+    {
+        return $this->biography;
+    }
+
+    public function setBiography(?string $biography): static
+    {
+        $this->biography = $biography;
 
         return $this;
     }

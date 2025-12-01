@@ -102,7 +102,6 @@ tr:nth-child(odd) {
 }
 
 /* Game */
-
 .game-image {
     width: 150px;
     height: auto;
@@ -186,6 +185,14 @@ form {
     max-width: none;
 }
 
+
+/* Profile */
+.biography {
+    max-width: 100%;
+    max-height: 250px;
+    word-break: break-all;
+    overflow: auto;
+}
 
 /* Messages */
 .admin-messages-section {

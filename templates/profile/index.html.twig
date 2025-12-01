@@ -6,10 +6,19 @@
 <h1>Mon profil</h1>
 <a href="{{ path('app_edit_profile') }}">Modifier mes informations</a>
 <a href="{{ path('app_edit_password') }}">Modifier mon mot de passe</a>
-<img class="my-profile-picture" src="{{ asset('images/uploads/profil-pictures/' ~ user.profilePicture) }}"
-    alt="Photo de profil de {{user.getFullName}}">
-<p>Nom: {{user.lastname}}</p>
-<p>Prénom: {{user.firstname}}</p>
+<div class="user-main-information">
+    <img class="my-profile-picture" src="{{ asset('images/uploads/profil-pictures/' ~ user.profilePicture) }}"
+        alt="Photo de profil de {{user.getFullName}}">
+    <div class="user-introduction">
+        <p>{{ user.getFullName }}</p>
+        <p>Biographie :</p>
+        {% if user.biography %}
+        <p id="biography" class="biography">{{ user.biography|nl2br }}</p>
+        {% else %}
+        <p id="biography" class="biography"><a href="{{ path('app_edit_profile') }}">Ajouter une biographie</a></p>
+        {% endif %}
+    </div>
+</div>
 <p>Nombre d'évènements organisés: {{user.getNumberOfEventsOrganized}}</p>
 
 {% if not is_granted('ROLE_ADMIN') %}

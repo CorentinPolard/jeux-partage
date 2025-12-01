@@ -32,17 +32,17 @@ services:
       - db
 
   # Service Node pour exécuter npm run watch dans un conteneur (utile sur Windows)
-  node:
-    image: node:18
-    working_dir: /app
-    volumes:
-      - ./:/app:cached
-      - /app/node_modules
-    command: bash -lc "npm ci && npm run watch"
-    environment:
-      CHOKIDAR_USEPOLLING: "true"
-    depends_on:
-      - db
+  # node:
+  #   image: node:18
+  #   working_dir: /app
+  #   volumes:
+  #     - ./:/app:cached
+  #     - /app/node_modules
+  #   command: bash -lc "npm ci && npm run watch"
+  #   environment:
+  #     CHOKIDAR_USEPOLLING: "true"
+  #   depends_on:
+  #     - db
 
   ###> symfony/mercure-bundle ###
   mercure:

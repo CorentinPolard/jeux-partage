@@ -9,6 +9,7 @@
         <p><strong>Nom :</strong> {{ user.lastname }}</p>
         <p><strong>Prénom :</strong> {{ user.firstname }}</p>
     </div>
+    <p class="biography"><strong>Biographie :</strong> {{ user.biography|nl2br }}</p>
     <section class="user-events-section">
         <h2>Ses évènements</h2>
         <p><strong>Nombre d'évènements organisés :</strong> {{ user.getNumberOfEventsOrganized }}</p>

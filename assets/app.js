@@ -26,3 +26,8 @@ const registrationForm = document.querySelector("#registrationForm");
 if (registrationForm) {
     import('./scripts/checkPassword.js');
 }
+
+const counterHTML = document.querySelector("div[data-counter]");
+if (counterHTML) {
+    import('./scripts/inputCharacterCounter.js');
+}
