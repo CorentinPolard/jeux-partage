@@ -12,7 +12,16 @@ jeuxpartage.fr, www.jeuxpartage.fr {
     # Proxy Mercure hub to the Mercure service in Docker
     # This ensures EventSource requests to /.well-known/mercure are forwarded
     # to the dedicated Mercure container instead of being handled by Caddy/PHP.
-    reverse_proxy /.well-known/mercure* mercure:80
+    handle_path /.well-known/mercure* {
+        reverse_proxy mercure:80 {
+            header_up Host {host}
+            header_up X-Forwarded-Proto {scheme}
+            header_up X-Forwarded-For {remote_host}
+            transport http {
+                versions 1.1
+            }
+        }
+    }
 
     try_files {path} /index.php?{query}
 }
