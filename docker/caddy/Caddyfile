@@ -3,25 +3,26 @@ jeuxpartage.fr, www.jeuxpartage.fr {
     encode gzip zstd
     file_server
 
+    # Ensure requests to the Mercure hub are proxied to the mercure container
+    @mercure {
+        path /.well-known/mercure*
+    }
+    reverse_proxy @mercure mercure:80 {
+        header_up Host {host}
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-For {remote_host}
+        transport http {
+            versions 1.1
+        }
+    }
+
     php_fastcgi php:9000
 
     header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
     header X-Frame-Options "SAMEORIGIN"
     header X-Content-Type-Options "nosniff"
 
-    # Proxy Mercure hub to the Mercure service in Docker
-    # This ensures EventSource requests to /.well-known/mercure are forwarded
-    # to the dedicated Mercure container instead of being handled by Caddy/PHP.
-    handle_path /.well-known/mercure* {
-        reverse_proxy mercure:80 {
-            header_up Host {host}
-            header_up X-Forwarded-Proto {scheme}
-            header_up X-Forwarded-For {remote_host}
-            transport http {
-                versions 1.1
-            }
-        }
-    }
+    # (Mercure proxy handled above with a dedicated matcher)
 
     try_files {path} /index.php?{query}
 }
