@@ -1,4 +1,9 @@
-jeuxpartage.fr, www.jeuxpartage.fr {
+jeuxpartage.fr {
+    # Redirect non-www to www to enforce a single origin and avoid CORS issues
+    redir https://www.jeuxpartage.fr{uri} permanent
+}
+
+www.jeuxpartage.fr {
     root * /app/public
     encode gzip zstd
     file_server
