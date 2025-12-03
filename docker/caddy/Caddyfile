@@ -10,12 +10,14 @@ mercure.jeuxpartage.fr {
     # Reverse proxy vers le container Mercure
     reverse_proxy mercure:80
 
-    # Headers CORS nécessaires pour EventSource en HTTPS
+    # Secure CORS: echo the request Origin back and allow credentials
+    # This lets only the requesting origin access the hub (when allowed by Mercure service)
     header {
-        Access-Control-Allow-Origin "https://www.jeuxpartage.fr https://jeuxpartage.fr"
-        Access-Control-Allow-Credentials true
-        Access-Control-Allow-Headers *
-        Access-Control-Expose-Headers *
+        Access-Control-Allow-Origin "{http.request.header.Origin}"
+        Access-Control-Allow-Credentials "true"
+        Access-Control-Allow-Headers "*"
+        Access-Control-Expose-Headers "*"
+        Vary "Origin"
     }
 
     # Optionnel : ajouter sécurité supplémentaire
@@ -31,10 +33,12 @@ jeuxpartage.fr, www.jeuxpartage.fr {
     # Compression automatique
     encode gzip
 
-    # Reverse proxy vers PHP-FPM (container php)
-    reverse_proxy php:9000
+    # Serve public files and forward PHP requests to php-fpm
+    root * /app/public
+    file_server
+    php_fastcgi php:9000
 
-    # Sécurité headers
+    # Security headers
     header {
         Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
         X-Frame-Options "SAMEORIGIN"
