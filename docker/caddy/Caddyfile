@@ -1,34 +1,43 @@
-jeuxpartage.fr {
-    # Redirect non-www to www to enforce a single origin and avoid CORS issues
-    redir https://www.jeuxpartage.fr{uri} permanent
+##########################################################
+# 1️⃣ Hub Mercure
+# On utilise un sous-domaine dédié pour Mercure
+# Exemple : mercure.jeuxpartage.fr
+##########################################################
+mercure.jeuxpartage.fr {
+    # Compression automatique
+    encode gzip
+
+    # Reverse proxy vers le container Mercure
+    reverse_proxy mercure:80
+
+    # Headers CORS nécessaires pour EventSource en HTTPS
+    header {
+        Access-Control-Allow-Origin "https://www.jeuxpartage.fr https://jeuxpartage.fr"
+        Access-Control-Allow-Credentials true
+        Access-Control-Allow-Headers *
+        Access-Control-Expose-Headers *
+    }
+
+    # Optionnel : ajouter sécurité supplémentaire
+    # header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 }
 
-www.jeuxpartage.fr {
-    root * /app/public
-    encode gzip zstd
-    file_server
+##########################################################
+# 2️⃣ Site principal
+# Symfony / PHP-FPM derrière Caddy
+# Gère le domaine principal + www
+##########################################################
+jeuxpartage.fr, www.jeuxpartage.fr {
+    # Compression automatique
+    encode gzip
 
-    # Ensure requests to the Mercure hub are proxied to the mercure container
-    @mercure {
-        path /.well-known/mercure*
+    # Reverse proxy vers PHP-FPM (container php)
+    reverse_proxy php:9000
+
+    # Sécurité headers
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Frame-Options "SAMEORIGIN"
+        X-Content-Type-Options "nosniff"
     }
-    reverse_proxy @mercure mercure:80 {
-        header_up Host {host}
-        header_up X-Forwarded-Proto {scheme}
-        header_up X-Forwarded-For {remote_host}
-
-        # CORS headers (obligatoire pour browser)
-        header_down Access-Control-Allow-Origin https://www.jeuxpartage.fr
-        header_down Access-Control-Allow-Credentials true
-    }
-
-    php_fastcgi php:9000
-
-    header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-    header X-Frame-Options "SAMEORIGIN"
-    header X-Content-Type-Options "nosniff"
-
-    # (Mercure proxy handled above with a dedicated matcher)
-
-    try_files {path} /index.php?{query}
 }
