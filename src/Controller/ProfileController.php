@@ -40,7 +40,7 @@ final class ProfileController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Profil mis à jour avec succès !');
-            return $this->redirectToRoute('app_profile');
+            return $this->redirectToRoute('app_profile', ['id' => $user->getId()]);
         }
 
         return $this->render('profile/edit-profile.html.twig', [
@@ -75,7 +75,7 @@ final class ProfileController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Mot de passe mis à jour avec succès !');
-            return $this->redirectToRoute('app_profile');
+            return $this->redirectToRoute('app_profile', ['id' => $user->getId()]);
         }
 
         return $this->render('profile/edit-password.html.twig', [
@@ -86,11 +86,12 @@ final class ProfileController extends AbstractController
     #[Route('/delete', name: 'app_delete_profile')]
     public function delete(EntityManagerInterface $entityManager, Request $request): Response
     {
+        /** @var \App\Entity\User $user */
         $user = $this->getUser();
 
         if (in_array('ROLE_ADMIN', $user->getRoles())) {
             $this->addFlash('error', 'Vous ne pouvez pas supprimer un administrateur.');
-            return $this->redirectToRoute('app_profile');
+            return $this->redirectToRoute('app_profile', ['id' => $user->getId()]);
         }
 
         // Vérification du token CSRF
@@ -107,6 +108,6 @@ final class ProfileController extends AbstractController
         }
 
         $this->addFlash('error', 'Échec de la suppression du compte.');
-        return $this->redirectToRoute('app_profile');
+        return $this->redirectToRoute('app_profile', ['id' => $user->getId()]);
     }
 }
