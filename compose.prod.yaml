@@ -77,8 +77,10 @@ services:
       SERVER_NAME: ':80' 
       MERCURE_PUBLISHER_JWT_KEY: "${MERCURE_JWT_SECRET}"
       MERCURE_SUBSCRIBER_JWT_KEY: "${MERCURE_JWT_SECRET}"
-      MERCURE_EXTRA_DIRECTIVES: |
-        cors_origins https://www.jeuxpartage.fr https://jeuxpartage.fr
+      CORS_ALLOWED_ORIGINS: "https://www.jeuxpartage.fr https://jeuxpartage.fr"
+      PUBLISH_ALLOWED_ORIGINS: "https://www.jeuxpartage.fr https://jeuxpartage.fr"
+      SUBSCRIBE_ALLOWED_ORIGINS: "https://www.jeuxpartage.fr https://jeuxpartage.fr"
+
 
     volumes:
       - mercure_data:/data
