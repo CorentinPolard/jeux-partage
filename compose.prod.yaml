@@ -78,7 +78,7 @@ services:
       MERCURE_PUBLISHER_JWT_KEY: "${MERCURE_JWT_SECRET}"
       MERCURE_SUBSCRIBER_JWT_KEY: "${MERCURE_JWT_SECRET}"
       MERCURE_EXTRA_DIRECTIVES: |
-        cors_origins https://jeuxpartage.fr
+        cors_origins https://jeuxpartage.fr https://www.jeuxpartage.fr
     volumes:
       - mercure_data:/data
       - mercure_config:/config

@@ -9,5 +9,10 @@ jeuxpartage.fr, www.jeuxpartage.fr {
     header X-Frame-Options "SAMEORIGIN"
     header X-Content-Type-Options "nosniff"
 
+    # Proxy Mercure hub to the Mercure service in Docker
+    # This ensures EventSource requests to /.well-known/mercure are forwarded
+    # to the dedicated Mercure container instead of being handled by Caddy/PHP.
+    reverse_proxy /.well-known/mercure* mercure:80
+
     try_files {path} /index.php?{query}
 }
