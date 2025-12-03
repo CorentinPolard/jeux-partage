@@ -1,0 +1,13 @@
+jeuxpartage.fr, www.jeuxpartage.fr {
+    root * /app/public
+    encode gzip zstd
+    file_server
+
+    php_fastcgi php:9000
+
+    header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    header X-Frame-Options "SAMEORIGIN"
+    header X-Content-Type-Options "nosniff"
+
+    try_files {path} /index.php?{query}
+}

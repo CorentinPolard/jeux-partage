@@ -16,16 +16,31 @@ services:
     expose:
       - "9000"
 
-  nginx:
-    image: nginx:stable
+  # nginx:
+  #   image: nginx:stable
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443" # activer plus tard pour SSL
+  #   volumes:
+  #     - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
+  #     - C:/letsencrypt/data:/etc/letsencrypt:ro
+  #     - C:/letsencrypt/www:/var/www/certbot:ro
+  #     - ./public:/app/public:ro
+  #   depends_on:
+  #     - php
+
+  caddy : 
+    image: caddy:latest
     restart: unless-stopped
     ports:
       - "80:80"
-      # - "443:443" # activer plus tard pour SSL
+      - "443:443"
     volumes:
-      - ./:/app:ro
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
-      - ./var:/app/var
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./public:/app/public:ro
     depends_on:
       - php
   
@@ -63,8 +78,7 @@ services:
       MERCURE_PUBLISHER_JWT_KEY: "${MERCURE_JWT_SECRET}"
       MERCURE_SUBSCRIBER_JWT_KEY: "${MERCURE_JWT_SECRET}"
       MERCURE_EXTRA_DIRECTIVES: |
-        cors_origins http://127.0.0.1:8000
-        # cors_origins https://your-domain.com
+        cors_origins https://jeuxpartage.fr
     volumes:
       - mercure_data:/data
       - mercure_config:/config
@@ -80,3 +94,5 @@ volumes:
   mercure_data:
   mercure_config:
   db_data:
+  caddy_data:
+  caddy_config:
