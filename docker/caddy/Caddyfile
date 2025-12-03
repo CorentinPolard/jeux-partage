@@ -16,9 +16,10 @@ www.jeuxpartage.fr {
         header_up Host {host}
         header_up X-Forwarded-Proto {scheme}
         header_up X-Forwarded-For {remote_host}
-        transport http {
-            versions 1.1
-        }
+
+        # CORS headers (obligatoire pour browser)
+        header_down Access-Control-Allow-Origin https://www.jeuxpartage.fr
+        header_down Access-Control-Allow-Credentials true
     }
 
     php_fastcgi php:9000
