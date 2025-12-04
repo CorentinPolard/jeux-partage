@@ -63,6 +63,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - internal
 
   node:
     image: node:18
@@ -73,6 +75,8 @@ services:
     command: bash -lc "npm ci && npm run build"
     depends_on:
       - db
+    networks:
+      - internal
 
   mercure:
     image: dunglas/mercure
