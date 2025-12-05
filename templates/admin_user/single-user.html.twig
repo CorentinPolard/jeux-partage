@@ -27,7 +27,8 @@
                 {% for event in user.organizedEvents %}
                 <tr>
                     <td>{{ event.id }}</td>
-                    <td><a href="{{ path('app_admin_show_event', {id: event.id}) }}">{{ event.title }}</a></td>
+                    <td class="event-title"><a href="{{ path('app_admin_show_event', {id: event.id}) }}">{{ event.title
+                            }}</a></td>
                     <td>{{ event.eventAt|date('d/m/Y H:i')}}</td>
                     {% if event.address %}
                     <td>{{event.address.getFullAddress }}</td>
@@ -61,7 +62,7 @@
                     <td>{{ message.id }}</td>
                     <td>{{ message.content }}</td>
                     <td>{{ message.createdAt ? message.createdAt|date('d/m/Y H:i') : '' }}</td>
-                    <td><a href="{{ path('app_admin_show_event', {id: message.event.id}) }}">{{
+                    <td class="event-title"><a href="{{ path('app_admin_show_event', {id: message.event.id}) }}">{{
                             message.event.title}}</a></td>
                 </tr>
                 {% endfor %}
