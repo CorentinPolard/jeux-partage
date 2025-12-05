@@ -45,7 +45,7 @@ final class MessageController extends AbstractController
         }
 
         // Vérification de l'accès utilisateur à l'évènement
-        if ($event->getOrganizer() !== $user && !$event->getParticipants()->contains($user)) {
+        if ($event->getOrganizer() !== $user && !$event->getParticipants()->contains($user) && !$this->isGranted('ROLE_ADMIN')) {
             return new JsonResponse(['error' => 'Unauthorized to post on this event'], 403);
         }
 
@@ -101,7 +101,7 @@ final class MessageController extends AbstractController
         Request $request
     ): JsonResponse {
         $submittedToken = $request->request->get('_token');
-        if ($this->isCsrfTokenValid('delete_message_' . $message->getId(), $submittedToken) && $this->getUser() === $message->getUser()) {
+        if ($this->isCsrfTokenValid('delete_message_' . $message->getId(), $submittedToken) && ($this->getUser() === $message->getUser() || $this->isGranted('ROLE_ADMIN'))) {
 
             $eventId = $message->getEvent()->getId();
 

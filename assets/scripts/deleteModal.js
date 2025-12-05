@@ -9,7 +9,7 @@ export function initDeleteSystem() {
         currentForm = form;
         modalBackground.classList.remove("hidden");
         modalBackground.classList.add("modal-background");
-        console.log(currentForm, confirmedDelete)
+        // console.log(currentForm, confirmedDelete)
     }
 
     function closeModal() {

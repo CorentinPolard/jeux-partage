@@ -13,9 +13,9 @@ const topic = messagesContainer.dataset.topic;
 const mercureToken = messagesContainer.dataset.mercureToken;
 // En mode prod (l'une des deux suivantes) :
 // const url = new URL('https://jeuxpartage.fr/.well-known/mercure');
-const url = new URL('https://mercure.jeuxpartage.fr/.well-known/mercure');
+// const url = new URL('https://mercure.jeuxpartage.fr/.well-known/mercure');
 // En mode dev :
-// const url = new URL('http://127.0.0.1:3000/.well-known/mercure');
+const url = new URL('http://127.0.0.1:3000/.well-known/mercure');
 url.searchParams.append('topic', topic);
 url.searchParams.append('jwt', mercureToken);
 

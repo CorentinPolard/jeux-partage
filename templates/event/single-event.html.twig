@@ -22,5 +22,53 @@
 </form>
 {% endif %}
 {% include "/components/single-event.html.twig" %}
+<hr>
+<section class="messages-section">
+    <h2>Messagerie</h2>
+    <div class="messages-container" data-topic="{{ topic }}" data-user-id="{{ app.user.id }}" data-mercure-token="{{
+        mercureToken}}">
+        {% if event.messages|length > 0 %}
+        {% for message in event.messages %}
+        <div id={{"message"~message.id}} class="message">
+            <div class="message-header">
+                <a href="{{ path('app_profile', {'id': message.user.id}) }}" class="user-profile-link">
+                    <div class="message-author">
+                        <img class="profil-picture"
+                            src="{{ asset('images/uploads/profil-pictures/' ~ message.user.profilePicture) }}"
+                            alt="Photo de profil de {{ message.user.getFullName }}">
+                        <div class="message-details">
+                            <p><strong>{{ message.user.getFullName }}</strong></p>
+                            <time datetime="{{ message.createdAt.date | date(" Y-m-dTH:i") }}">{{ message.createdAt.date
+                                |
+                                date("d/m/Y - H\\hi")}}</time>
+                        </div>
+                    </div>
+                </a>
+                {% if app.user == message.user %}
+                <form method="post" action="{{ path('app_delete_message', {'id': message.id}) }}" data-delete="message"
+                    class="delete-form">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete_message_' ~ message.id) }}">
+                    <button type="submit" class="delete-button" aria-label="Supprimer {{ message.id }}">
+                        X
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+            <p>{{ message.content|nl2br }}</p>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div id="noMessages" class="message">
+            <p>Aucun message</p>
+        </div>
+        {% endif %}
+    </div>
+
+    {{ form_start(form, {'attr': {'id': 'messageForm', 'data-event-id': event.id}}) }}
+    {{ form_row(form.content) }}
+    <button type="submit">Envoyer</button>
+    {{ form_end(form) }}
+
+</section>
 {% include 'components/deleteModal.html.twig' %}
 {% endblock %}

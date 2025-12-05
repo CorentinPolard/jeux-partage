@@ -4,11 +4,15 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Event;
+use DateTimeImmutable;
 use App\Entity\Message;
 use App\Form\EventType;
 use App\Form\MessageType;
-use App\Repository\EventRepository;
+use Lcobucci\JWT\Configuration;
 use App\Service\PaginatorService;
+use App\Repository\EventRepository;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Signer\Key\InMemory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -97,22 +101,33 @@ final class AdminEventController extends AbstractController
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $message->setUser($this->getUser());
-            $message->setCreatedAt(new DateTime());
-            $message->setEvent($event);
+        $topic = "/event/" . $event->getId() . "/messages";
 
-            $entityManager->persist($message);
-            $entityManager->flush();
+        // Génération d'un token pour le hub Mercure
+        $config = Configuration::forSymmetricSigner(
+            new Sha256(),
+            InMemory::plainText($_ENV['MERCURE_JWT_SECRET'])
+        );
+        $now = new DateTimeImmutable();
 
-            return $this->redirectToRoute('app_admin_show_event', ['id' => $event->getId()]);
-        }
+        $token = $config->builder()
+            ->issuedAt($now)
+            ->expiresAt($now->modify('+1 hour'))
+            ->withClaim('mercure', [
+                'subscribe' => [$topic],
+                'publish' => [],
+            ])
+            ->getToken($config->signer(), $config->signingKey());
+
+        $mercureToken = $token->toString();
 
 
         return $this->render('admin_event/single-event.html.twig', [
             'event' => $event,
             'jsonCoordinates' => $jsonCoordinates,
             'form' => $form->createView(),
+            'topic' => $topic,
+            'mercureToken' => $mercureToken,
         ]);
     }
 
