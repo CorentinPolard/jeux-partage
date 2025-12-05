@@ -20,7 +20,7 @@
         {% for event in events %}
         <tr>
             <td>{{ event.id }}</td>
-            <td>{{ event.title }}</td>
+            <td class="event-title">{{ event.title }}</td>
             <td>{{ event.eventAt ? event.eventAt|date('d/m/Y H:i') : '' }}</td>
             {% if event.address %}
             <td>{{event.address.getFullAddress }}</td>
